@@ -22,7 +22,7 @@ interface ExplodedElementData {
 
 function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
-  const [language, setLanguage] = useState<Language>('zh');
+  const [language, setLanguage] = useState<Language>('en');
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   
   const [portfolioCategory, setPortfolioCategory] = useState<string>('All');
