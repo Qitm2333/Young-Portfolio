@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { PROJECTS, CATEGORY_LABELS } from '../constants';
 import { Category, Language, Project, ContentSection } from '../types';
 
@@ -58,13 +59,35 @@ interface PortfolioSectionProps {
 }
 
 const FILTER_ITEMS = [
-  { id: 'All', labelZh: '全部', labelEn: 'All' },
-  { id: Category.VIDEO, labelZh: '动态影像', labelEn: 'Media' },
-  { id: Category.UI, labelZh: '交互设计', labelEn: 'UI/UX' },
-  { id: Category.GRAPHIC, labelZh: '平面设计', labelEn: 'Graphic' },
-  { id: Category.DEV, labelZh: '应用开发', labelEn: 'Dev' },
-  { id: Category.PHOTO, labelZh: '静态摄影', labelEn: 'Photo' },
+  { id: 'All', labelZh: '全部', labelEn: 'All', urlPath: 'all' },
+  { id: Category.VIDEO, labelZh: '动态影像', labelEn: 'Media', urlPath: 'motion' },
+  { id: Category.UI, labelZh: '交互设计', labelEn: 'UI/UX', urlPath: 'uiux' },
+  { id: Category.GRAPHIC, labelZh: '平面设计', labelEn: 'Graphic', urlPath: 'graphic' },
+  { id: Category.DEV, labelZh: '应用开发', labelEn: 'Dev', urlPath: 'dev' },
+  { id: Category.PHOTO, labelZh: '静态摄影', labelEn: 'Photo', urlPath: 'photo' },
 ];
+
+// URL 路径到分类的映射
+const URL_TO_CATEGORY: Record<string, string> = {
+  'all': 'All',
+  'motion': Category.VIDEO,
+  'uiux': Category.UI,
+  'graphic': Category.GRAPHIC,
+  'dev': Category.DEV,
+  'photo': Category.PHOTO,
+  'practice': Category.PRACTICE,
+};
+
+// 分类到 URL 路径的映射
+const CATEGORY_TO_URL: Record<string, string> = {
+  'All': 'all',
+  [Category.VIDEO]: 'motion',
+  [Category.UI]: 'uiux',
+  [Category.GRAPHIC]: 'graphic',
+  [Category.DEV]: 'dev',
+  [Category.PHOTO]: 'photo',
+  [Category.PRACTICE]: 'practice',
+};
 
 // 日常练习数据类型
 interface PracticeItem {
@@ -276,7 +299,35 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
   initialProjectId,
   onProjectOpened 
 }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  // 从 URL 解析分类和项目 ID
+  const parseUrlParams = () => {
+    const pathParts = location.pathname.split('/').filter(Boolean);
+    // 格式: /portfolio 或 /portfolio/:category 或 /portfolio/:category/:id
+    if (pathParts[0] === 'portfolio') {
+      const urlCategory = pathParts[1];
+      const urlProjectId = pathParts[2];
+      return {
+        category: urlCategory ? (URL_TO_CATEGORY[urlCategory] || 'All') : 'All',
+        projectId: urlProjectId || null
+      };
+    }
+    return { category: 'All', projectId: null };
+  };
+  
+  const urlParams = parseUrlParams();
+  
   const [filter, setFilter] = useState<string>(() => {
+    // 优先从 URL 获取分类
+    if (urlParams.projectId) {
+      const project = PROJECTS[language].find(p => p.id === urlParams.projectId);
+      return project?.category || urlParams.category;
+    }
+    if (urlParams.category !== 'All') {
+      return urlParams.category;
+    }
     // 如果有初始项目ID，直接设置对应的分类
     if (initialProjectId) {
       const project = PROJECTS[language].find(p => p.id === initialProjectId);
@@ -284,12 +335,59 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
     }
     return 'All';
   });
-  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(initialProjectId || null);
+  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(urlParams.projectId || initialProjectId || null);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [lightboxImages, setLightboxImages] = useState<string[]>([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editingProject, setEditingProject] = useState<EditableProject | null>(null);
   const [isNewProject, setIsNewProject] = useState(false);
+
+  // 监听 URL 变化，更新状态
+  useEffect(() => {
+    const { category, projectId } = parseUrlParams();
+    if (projectId) {
+      const project = PROJECTS[language].find(p => p.id === projectId);
+      if (project) {
+        setSelectedProjectId(projectId);
+        setFilter(project.category);
+      }
+    } else if (category !== 'All') {
+      setFilter(category);
+      setSelectedProjectId(null);
+    }
+  }, [location.pathname, language]);
+
+  // 选择项目时更新 URL
+  const handleSelectProject = (projectId: string | null) => {
+    setSelectedProjectId(projectId);
+    if (projectId) {
+      const project = PROJECTS[language].find(p => p.id === projectId);
+      if (project) {
+        const categoryUrl = CATEGORY_TO_URL[project.category] || 'all';
+        navigate(`/portfolio/${categoryUrl}/${projectId}`);
+      }
+    } else {
+      // 返回分类列表
+      const categoryUrl = CATEGORY_TO_URL[filter] || 'all';
+      if (filter === 'All') {
+        navigate('/portfolio');
+      } else {
+        navigate(`/portfolio/${categoryUrl}`);
+      }
+    }
+  };
+
+  // 切换分类时更新 URL
+  const handleFilterChange = (newFilter: string) => {
+    setFilter(newFilter);
+    setSelectedProjectId(null);
+    if (newFilter === 'All') {
+      navigate('/portfolio');
+    } else {
+      const categoryUrl = CATEGORY_TO_URL[newFilter] || 'all';
+      navigate(`/portfolio/${categoryUrl}`);
+    }
+  };
 
   // 处理初始项目ID
   useEffect(() => {
@@ -582,7 +680,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
               return (
                 <div key={item.id}>
                   <button 
-                    onClick={() => { setFilter(filter === item.id && item.id !== 'All' ? 'All' : item.id); setSelectedProjectId(null); }}
+                    onClick={() => { handleFilterChange(filter === item.id && item.id !== 'All' ? 'All' : item.id); }}
                     className="w-full flex items-center gap-2 py-2.5 text-left transition-colors group"
                   >
                     {/* 左侧符号 */}
@@ -606,7 +704,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                       {categoryProjects.map((project) => (
                         <button
                           key={project.id}
-                          onClick={() => setSelectedProjectId(project.id)}
+                          onClick={() => handleSelectProject(project.id)}
                           className={`w-full text-left py-1.5 text-xs transition-colors truncate flex items-center gap-2 ${selectedProject?.id === project.id ? 'text-primary font-bold' : 'text-primary/50 hover:text-primary'}`}
                           title={project.title}
                         >
@@ -624,7 +722,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
           {/* 日常练习 - 置底 */}
           <div className="px-4 py-2 border-t border-primary/10">
             <button 
-              onClick={() => { setFilter(Category.PRACTICE); setSelectedProjectId(null); }}
+              onClick={() => { handleFilterChange(Category.PRACTICE); }}
               className="w-full flex items-center gap-2 py-2.5 text-left transition-colors group"
             >
               <span className={`text-xs transition-colors ${filter === Category.PRACTICE ? 'text-primary' : 'text-primary/30'}`}>
@@ -651,7 +749,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
       <div className="md:hidden fixed bottom-0 left-0 right-0 bg-cream border-t border-primary/10 z-40 px-4 py-2">
         <div className="flex gap-2 overflow-x-auto no-scrollbar">
           {FILTER_ITEMS.map((item) => (
-            <button key={item.id} onClick={() => { setFilter(item.id); setSelectedProjectId(null); }}
+            <button key={item.id} onClick={() => { handleFilterChange(item.id); }}
               className={`px-3 py-1.5 text-sm whitespace-nowrap ${filter === item.id ? 'bg-primary text-cream' : 'bg-primary/5 text-primary/60'}`}>
               {language === 'zh' ? item.labelZh : item.labelEn}
             </button>
@@ -666,7 +764,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
           <div className="flex items-center justify-between h-5">
             <div className="flex items-center gap-2 text-sm">
               <button 
-                onClick={() => { setSelectedProjectId(null); setFilter('All'); }}
+                onClick={() => { handleSelectProject(null); handleFilterChange('All'); }}
                 className={`transition-colors ${selectedProject || filter !== 'All' ? 'text-primary/50 hover:text-primary' : 'text-primary font-bold'}`}
               >
                 {language === 'zh' ? '作品集' : 'Portfolio'}
@@ -675,7 +773,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                 <>
                   <span className="text-primary/30">/</span>
                   <button 
-                    onClick={() => setSelectedProjectId(null)}
+                    onClick={() => handleSelectProject(null)}
                     className="text-primary/50 hover:text-primary transition-colors"
                   >
                     {CATEGORY_LABELS[language][selectedProject.category]}
@@ -839,7 +937,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                   key={project.id} 
                   className="group cursor-pointer bg-cream border-2 border-primary/10 hover:border-primary transition-all duration-300 relative overflow-hidden animate-fade-in" 
                   style={{ animationDelay: `${index * 0.05}s` }}
-                  onClick={() => setSelectedProjectId(project.id)}
+                  onClick={() => handleSelectProject(project.id)}
                 >
                   {/* 编号标签 */}
                   <div className="absolute top-0 left-0 z-10 bg-primary text-cream px-2 py-1 text-[10px] font-mono">

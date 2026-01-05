@@ -27,21 +27,12 @@ function AppContent() {
   
   // 根据路由路径获取当前 tab
   const getTabFromPath = (pathname: string) => {
-    switch (pathname) {
-      case '/home':
-      case '/':
-        return 'dashboard';
-      case '/portfolio':
-        return 'portfolio';
-      case '/articles':
-        return 'articles';
-      case '/about':
-        return 'about';
-      case '/contact':
-        return 'contact';
-      default:
-        return 'dashboard';
-    }
+    if (pathname === '/home' || pathname === '/') return 'dashboard';
+    if (pathname.startsWith('/portfolio')) return 'portfolio';
+    if (pathname.startsWith('/articles')) return 'articles';
+    if (pathname === '/about') return 'about';
+    if (pathname === '/contact') return 'contact';
+    return 'dashboard';
   };
   
   const activeTab = getTabFromPath(location.pathname);
