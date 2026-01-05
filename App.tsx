@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
+import { HashRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import Matter from 'matter-js';
 import { Sidebar } from './components/Sidebar';
 import { HeroSection } from './components/HeroSection';
@@ -20,8 +21,42 @@ interface ExplodedElementData {
   originalStyle: string;
 }
 
-function App() {
-  const [activeTab, setActiveTab] = useState('dashboard');
+function AppContent() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  // 根据路由路径获取当前 tab
+  const getTabFromPath = (pathname: string) => {
+    switch (pathname) {
+      case '/home':
+      case '/':
+        return 'dashboard';
+      case '/portfolio':
+        return 'portfolio';
+      case '/articles':
+        return 'articles';
+      case '/about':
+        return 'about';
+      case '/contact':
+        return 'contact';
+      default:
+        return 'dashboard';
+    }
+  };
+  
+  const activeTab = getTabFromPath(location.pathname);
+  
+  const setActiveTab = (tab: string) => {
+    const pathMap: Record<string, string> = {
+      'dashboard': '/home',
+      'portfolio': '/portfolio',
+      'articles': '/articles',
+      'about': '/about',
+      'contact': '/contact'
+    };
+    navigate(pathMap[tab] || '/home');
+  };
+  
   const [language, setLanguage] = useState<Language>('en');
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   
@@ -658,4 +693,12 @@ function App() {
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <HashRouter>
+      <Routes>
+        <Route path="/*" element={<AppContent />} />
+      </Routes>
+    </HashRouter>
+  );
+}
