@@ -47,6 +47,7 @@ export interface VideoSection {
   type: 'video';
   title: string;
   bilibiliId?: string;
+  youtubeId?: string; // YouTube Video ID (e.g. JWq0vW7Y26Y)
   videoUrl?: string;
   hideTitle?: boolean; // 隐藏标题，直接展示视频
 }
@@ -63,6 +64,8 @@ export interface Project {
   image: string; // URL placeholder (Cover/Thumbnail)
   videoUrl?: string; // URL to .mp4 file
   bilibiliId?: string; // Bilibili Video ID (e.g. BV1xx...)
+  youtubeId?: string; // YouTube Video ID (e.g. JWq0vW7Y26Y)
+  videoLinkUrl?: string; // External video link (YouTube, Bilibili page, etc.)
   figmaUrl?: string; // Figma File URL
   gallery?: string[]; // Additional images (URLs)
   externalLink?: string; // External link (e.g. Bilibili, Behance)

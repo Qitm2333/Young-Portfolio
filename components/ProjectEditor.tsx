@@ -9,7 +9,9 @@ export interface EditableProject {
     category: string;
     image: string;
     bilibiliId?: string;
+    youtubeId?: string;
     videoUrl?: string;
+    videoLinkUrl?: string;
     figmaUrl?: string;
     websiteUrl?: string;
     githubUrl?: string;
@@ -301,6 +303,16 @@ export const ProjectEditor: React.FC<ProjectEditorProps> = ({
               />
             </div>
             <div>
+              <label className="block text-xs text-primary/60 mb-1">YouTube ID</label>
+              <input
+                type="text"
+                value={project.common.youtubeId || ''}
+                onChange={(e) => updateCommon('youtubeId', e.target.value)}
+                placeholder="JWq0vW7Y26Y"
+                className="w-full px-3 py-2 border border-primary/20 bg-cream text-sm"
+              />
+            </div>
+            <div>
               <label className="block text-xs text-primary/60 mb-1">Figma URL</label>
               <input
                 type="text"
@@ -324,6 +336,16 @@ export const ProjectEditor: React.FC<ProjectEditorProps> = ({
                 type="text"
                 value={project.common.githubUrl || ''}
                 onChange={(e) => updateCommon('githubUrl', e.target.value)}
+                className="w-full px-3 py-2 border border-primary/20 bg-cream text-sm"
+              />
+            </div>
+            <div>
+              <label className="block text-xs text-primary/60 mb-1">{language === 'zh' ? '视频链接' : 'Video Link'}</label>
+              <input
+                type="text"
+                value={project.common.videoLinkUrl || ''}
+                onChange={(e) => updateCommon('videoLinkUrl', e.target.value)}
+                placeholder="https://youtu.be/xxx or https://bilibili.com/xxx"
                 className="w-full px-3 py-2 border border-primary/20 bg-cream text-sm"
               />
             </div>
@@ -541,6 +563,13 @@ export const ProjectEditor: React.FC<ProjectEditorProps> = ({
                       value={section.videoUrl || ''}
                       onChange={(e) => updateSection(activeTab, i, { videoUrl: e.target.value })}
                       placeholder={language === 'zh' ? '视频直链 (mp4)' : 'Video URL (mp4)'}
+                      className="w-full px-2 py-1 border border-primary/20 bg-cream text-sm"
+                    />
+                    <input
+                      type="text"
+                      value={(section as any).youtubeId || ''}
+                      onChange={(e) => updateSection(activeTab, i, { youtubeId: e.target.value })}
+                      placeholder="YouTube ID (e.g. JWq0vW7Y26Y)"
                       className="w-full px-2 py-1 border border-primary/20 bg-cream text-sm"
                     />
                     <input

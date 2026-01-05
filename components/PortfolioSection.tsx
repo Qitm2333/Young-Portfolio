@@ -26,7 +26,7 @@ const SkeletonImage: React.FC<SkeletonImageProps> = ({ src, alt = '', className 
   const isFillHeight = className.includes('h-full');
 
   return (
-    <div className={`relative bg-primary/5 overflow-hidden ${className}`} style={style} onClick={onClick}>
+    <div className={`relative overflow-hidden ${loaded ? '' : 'bg-primary/5'} ${className}`} style={style} onClick={onClick}>
       {/* 骨架屏 */}
       {!loaded && !error && (
         <div className="absolute inset-0 bg-primary/5 animate-pulse rounded-lg" />
@@ -424,7 +424,9 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
         category: project.category,
         image: project.image,
         bilibiliId: project.bilibiliId,
+        youtubeId: project.youtubeId,
         videoUrl: project.videoUrl,
+        videoLinkUrl: project.videoLinkUrl,
         figmaUrl: project.figmaUrl,
         websiteUrl: project.websiteUrl,
         githubUrl: project.githubUrl,
@@ -550,6 +552,38 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
           </div>
         )}
 
+        {/* 视频/媒体区域（兼容旧数据）- 放在内容块之前 */}
+        {(project.videoUrl || project.bilibiliId || project.youtubeId) && (
+          <div className="border-t border-primary/10 pt-6 mt-6 animate-fade-in" style={{ animationDelay: '0.25s' }}>
+            <h3 className="text-lg font-bold text-primary mb-4">
+              {language === 'zh' ? '作品视频' : 'Video'}
+            </h3>
+            <div className="w-full aspect-video bg-black rounded-lg overflow-hidden shadow-lg">
+              {project.videoUrl ? (
+                <video 
+                  src={toJsDelivr(project.videoUrl)} 
+                  controls 
+                  className="w-full h-full object-contain"
+                  style={{ backgroundColor: '#000' }}
+                />
+              ) : project.youtubeId ? (
+                <iframe 
+                  src={`https://www.youtube.com/embed/${project.youtubeId}`} 
+                  className="w-full h-full" 
+                  allowFullScreen 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                />
+              ) : project.bilibiliId ? (
+                <iframe 
+                  src={`https://player.bilibili.com/player.html?bvid=${project.bilibiliId}&page=1&danmaku=0&high_quality=1`} 
+                  className="w-full h-full" 
+                  allowFullScreen 
+                />
+              ) : null}
+            </div>
+          </div>
+        )}
+
         {/* 自定义内容块 */}
         {project.sections && project.sections.map((section: ContentSection, i: number) => (
           <div key={i} className={`${section.hideTitle ? '' : 'border-t border-primary/10 pt-6 mt-6'} animate-fade-in`} style={{ animationDelay: `${0.25 + i * 0.1}s` }}>
@@ -586,6 +620,13 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                     className="w-full h-full object-contain"
                     style={{ backgroundColor: '#000' }}
                   />
+                ) : section.youtubeId ? (
+                  <iframe 
+                    src={`https://www.youtube.com/embed/${section.youtubeId}`} 
+                    className="w-full h-full" 
+                    allowFullScreen 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  />
                 ) : section.bilibiliId ? (
                   <iframe 
                     src={`https://player.bilibili.com/player.html?bvid=${section.bilibiliId}&page=1&danmaku=0&high_quality=1`} 
@@ -615,31 +656,6 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                   onClick={() => { setLightboxImages(currentGallery); setLightboxIndex(i); }} 
                 />
               ))}
-            </div>
-          </div>
-        )}
-
-        {/* 视频/媒体区域（兼容旧数据） */}
-        {(project.videoUrl || project.bilibiliId) && (
-          <div className="border-t border-primary/10 pt-6 mt-6 animate-fade-in" style={{ animationDelay: '0.35s' }}>
-            <h3 className="text-lg font-bold text-primary mb-4">
-              {language === 'zh' ? '作品视频' : 'Video'}
-            </h3>
-            <div className="w-full aspect-video bg-black rounded-lg overflow-hidden shadow-lg">
-              {project.videoUrl ? (
-                <video 
-                  src={toJsDelivr(project.videoUrl)} 
-                  controls 
-                  className="w-full h-full object-contain"
-                  style={{ backgroundColor: '#000' }}
-                />
-              ) : project.bilibiliId ? (
-                <iframe 
-                  src={`https://player.bilibili.com/player.html?bvid=${project.bilibiliId}&page=1&danmaku=0&high_quality=1`} 
-                  className="w-full h-full" 
-                  allowFullScreen 
-                />
-              ) : null}
             </div>
           </div>
         )}
@@ -853,7 +869,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
           </div>
           
           {/* 链接按钮区域 */}
-          {(selectedProject.figmaUrl || selectedProject.websiteUrl || selectedProject.githubUrl) && (
+          {(selectedProject.figmaUrl || selectedProject.websiteUrl || selectedProject.githubUrl || selectedProject.videoLinkUrl) && (
             <>
               <div className="h-[1px] bg-primary/10 flex-shrink-0" />
               <div className="p-4 space-y-2 flex-shrink-0">
@@ -887,6 +903,16 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                       className="px-3 py-1.5 text-xs border border-primary/20 text-primary/70 hover:bg-primary hover:text-cream transition-colors"
                     >
                       GitHub →
+                    </a>
+                  )}
+                  {selectedProject.videoLinkUrl && (
+                    <a 
+                      href={selectedProject.videoLinkUrl} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="px-3 py-1.5 text-xs border border-primary/20 text-primary/70 hover:bg-[#FF0000] hover:border-[#FF0000] hover:text-white transition-colors"
+                    >
+                      Video →
                     </a>
                   )}
                 </div>

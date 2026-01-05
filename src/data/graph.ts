@@ -2,7 +2,7 @@ import { Project } from '../../types';
 
 export const GRAPH_DATA: Project[] = [
   {
-    id: 'd2',
+    id: 'g1',
     common: {
       category: 'Graphic Design',
       image: 'github.com/Qitm2333/MyDesignAssets/blob/main/Graph/二月-杏花.png',
@@ -62,7 +62,7 @@ export const GRAPH_DATA: Project[] = [
     }
   },
   {
-    id: 'd3',
+    id: 'g2',
     common: {
       category: 'Graphic Design',
       image: 'github.com/Qitm2333/MyDesignAssets/blob/main/Graph-02/01.jpg',

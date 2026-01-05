@@ -357,5 +357,58 @@ export const MOTION_DATA: Project[] = [
       }
     ]
   }
+},
+{
+  "id": "v7",
+  "common": {
+    "category": "Motion",
+    "image": "github.com/Qitm2333/MyDesignAssets/blob/main/Port-01/page04.png",
+    "youtubeId": "JWq0vW7Y26Y",
+    "date": "2025-06",
+    "videoLinkUrl": "https://youtu.be/JWq0vW7Y26Y",
+    "bilibiliId": ""
+  },
+  "zh": {
+    "title": "存在的痕迹 - 交互装置",
+    "subtitle": "捕捉公共空间中的非语言互动",
+    "description": "在城市中，人们共存却彼此疏离。本项目聚焦于公共空间中被忽视的隐性联系——共享的空间、同步的动作、交错的路径。通过 Kinect 捕捉和 TouchDesigner 可视化，将无形的纽带转化为可感知的符号，重新唤醒人们对人际连接的意识。",
+    "role": "全部",
+    "tags": [],
+    "awards": [],
+    "sections": [
+      {
+        "type": "gallery",
+        "title": "图片展示",
+        "images": [
+          "github.com/Qitm2333/MyDesignAssets/blob/main/Port-01/3-2-4(1).png",
+          "github.com/Qitm2333/MyDesignAssets/blob/main/Port-01/jimeng-2025-12-26-3611.png",
+          "github.com/Qitm2333/MyDesignAssets/blob/main/Port-01/1-1(1).png",
+          "github.com/Qitm2333/MyDesignAssets/blob/main/Port-01/全部(1).png"
+        ],
+        "layout": "full"
+      }
+    ]
+  },
+  "en": {
+    "title": "Traces of Presence - Interactive Installation",
+    "subtitle": "Capturing Nonverbal Interactions in Public Spaces",
+    "description": "In cities, people coexist yet remain disconnected. This project focuses on the overlooked implicit connections in public spaces—shared spaces, synchronized movements, intersecting paths. Using Kinect capture and TouchDesigner visualization, it transforms invisible bonds into perceivable symbols, reawakening awareness of human connection.",
+    "role": "All",
+    "tags": [],
+    "awards": [],
+    "sections": [
+      {
+        "type": "gallery",
+        "title": "Gallery",
+        "images": [
+          "github.com/Qitm2333/MyDesignAssets/blob/main/Port-01/3-2-4(1).png",
+          "github.com/Qitm2333/MyDesignAssets/blob/main/Port-01/jimeng-2025-12-26-3611.png",
+          "github.com/Qitm2333/MyDesignAssets/blob/main/Port-01/1-1(1).png",
+          "github.com/Qitm2333/MyDesignAssets/blob/main/Port-01/全部(1).png"
+        ],
+        "layout": "full"
+      }
+    ]
+  }
 }
 ];
