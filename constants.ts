@@ -27,11 +27,17 @@ export const CATEGORY_LABELS: Record<Language, Record<string, string>> = {
 export const ARTICLE_LABELS: Record<Language, Record<string, string>> = {
   zh: {
     'All': '全部',
-    [ArticleCategory.RANDOM]: '随便写写',
+    [ArticleCategory.QUALITY]: 'Quality',
+    [ArticleCategory.RURALIT]: 'Ruralit',
+    [ArticleCategory.TRACES]: 'Traces of Presence',
+    [ArticleCategory.CUBTHARSIS]: 'Cubtharsis',
   },
   en: {
     'All': 'All',
-    [ArticleCategory.RANDOM]: 'Random Writings',
+    [ArticleCategory.QUALITY]: 'Quality',
+    [ArticleCategory.RURALIT]: 'Ruralit',
+    [ArticleCategory.TRACES]: 'Traces of Presence',
+    [ArticleCategory.CUBTHARSIS]: 'Cubtharsis',
   }
 };
 

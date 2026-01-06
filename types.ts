@@ -13,14 +13,18 @@ export enum Category {
 }
 
 export enum ArticleCategory {
-  RANDOM = 'Random', // 随便写写
+  QUALITY = 'Quality',
+  RURALIT = 'Ruralit',
+  TRACES = 'TracesOfPresence',
+  CUBTHARSIS = 'Cubtharsis',
 }
 
 export interface Article {
   id: string;
   title: string;
   category: ArticleCategory;
-  link: string; // WeChat Official Account Link
+  link?: string; // WeChat Official Account Link (optional now)
+  content?: string; // Markdown content for internal articles
   coverImage?: string; // Optional, will fallback if not provided
   date?: string;
 }
@@ -89,6 +93,7 @@ export interface Project {
   date?: string; // 日期
   notes?: string; // 批注
   sections?: ContentSection[]; // 自定义内容块
+  articleCategory?: ArticleCategory; // 关联的开发日志分类
 }
 
 export interface Experience {

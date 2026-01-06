@@ -8,15 +8,17 @@ export interface EditableArticle {
   id: string;
   common: {
     category: string;
-    link: string;
-    coverImage: string;
+    link?: string;
+    coverImage?: string;
     date: string;
   };
   zh: {
     title: string;
+    content?: string;
   };
   en: {
     title: string;
+    content?: string;
   };
 }
 
@@ -29,23 +31,28 @@ interface ArticleEditorProps {
 }
 
 const CATEGORY_OPTIONS = [
-  { value: ArticleCategory.RANDOM, labelZh: '随便写写', labelEn: 'Random Writings' },
+  { value: ArticleCategory.QUALITY, labelZh: 'Quality', labelEn: 'Quality' },
+  { value: ArticleCategory.RURALIT, labelZh: 'Ruralit', labelEn: 'Ruralit' },
+  { value: ArticleCategory.TRACES, labelZh: 'Traces of Presence', labelEn: 'Traces of Presence' },
+  { value: ArticleCategory.CUBTHARSIS, labelZh: 'Cubtharsis', labelEn: 'Cubtharsis' },
 ];
 
 // 创建空白文章模板
 export const createEmptyArticle = (id: string): EditableArticle => ({
   id,
   common: {
-    category: ArticleCategory.RANDOM,
-    link: 'https://mp.weixin.qq.com/s/',
+    category: ArticleCategory.QUALITY,
+    link: '',
     coverImage: '',
     date: new Date().toISOString().slice(0, 10),
   },
   zh: {
     title: '新文章标题',
+    content: '',
   },
   en: {
     title: 'New Article Title',
+    content: '',
   },
 });
 
@@ -238,6 +245,19 @@ export const ArticleEditor: React.FC<ArticleEditorProps> = ({
                 onChange={(e) => updateLang(activeTab, 'title', e.target.value)}
                 className="w-full px-3 py-2 border border-primary/20 bg-cream text-sm"
               />
+            </div>
+            <div>
+              <label className="block text-xs text-primary/60 mb-1">{language === 'zh' ? '正文内容 (Markdown)' : 'Content (Markdown)'}</label>
+              <textarea
+                value={article[activeTab].content || ''}
+                onChange={(e) => updateLang(activeTab, 'content', e.target.value)}
+                placeholder={language === 'zh' ? '支持 Markdown 格式...' : 'Markdown supported...'}
+                rows={15}
+                className="w-full px-3 py-2 border border-primary/20 bg-cream text-sm font-mono resize-y"
+              />
+              <p className="text-[10px] text-primary/40 mt-1">
+                {language === 'zh' ? '提示：留空则使用外部链接跳转' : 'Tip: Leave empty to use external link'}
+              </p>
             </div>
           </div>
         </div>

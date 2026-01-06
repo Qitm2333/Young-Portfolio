@@ -1,4 +1,4 @@
-import { Project } from '../../types';
+import { Project, ArticleCategory } from '../../types';
 
 export const UIUX_DATA: Project[] = [
 {
@@ -8,7 +8,8 @@ export const UIUX_DATA: Project[] = [
     "image": "github.com/Qitm2333/MyDesignAssets/blob/main/UX-01/ICON.png",
     "figmaUrl": "",
     "websiteUrl": "https://car-showcase-app.vercel.app/",
-    "githubUrl": "https://github.com/Qitm2333/car-showcase-app"
+    "githubUrl": "https://github.com/Qitm2333/car-showcase-app",
+    "bilibiliId": "BV15fqcBpErV"
   },
   "zh": {
     "title": "Quality",
@@ -57,10 +58,12 @@ export const UIUX_DATA: Project[] = [
   "id": "ux2",
   "common": {
     "category": "UI Design",
-    "image": "github.com/Qitm2333/MyDesignAssets/blob/main/UX-02/page.png",
+    "image": "github.com/Qitm2333/MyDesignAssets/blob/main/UX-02/page02.png",
     "date": "2025-10",
     "githubUrl": "https://github.com/Qitm2333/Ruralilt",
-    "videoUrl": "github.com/Qitm2333/MyDesignAssets/blob/main/UX-02/mp4/VIDEOALL.mp4"
+    //"youtubeId": "2PwOIE7bhaY",
+    "bilibiliId": "BV1VwqwBnEBt",
+    "articleCategory": ArticleCategory.RURALIT
   },
   "zh": {
     "title": "Ruralit",

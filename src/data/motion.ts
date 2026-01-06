@@ -6,8 +6,7 @@ export const MOTION_DATA: Project[] = [
     common: {
       category: 'Motion',
       image: 'github.com/Qitm2333/MyDesignAssets/blob/main/MD-01/Snipaste_2025-12-13_01-58-05.png',
-      videoUrl: 'github.com/Qitm2333/MyDesignAssets/blob/main/MD-01/7月23日.mp4',
-      bilibiliId: 'BV1KD2iYBEjF'
+      bilibiliId: 'BV1YV4y1W7Pe'
     },
     zh: {
       title: 'Canva 动态演绎',
@@ -47,8 +46,8 @@ export const MOTION_DATA: Project[] = [
     common: {
       category: 'Motion',
       image: 'github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/01.png',
-      bilibiliId: '',
-      videoUrl: 'github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/7月23日%20(2)(3).mp4'
+      bilibiliId: 'BV1K5qwBGE6d'
+      
     },
     zh: {
       title: '康定斯基动态设计',
@@ -106,7 +105,7 @@ export const MOTION_DATA: Project[] = [
   "common": {
     "category": "Motion",
     "image": "github.com/Qitm2333/MyDesignAssets/blob/main/MD-03/newnew.png",
-    "bilibiliId": "",
+    "bilibiliId": "BV15QYwzwE1L",
     "videoUrl": ""
   },
   "zh": {
@@ -123,8 +122,8 @@ export const MOTION_DATA: Project[] = [
       {
         "type": "video",
         "title": "Aivilization视频",
-        "bilibiliId": "",
-        "videoUrl": "github.com/Qitm2333/MyDesignAssets/blob/main/MD-03/12月13日%20(1).mp4"
+        "bilibiliId": "BV15QYwzwE1L",
+        
       },
       {
         "type": "video",
@@ -196,8 +195,8 @@ export const MOTION_DATA: Project[] = [
   "common": {
     "category": "Motion",
     "image": "github.com/Qitm2333/MyDesignAssets/blob/main/MD-06/Snipaste_2025-12-13_16-08-26.png",
-    "bilibiliId": "",
-    "videoUrl": "github.com/Qitm2333/MyDesignAssets/blob/main/MD-06/7月23日(1).mp4"
+    "bilibiliId": "BV115qwB3Eov"
+
   },
   "zh": {
     "title": "卡通菲比动画",
@@ -284,8 +283,8 @@ export const MOTION_DATA: Project[] = [
   "common": {
     "category": "Motion",
     "image": "github.com/Qitm2333/MyDesignAssets/blob/main/MD-07/Comp%202%20-%203.53.jpg",
-    "bilibiliId": "",
-    "videoUrl": "github.com/Qitm2333/MyDesignAssets/blob/main/MD-07/video.mp4"
+    "bilibiliId": "BV1UGqwBkEHR"
+   
   },
   "zh": {
     "title": "风格化美术",
@@ -363,10 +362,10 @@ export const MOTION_DATA: Project[] = [
   "common": {
     "category": "Motion",
     "image": "github.com/Qitm2333/MyDesignAssets/blob/main/Port-01/page04.png",
-    "youtubeId": "JWq0vW7Y26Y",
+    //"youtubeId": "JWq0vW7Y26Y",
     "date": "2025-06",
     "videoLinkUrl": "https://youtu.be/JWq0vW7Y26Y",
-    "bilibiliId": ""
+    "bilibiliId": "BV1RFqwBDEux"
   },
   "zh": {
     "title": "存在的痕迹 - 交互装置",
@@ -405,6 +404,49 @@ export const MOTION_DATA: Project[] = [
           "github.com/Qitm2333/MyDesignAssets/blob/main/Port-01/jimeng-2025-12-26-3611.png",
           "github.com/Qitm2333/MyDesignAssets/blob/main/Port-01/1-1(1).png",
           "github.com/Qitm2333/MyDesignAssets/blob/main/Port-01/全部(1).png"
+        ],
+        "layout": "full"
+      }
+    ]
+  }
+},
+{
+  "id": "v8",
+  "common": {
+    "category": "Motion",
+    "image": "github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/image/Clipboard%20-%202025-12-21%2013.24.36.png",
+    "date": "2025-11",
+    //"videoUrl": "github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/gamevideo_20260106_14580378.mp4",
+    "bilibiliId": "BV19wqwBJEcv",
+    "videoLinkUrl": "https://youtu.be/SHmugUTk1Rg"
+  },
+  "zh": {
+    "title": "新作品标题",
+    "subtitle": "副标题",
+    "description": "作品描述...",
+    "role": "角色",
+    "tags": [],
+    "awards": [],
+    "sections": []
+  },
+  "en": {
+    "title": "Cubtharsis",
+    "subtitle": "A Rubik's Cube and emotional ability-driven terrain-environment puzzle game",
+    "description": "Cubtharsis is an emotional puzzle game where players manipulate a smart Rubik's Cube to reshape dreamlike terrain. Inspired by Acceptance and Commitment Therapy, the game guides players from resisting negative emotions, to utilizing them, to ultimately embracing them. As players solve puzzles by rotating the cube, they unknowingly restore it—mirroring their own journey of psychological integration.",
+    "role": "ALL",
+    "tags": [],
+    "awards": [],
+    "sections": [
+      {
+        "type": "gallery",
+        "title": "Gallery",
+        "images": [
+          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/image/Clipboard%20-%202025-12-21%2013.24.36.png",
+          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/image/01.png",
+          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/image/03.png",
+          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/image/Clipboard%20-%202025-12-21%2013.43.08.png",
+          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/image/Clipboard%20-%202025-12-21%2013.43.27.png",
+          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/image/Clipboard%20-%202025-12-21%2013.44.25.png"
         ],
         "layout": "full"
       }

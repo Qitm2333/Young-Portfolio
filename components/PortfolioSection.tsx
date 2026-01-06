@@ -26,10 +26,19 @@ const SkeletonImage: React.FC<SkeletonImageProps> = ({ src, alt = '', className 
   const isFillHeight = className.includes('h-full');
 
   return (
-    <div className={`relative overflow-hidden ${loaded ? '' : 'bg-primary/5'} ${className}`} style={style} onClick={onClick}>
-      {/* 骨架屏 */}
+    <div className={`relative overflow-hidden ${loaded ? '' : 'bg-primary/10'} ${className}`} style={style} onClick={onClick}>
+      {/* 骨架屏 - 更明显的闪烁效果 */}
       {!loaded && !error && (
-        <div className="absolute inset-0 bg-primary/5 animate-pulse rounded-lg" />
+        <div className="absolute inset-0 rounded-lg overflow-hidden">
+          <div className="absolute inset-0 bg-primary/10" />
+          <div 
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent animate-shimmer"
+            style={{ 
+              backgroundSize: '200% 100%',
+              animation: 'shimmer 1.5s infinite'
+            }} 
+          />
+        </div>
       )}
       {/* 错误状态 */}
       {error && (
@@ -46,6 +55,13 @@ const SkeletonImage: React.FC<SkeletonImageProps> = ({ src, alt = '', className 
         onError={() => setError(true)}
         loading="lazy"
       />
+      {/* 内联样式定义动画 */}
+      <style>{`
+        @keyframes shimmer {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(100%); }
+        }
+      `}</style>
     </div>
   );
 };
@@ -869,12 +885,20 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
           </div>
           
           {/* 链接按钮区域 */}
-          {(selectedProject.figmaUrl || selectedProject.websiteUrl || selectedProject.githubUrl || selectedProject.videoLinkUrl) && (
+          {(selectedProject.figmaUrl || selectedProject.websiteUrl || selectedProject.githubUrl || selectedProject.videoLinkUrl || selectedProject.articleCategory) && (
             <>
               <div className="h-[1px] bg-primary/10 flex-shrink-0" />
               <div className="p-4 space-y-2 flex-shrink-0">
                 <p className="text-xs font-medium text-primary/60 mb-3">{language === 'zh' ? '链接' : 'Links'}</p>
                 <div className="flex flex-wrap gap-2">
+                  {selectedProject.articleCategory && (
+                    <button 
+                      onClick={() => navigate('/articles', { state: { category: selectedProject.articleCategory } })}
+                      className="px-3 py-1.5 text-xs border border-primary/20 text-primary/70 hover:bg-[#E63946] hover:border-[#E63946] hover:text-white transition-colors"
+                    >
+                      Dev Log →
+                    </button>
+                  )}
                   {selectedProject.figmaUrl && (
                     <a 
                       href={selectedProject.figmaUrl} 
