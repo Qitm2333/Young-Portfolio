@@ -1,117 +1,122 @@
 import { Project } from '../../types';
 
 export const MOTION_DATA: Project[] = [
-  {
-    id: 'v1',
-    common: {
-      category: 'Motion',
-      image: 'github.com/Qitm2333/MyDesignAssets/blob/main/MD-01/Snipaste_2025-12-13_01-58-05.png',
-      bilibiliId: 'BV1YV4y1W7Pe'
-    },
-    zh: {
-      title: 'Canva 动态演绎',
-      subtitle: '动态设计',
-      description: '这是我大学期间全国大学生广告艺术大赛的选题之一。我们选择为 Canva 制作一支 30 秒的动态演示短片。\n\n我全程主导了这个项目，包括音效部分。几位同学参与了前期制作，但后期工作全部由我独立完成。',
-      role: '全部',
-      tags: ['品牌', '动态设计'],
-      awards: ['大学生广告设计大赛黑龙江省一等奖'],
-      sections: [
-        {
-          type: 'gallery',
-          title: '展示',
-          layout: 'full',
-          images: ['github.com/Qitm2333/MyDesignAssets/blob/main/MD-01/展示展板.jpg']
-        }
-      ]
-    },
-    en: {
-      title: 'Canva Promotion Video',
-      subtitle: 'Motion Design',
-      description: 'This project is one of the topics for the National College Students Advertising Art Competition during my university years. We chose to create a 30-second dynamic demonstration short film for Canva.\n\nI completely led this project, including the sound effects. Several classmates participated in the preliminary production, although I redid all the post-production work myself.',
-      role: 'ALL',
-      tags: ['Brand', 'Motion Design'],
-      awards: ['1st Prize, Heilongjiang Province, College Advertising Design Competition'],
-      sections: [
-        {
-          type: 'gallery',
-          title: 'Gallery',
-          layout: 'full',
-          images: ['github.com/Qitm2333/MyDesignAssets/blob/main/MD-01/展示展板.jpg']
-        }
-      ]
-    }
+{
+  "id": "v1",
+  "common": {
+    "category": "Motion",
+    "image": "github.com/Qitm2333/MyDesignAssets/blob/main/MD-01/Snipaste_2025-12-13_01-58-05.png",
+    "bilibiliId": "BV1YV4y1W7Pe",
+    "date": "2022-12",
+    "notes": "这是我第一次做比较完整的动态设计项目\n\nThis is the first time I've worked on a relatively complete motion design project."
   },
-  {
-    id: 'v2',
-    common: {
-      category: 'Motion',
-      image: 'github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/01.png',
-      bilibiliId: 'BV1K5qwBGE6d'
-      
-    },
-    zh: {
-      title: '康定斯基动态设计',
-      subtitle: '动态设计',
-      description: '康定斯基的动态设计',
-      role: '全部',
-      tags: ['动态设计', '康定斯基'],
-      awards: [],
-      sections: [
-        {
-          type: 'gallery',
-          title: '图片展示',
-          images: [
-            'github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/01.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/02.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/03.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/04.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/05.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/07.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/08.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/09.png'
-          ],
-          layout: 'grid-4'
-        }
-      ]
-    },
-    en: {
-      title: 'Kandinsky Motion Design',
-      subtitle: 'Motion Design',
-      description: 'Motion design inspired by Kandinsky',
-      role: 'ALL',
-      tags: ['Motion Design', 'Kandinsky'],
-      awards: [],
-      sections: [
-        {
-          type: 'gallery',
-          title: 'Gallery',
-          images: [
-            'github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/01.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/02.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/03.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/04.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/05.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/07.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/08.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/09.png'
-          ],
-          layout: 'grid-4'
-        }
-      ]
-    }
+  "zh": {
+    "title": "Canva 动态演绎",
+    "subtitle": "为Canva制作的30秒动态演绎广告",
+    "description": "这是我大学期间全国大学生广告艺术大赛的选题之一。我们选择为 Canva 制作一支 30 秒的动态演示短片。\n\n我全程主导了这个项目，包括音效部分。几位同学参与了前期制作，但后期工作全部由我独立完成。",
+    "role": "动态设计师，平面设计师",
+    "tags": ["品牌", "动态设计"],
+    "awards": ["大学生广告设计大赛黑龙江省一等奖"],
+    "sections": [
+      {
+        "type": "gallery",
+        "title": "展示",
+        "layout": "full",
+        "images": ["github.com/Qitm2333/MyDesignAssets/blob/main/MD-01/展示展板.jpg"]
+      }
+    ]
   },
+  "en": {
+    "title": "Canva Promotional Video",
+    "subtitle": "A 30-second dynamic interpretation advertisement made for Canva",
+    "description": "This project is one of the topics for the National College Students Advertising Art Competition during my university years. We chose to create a 30-second dynamic demonstration short film for Canva.\n\nI completely led this project, including the sound effects. Several classmates participated in the preliminary production, although I redid all the post-production work myself.",
+    "role": "motion designer, graphic designer",
+    "tags": ["Brand", "Motion Design"],
+    "awards": ["1st Prize, Heilongjiang Province, College Advertising Design Competition"],
+    "sections": [
+      {
+        "type": "gallery",
+        "title": "Gallery",
+        "layout": "full",
+        "images": ["github.com/Qitm2333/MyDesignAssets/blob/main/MD-01/展示展板.jpg"]
+      }
+    ]
+  }
+},
+{
+  "id": "v2",
+  "common": {
+    "category": "Motion",
+    "image": "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/01.png",
+    "bilibiliId": "BV1K5qwBGE6d",
+    "date": "2024-10",
+    "notes": "大学毕设的时候我的选题是五声音阶可视化，康定斯基是音乐可视化的先驱，我其实一直希望能够做的艺术一点像康定斯基一点，但受迫于就业压力，我最终还是把概念的，抽象的部分剥离掉了，只做了很多具象的，更符合这个时代的设计，而那个遗憾在我的这个康定斯基动态设计补充上了，这个动态设计包含了我对康定斯基插画的诠释，希望你们喜欢\n\nWhen I was working on my graduation project at university, my topic was the visualization of pentatonic scales. Kandinsky is a pioneer of music visualization, and I had always hoped to create something more artistic, something in the vein of his style. However, due to the pressure of job hunting, I ended up stripping away the conceptual and abstract elements of my original idea, only retaining the more figurative designs that align with contemporary aesthetics. Now, this regret has been made up for with my supplementary motion design piece inspired by Kandinsky. This motion design is an interpretation of Kandinsky's illustrations, and I hope you will enjoy it."
+  },
+  "zh": {
+    "title": "康定斯基动态设计",
+    "subtitle": "康定斯基插画的动态设计",
+    "description": "我一直都在想康定斯基的插画如果动起来会怎么样，这是我对他的探索",
+    "role": "动态设计师，插画设计师",
+    "tags": ["动态设计", "康定斯基"],
+    "awards": [],
+    "sections": [
+      {
+        "type": "gallery",
+        "title": "图片展示",
+        "images": [
+          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/01.png",
+          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/02.png",
+          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/03.png",
+          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/04.png",
+          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/05.png",
+          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/07.png",
+          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/08.png",
+          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/09.png"
+        ],
+        "layout": "grid-4"
+      }
+    ]
+  },
+  "en": {
+    "title": "Kandinsky Motion Design",
+    "subtitle": "Motion Design",
+    "description": "Motion design inspired by Kandinsky",
+    "role": "ALL",
+    "tags": ["Motion Design", "Kandinsky"],
+    "awards": [],
+    "sections": [
+      {
+        "type": "gallery",
+        "title": "Gallery",
+        "images": [
+          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/01.png",
+          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/02.png",
+          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/03.png",
+          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/04.png",
+          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/05.png",
+          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/07.png",
+          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/08.png",
+          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/09.png"
+        ],
+        "layout": "grid-4"
+      }
+    ]
+  }
+},
 {
   "id": "v3",
   "common": {
     "category": "Motion",
     "image": "github.com/Qitm2333/MyDesignAssets/blob/main/MD-03/newnew.png",
     "bilibiliId": "BV15QYwzwE1L",
-    "videoUrl": ""
+    "videoUrl": "",
+    "date": "2025-10",
+    "notes": "AI小镇，我也很感兴趣，我参与了一些美术风格延展的设计，以及全部的视频包装设计\n\nI’m also very interested in the AI Town project, where I’ve participated in the design of art style extensions, as well as the full scope of video packaging design."
   },
   "zh": {
     "title": "Aivilization宣传视频设计",
-    "subtitle": "动态设计",
-    "description": "为港科大的aivilization与biosphere制作了部分美术卡片设计与宣传物料设计",
+    "subtitle": "为港科大Aivilization项目所制作的宣传片",
+    "description": "为港科大的aivilization与biosphere3制作了部分美术卡片设计与宣传物料设计",
     "role": "美术；视频设计",
     "tags": [
       "视频包装",
@@ -127,7 +132,7 @@ export const MOTION_DATA: Project[] = [
       },
       {
         "type": "video",
-        "title": "Biosphere视频（Aivilization前身）",
+        "title": "Biosphere3视频（Aivilization前身）",
         "bilibiliId": "",
         "videoUrl": "github.com/Qitm2333/MyDesignAssets/blob/main/MD-03/7月23日%20(3).mp4"
       }
@@ -135,8 +140,8 @@ export const MOTION_DATA: Project[] = [
   },
   "en": {
     "title": "Aivilization Promotion Video",
-    "subtitle": "Motion Design",
-    "description": "Created artwork card designs and promotional materials for HKUST's Aivilization and Biosphere projects",
+    "subtitle": "The promotional video produced for HKUST's Aivilization Project",
+    "description": "Created artwork card designs and promotional materials for HKUST's Aivilization and Biosphere3 projects",
     "role": "Art; Video Design",
     "tags": [
       "Video Packaging",
@@ -169,8 +174,8 @@ export const MOTION_DATA: Project[] = [
   },
   "zh": {
     "title": "极品飞车布加迪开屏动画",
-    "subtitle": "动态设计",
-    "description": "为极品飞车设计了开屏动画",
+    "subtitle": "这是极品飞车布加迪的展示动画",
+    "description": "我主要负责动效与合成部分",
     "role": "动效设计师",
     "tags": [
       "视频包装"
@@ -180,8 +185,8 @@ export const MOTION_DATA: Project[] = [
   },
   "en": {
     "title": "Need for Speed Bugatti Splash Animation",
-    "subtitle": "Motion Design",
-    "description": "Designed splash screen animation for Need for Speed",
+    "subtitle": "This is the showcase animation for Bugatti in Need for Speed.",
+    "description": "My primary responsibilities were motion graphics and compositing.",
     "role": "Motion Designer",
     "tags": [
       "Video Packaging"
@@ -195,13 +200,15 @@ export const MOTION_DATA: Project[] = [
   "common": {
     "category": "Motion",
     "image": "github.com/Qitm2333/MyDesignAssets/blob/main/MD-06/Snipaste_2025-12-13_16-08-26.png",
-    "bilibiliId": "BV115qwB3Eov"
+    "bilibiliId": "BV115qwB3Eov",
+    "date": "2025-06",
+    "notes": "第一次拿Blender正式做动画，跑通了从建模，贴图，绑定，动画，几何节点特效，后期合成的一整套流程，用即梦ai和flux做了很多参考，用tripoai做了一些小元素，这个过程发现ai比预想中的强，而且我比预想中的菜，很多自己认为的效果做出来居然和我的设想不太一样，调整了非常久效果也只能说差强人意。\n\nThis was my first formal Blender animation project, covering the full pipeline: modeling, texturing, rigging, animation, Geometry Nodes effects and compositing. I used AIM Dream AI, Flux for references and Tripo AI for small assets. The process showed me AI’s surprising power and my own shortcomings—many intended effects fell flat, and even after long adjustments, the outcome was just passable."
 
   },
   "zh": {
     "title": "卡通菲比动画",
-    "subtitle": "动态设计",
-    "description": "从建模到绑定到特效到动画，blender一站式解决",
+    "subtitle": "从建模到绑定到特效到动画，blender一站式解决",
+    "description": "这支小动画借鉴《鸣潮》菲比 PV 两画面，实验两种无缝转场与 AI 的 CG 应用。",
     "role": "动效设计师",
     "tags": [
       "三维建模",
@@ -239,8 +246,8 @@ export const MOTION_DATA: Project[] = [
   },
   "en": {
     "title": "Cartoon Phoebe Animation",
-    "subtitle": "Motion Design",
-    "description": "From modeling to rigging to VFX to animation, all done in Blender",
+    "subtitle": "From modeling to rigging to VFX to animation, all done in Blender",
+    "description": "This short animation draws on two shots from Wuthering Waves Phoebe’s PV, experimenting with two seamless transition techniques and AI applications in CG.",
     "role": "Motion Designer",
     "tags": [
       "3D Modeling",
@@ -288,8 +295,8 @@ export const MOTION_DATA: Project[] = [
   },
   "zh": {
     "title": "风格化美术",
-    "subtitle": "动态设计",
-    "description": "blender全流程风格化渲染",
+    "subtitle": "blender全流程风格化渲染",
+    "description": "尝试使用blender制作风格化的动画，这是我所做的部分探索",
     "role": "动效设计师",
     "tags": [
       "三维建模",
@@ -323,8 +330,8 @@ export const MOTION_DATA: Project[] = [
   },
   "en": {
     "title": "Stylized Art",
-    "subtitle": "Motion Design",
-    "description": "Full pipeline stylized rendering in Blender",
+    "subtitle": "Full pipeline stylized rendering in Blender",
+    "description": "I’ve experimented with creating stylized animations in Blender—this is part of my exploration.",
     "role": "Motion Designer",
     "tags": [
       "3D Modeling",
@@ -365,7 +372,8 @@ export const MOTION_DATA: Project[] = [
     //"youtubeId": "JWq0vW7Y26Y",
     "date": "2025-06",
     "videoLinkUrl": "https://youtu.be/JWq0vW7Y26Y",
-    "bilibiliId": "BV1RFqwBDEux"
+    "bilibiliId": "BV1RFqwBDEux",
+    "notes":"一开始用的processing，本来想检验下自己对代码的敏锐度，但我的效果有点复杂，我又不是非常会优化，所以最后还是选了TD，简单多hhhh\n\nI started with Processing, originally wanting to test how sharp I was with coding. But the effects I was going for were a bit complex, and I wasn’t very good at optimizing the code. So I ended up switching to TouchDesigner instead—it was way simpler, lol."
   },
   "zh": {
     "title": "存在的痕迹 - 交互装置",
@@ -389,7 +397,7 @@ export const MOTION_DATA: Project[] = [
     ]
   },
   "en": {
-    "title": "Traces of Presence - Interactive Installation",
+    "title": "Traces of Presence - Installation Art",
     "subtitle": "Capturing Nonverbal Interactions in Public Spaces",
     "description": "In cities, people coexist yet remain disconnected. This project focuses on the overlooked implicit connections in public spaces—shared spaces, synchronized movements, intersecting paths. Using Kinect capture and TouchDesigner visualization, it transforms invisible bonds into perceivable symbols, reawakening awareness of human connection.",
     "role": "All",
@@ -418,16 +426,31 @@ export const MOTION_DATA: Project[] = [
     "date": "2025-11",
     //"videoUrl": "github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/gamevideo_20260106_14580378.mp4",
     "bilibiliId": "BV19wqwBJEcv",
-    "videoLinkUrl": "https://youtu.be/SHmugUTk1Rg"
+    "videoLinkUrl": "https://youtu.be/SHmugUTk1Rg",
+    "websiteUrl": "https://qitm2333.itch.io/cubtharsis"
   },
   "zh": {
-    "title": "新作品标题",
-    "subtitle": "副标题",
-    "description": "作品描述...",
-    "role": "角色",
-    "tags": [],
+    "title": "Cubtharsis",
+    "subtitle": "一款由魔方与情绪能力驱动的地形环境解谜游戏",
+    "description": "Cubtharsis 是一款情绪解谜游戏，玩家通过操控智能魔方来重塑梦幻般的地形。游戏灵感来源于接纳承诺疗法（ACT），引导玩家从抗拒负面情绪，到利用它们，最终拥抱它们。当玩家通过旋转魔方解开谜题时，他们在不知不觉中也在复原魔方——这正映射了他们自身心理整合的旅程。",
+    "role": "全部",
+    "tags": ["游戏设计", "交互设计"],
     "awards": [],
-    "sections": []
+    "sections": [
+      {
+        "type": "gallery",
+        "title": "图片展示",
+        "images": [
+          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/image/Clipboard%20-%202025-12-21%2013.24.36.png",
+          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/image/01.png",
+          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/image/03.png",
+          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/image/Clipboard%20-%202025-12-21%2013.43.08.png",
+          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/image/Clipboard%20-%202025-12-21%2013.43.27.png",
+          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/image/Clipboard%20-%202025-12-21%2013.44.25.png"
+        ],
+        "layout": "full"
+      }
+    ]
   },
   "en": {
     "title": "Cubtharsis",

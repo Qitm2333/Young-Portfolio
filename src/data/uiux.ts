@@ -14,7 +14,7 @@ export const UIUX_DATA: Project[] = [
   "zh": {
     "title": "Quality",
     "subtitle": "AI 驱动的汽车设计资产全链路管理平台",
-    "description": "本项目面向汽车领域设计质量（DQ）/ 量产质量（PQ）专业人员，打造智能化协同工作平台，针对性解决两大核心痛点：资料调研耗时费力与跨团队协作效率低下。平台依托人工智能驱动的资料采集、智能分类及质量评估功能，助力设计人员将精力聚焦于高价值的创造性工作。",
+    "description": "本项目面向汽车领域设计质量（DQ）/ 感知质量（PQ）专业人员，打造智能化协同工作平台，针对性解决两大核心痛点：资料调研耗时费力与跨团队协作效率低下。平台依托人工智能驱动的资料采集、智能分类及质量评估功能，助力设计人员将精力聚焦于高价值的创造性工作。",
     "role": "ALL",
     "tags": [],
     "awards": [],
@@ -35,7 +35,7 @@ export const UIUX_DATA: Project[] = [
   "en": {
     "title": "Quality",
     "subtitle": "AI-Powered Full-Chain Management Platform for Automotive Design Assets",
-    "description": "This project is designed for automotive Design Quality (DQ) / Production Quality (PQ) professionals, creating an intelligent collaborative work platform that specifically addresses two core pain points: time-consuming research and low cross-team collaboration efficiency. Powered by AI-driven data collection, intelligent classification, and quality assessment features, the platform helps designers focus their energy on high-value creative work.",
+    "description": "This project is designed for automotive Design Quality (DQ) / perceived quality (PQ) professionals, creating an intelligent collaborative work platform that specifically addresses two core pain points: time-consuming research and low cross-team collaboration efficiency. Powered by AI-driven data collection, intelligent classification, and quality assessment features, the platform helps designers focus their energy on high-value creative work.",
     "role": "ALL",
     "tags": [],
     "awards": [],

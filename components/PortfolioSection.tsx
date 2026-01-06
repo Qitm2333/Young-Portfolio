@@ -21,9 +21,26 @@ interface SkeletonImageProps {
 const SkeletonImage: React.FC<SkeletonImageProps> = ({ src, alt = '', className = '', style, onClick }) => {
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
+  const maxRetries = 3;
   
   // 检查是否需要填满容器高度
   const isFillHeight = className.includes('h-full');
+
+  // 处理加载错误，自动重试
+  const handleError = () => {
+    if (retryCount < maxRetries) {
+      // 延迟重试
+      setTimeout(() => {
+        setRetryCount(prev => prev + 1);
+      }, 1000 * (retryCount + 1)); // 递增延迟：1s, 2s, 3s
+    } else {
+      setError(true);
+    }
+  };
+
+  // 生成带重试参数的 URL（强制刷新缓存）
+  const imgSrc = retryCount > 0 ? `${src}${src.includes('?') ? '&' : '?'}retry=${retryCount}` : src;
 
   return (
     <div className={`relative overflow-hidden ${loaded ? '' : 'bg-primary/10'} ${className}`} style={style} onClick={onClick}>
@@ -32,7 +49,7 @@ const SkeletonImage: React.FC<SkeletonImageProps> = ({ src, alt = '', className 
         <div className="absolute inset-0 rounded-lg overflow-hidden">
           <div className="absolute inset-0 bg-primary/10" />
           <div 
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent animate-shimmer"
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
             style={{ 
               backgroundSize: '200% 100%',
               animation: 'shimmer 1.5s infinite'
@@ -40,19 +57,24 @@ const SkeletonImage: React.FC<SkeletonImageProps> = ({ src, alt = '', className 
           />
         </div>
       )}
-      {/* 错误状态 */}
+      {/* 错误状态 - 可点击重试 */}
       {error && (
-        <div className="absolute inset-0 bg-primary/5 flex items-center justify-center rounded-lg">
-          <span className="text-primary/30 text-xs">加载失败</span>
+        <div 
+          className="absolute inset-0 bg-primary/5 flex flex-col items-center justify-center rounded-lg cursor-pointer hover:bg-primary/10 transition-colors"
+          onClick={(e) => { e.stopPropagation(); setError(false); setRetryCount(0); }}
+        >
+          <span className="text-primary/40 text-xs">加载失败</span>
+          <span className="text-primary/30 text-[10px] mt-1">点击重试</span>
         </div>
       )}
       {/* 图片 */}
       <img
-        src={src}
+        key={retryCount} // 强制重新渲染
+        src={imgSrc}
         alt={alt}
         className={`w-full transition-opacity duration-300 rounded-lg ${isFillHeight ? 'h-full object-cover' : 'h-auto'} ${loaded ? 'opacity-100' : 'opacity-0'}`}
         onLoad={() => setLoaded(true)}
-        onError={() => setError(true)}
+        onError={handleError}
         loading="lazy"
       />
       {/* 内联样式定义动画 */}
@@ -948,9 +970,9 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
           <div className="h-[1px] bg-primary/10 flex-shrink-0" />
           
           {/* 批注区域 */}
-          <div className="flex-1 text-xs text-primary/50 space-y-2 p-4">
+          <div className="flex-1 text-xs text-primary/50 space-y-2 p-4 overflow-y-auto scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
             <p className="font-medium text-primary/60">{language === 'zh' ? '批注' : 'Notes'}</p>
-            <p>{selectedProject.notes || (language === 'zh' ? '暂无批注' : 'No notes')}</p>
+            <p className="whitespace-pre-line">{selectedProject.notes || (language === 'zh' ? '暂无批注' : 'No notes')}</p>
           </div>
           
           {/* 底部分割线和日期/版权 - 贯穿整个宽度 */}
@@ -1019,13 +1041,15 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                       {CATEGORY_LABELS[language][project.category]}
                     </div>
                     {/* 标题 */}
-                    <h3 className="font-black text-primary text-lg mb-2 leading-tight tracking-tight group-hover:text-[#E63946] transition-colors">
+                    <h3 className="font-black text-primary text-lg leading-tight tracking-tight group-hover:text-[#E63946] transition-colors">
                       {project.title}
                     </h3>
-                    {/* 描述 */}
-                    <p className="text-xs text-primary/50 line-clamp-2 leading-relaxed">
-                      {project.description}
-                    </p>
+                    {/* 副标题 */}
+                    {project.subtitle && (
+                      <p className="text-xs text-primary/50 mt-2">
+                        {project.subtitle}
+                      </p>
+                    )}
                     {/* 底部箭头 */}
                     <div className="flex justify-end mt-3 text-primary/20 group-hover:text-primary transition-colors">
                       <span className="text-xs font-mono">→</span>
