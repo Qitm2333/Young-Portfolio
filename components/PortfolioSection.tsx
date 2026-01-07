@@ -22,6 +22,7 @@ const SkeletonImage: React.FC<SkeletonImageProps> = ({ src, alt = '', className 
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
+  const [imgNaturalSize, setImgNaturalSize] = useState<{ width: number; height: number } | null>(null);
   const maxRetries = 3;
   
   // 检查是否需要填满容器高度
@@ -39,11 +40,31 @@ const SkeletonImage: React.FC<SkeletonImageProps> = ({ src, alt = '', className 
     }
   };
 
+  // 处理加载成功
+  const handleLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    const img = e.currentTarget;
+    setImgNaturalSize({ width: img.naturalWidth, height: img.naturalHeight });
+    setLoaded(true);
+  };
+
   // 生成带重试参数的 URL（强制刷新缓存）
   const imgSrc = retryCount > 0 ? `${src}${src.includes('?') ? '&' : '?'}retry=${retryCount}` : src;
 
+  // 计算骨架屏的 aspect-ratio（默认 16:9）
+  const aspectRatio = imgNaturalSize 
+    ? `${imgNaturalSize.width} / ${imgNaturalSize.height}` 
+    : '16 / 9';
+
   return (
-    <div className={`relative overflow-hidden ${loaded ? '' : 'bg-primary/10'} ${className}`} style={style} onClick={onClick}>
+    <div 
+      className={`relative overflow-hidden ${loaded ? '' : 'bg-primary/10'} ${className}`} 
+      style={{ 
+        ...style,
+        // 未加载时使用 aspect-ratio 保持占位
+        ...((!loaded && !isFillHeight) ? { aspectRatio } : {})
+      }} 
+      onClick={onClick}
+    >
       {/* 骨架屏 - 更明显的闪烁效果 */}
       {!loaded && !error && (
         <div className="absolute inset-0 rounded-lg overflow-hidden">
@@ -61,6 +82,7 @@ const SkeletonImage: React.FC<SkeletonImageProps> = ({ src, alt = '', className 
       {error && (
         <div 
           className="absolute inset-0 bg-primary/5 flex flex-col items-center justify-center rounded-lg cursor-pointer hover:bg-primary/10 transition-colors"
+          style={{ minHeight: '120px' }}
           onClick={(e) => { e.stopPropagation(); setError(false); setRetryCount(0); }}
         >
           <span className="text-primary/40 text-xs">加载失败</span>
@@ -73,7 +95,7 @@ const SkeletonImage: React.FC<SkeletonImageProps> = ({ src, alt = '', className 
         src={imgSrc}
         alt={alt}
         className={`w-full transition-opacity duration-300 rounded-lg ${isFillHeight ? 'h-full object-cover' : 'h-auto'} ${loaded ? 'opacity-100' : 'opacity-0'}`}
-        onLoad={() => setLoaded(true)}
+        onLoad={handleLoad}
         onError={handleError}
         loading="lazy"
       />

@@ -139,7 +139,7 @@ export const MOTION_DATA: Project[] = [
     ]
   },
   "en": {
-    "title": "Aivilization Promotion Video",
+    "title": "Aivilization Promotional Video",
     "subtitle": "The promotional video produced for HKUST's Aivilization Project",
     "description": "Created artwork card designs and promotional materials for HKUST's Aivilization and Biosphere3 projects",
     "role": "Art; Video Design",
