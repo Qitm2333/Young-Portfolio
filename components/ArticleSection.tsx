@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { ARTICLES, ARTICLE_LABELS } from '../constants';
 import { ArticleCategory, Language, Article } from '../types';
@@ -14,30 +14,128 @@ interface ArticleSectionProps {
 }
 
 const FILTER_ITEMS = [
-  { id: ArticleCategory.QUALITY, labelZh: 'Quality', labelEn: 'Quality' },
-  { id: ArticleCategory.RURALIT, labelZh: 'Ruralit', labelEn: 'Ruralit' },
-  { id: ArticleCategory.TRACES, labelZh: 'Traces of Presence', labelEn: 'Traces of Presence' },
-  { id: ArticleCategory.CUBTHARSIS, labelZh: 'Cubtharsis', labelEn: 'Cubtharsis' },
+  { id: ArticleCategory.QUALITY, labelZh: 'Quality', labelEn: 'Quality', urlPath: 'quality' },
+  { id: ArticleCategory.RURALIT, labelZh: 'Ruralit', labelEn: 'Ruralit', urlPath: 'ruralit' },
+  { id: ArticleCategory.TRACES, labelZh: 'Traces of Presence', labelEn: 'Traces of Presence', urlPath: 'traces' },
+  { id: ArticleCategory.CUBTHARSIS, labelZh: 'Cubtharsis', labelEn: 'Cubtharsis', urlPath: 'cubtharsis' },
 ];
+
+// URL 路径到分类的映射
+const URL_TO_CATEGORY: Record<string, string> = {
+  'quality': ArticleCategory.QUALITY,
+  'ruralit': ArticleCategory.RURALIT,
+  'traces': ArticleCategory.TRACES,
+  'cubtharsis': ArticleCategory.CUBTHARSIS,
+};
+
+// 分类到 URL 路径的映射
+const CATEGORY_TO_URL: Record<string, string> = {
+  [ArticleCategory.QUALITY]: 'quality',
+  [ArticleCategory.RURALIT]: 'ruralit',
+  [ArticleCategory.TRACES]: 'traces',
+  [ArticleCategory.CUBTHARSIS]: 'cubtharsis',
+};
 
 export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, triggerNewArticle }) => {
   const location = useLocation();
-  const [filter, setFilter] = useState<string | null>(null);
-  const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
+  const navigate = useNavigate();
+  
+  // 从 URL 解析分类和文章 ID
+  const parseUrlParams = () => {
+    const pathParts = location.pathname.split('/').filter(Boolean);
+    // 格式: /articles 或 /articles/:category 或 /articles/:category/:id
+    if (pathParts[0] === 'articles') {
+      const urlCategory = pathParts[1];
+      const urlArticleId = pathParts[2];
+      return {
+        category: urlCategory ? (URL_TO_CATEGORY[urlCategory] || null) : null,
+        articleId: urlArticleId || null
+      };
+    }
+    return { category: null, articleId: null };
+  };
+  
+  const urlParams = parseUrlParams();
+  
+  const [filter, setFilter] = useState<string | null>(() => {
+    // 优先从 URL 获取分类
+    if (urlParams.articleId) {
+      const article = ARTICLES['zh'].find(a => a.id === urlParams.articleId) || 
+                      ARTICLES['en'].find(a => a.id === urlParams.articleId);
+      return article?.category || urlParams.category;
+    }
+    return urlParams.category;
+  });
+  const [selectedArticle, setSelectedArticle] = useState<Article | null>(() => {
+    // 从 URL 获取初始文章
+    if (urlParams.articleId) {
+      return ARTICLES[language].find(a => a.id === urlParams.articleId) || null;
+    }
+    return null;
+  });
   const [isEditing, setIsEditing] = useState(false);
   const [editingArticle, setEditingArticle] = useState<EditableArticle | null>(null);
   const [isNewArticle, setIsNewArticle] = useState(false);
   const [highlightedId, setHighlightedId] = useState<string | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   
-  // 从路由状态接收分类参数
+  // 监听 URL 变化，更新状态
+  useEffect(() => {
+    const { category, articleId } = parseUrlParams();
+    if (articleId) {
+      const article = ARTICLES[language].find(a => a.id === articleId);
+      if (article) {
+        setSelectedArticle(article);
+        setFilter(article.category);
+      }
+    } else if (category) {
+      setFilter(category);
+      setSelectedArticle(null);
+    }
+  }, [location.pathname, language]);
+  
+  // 从路由状态接收分类参数（兼容旧的跳转方式）
   useEffect(() => {
     if (location.state?.category) {
       setFilter(location.state.category);
+      // 更新 URL
+      const categoryUrl = CATEGORY_TO_URL[location.state.category];
+      if (categoryUrl) {
+        navigate(`/articles/${categoryUrl}`, { replace: true });
+      }
       // 清除 state，避免刷新时重复设置
       window.history.replaceState({}, document.title);
     }
   }, [location.state]);
+
+  // 选择文章时更新 URL
+  const handleSelectArticle = (article: Article | null) => {
+    setSelectedArticle(article);
+    if (article) {
+      const categoryUrl = CATEGORY_TO_URL[article.category];
+      navigate(`/articles/${categoryUrl}/${article.id}`);
+    } else {
+      // 返回分类列表
+      if (filter) {
+        const categoryUrl = CATEGORY_TO_URL[filter];
+        navigate(`/articles/${categoryUrl}`);
+      } else {
+        navigate('/articles');
+      }
+    }
+  };
+
+  // 切换分类时更新 URL
+  const handleFilterChange = (newFilter: string | null) => {
+    setFilter(newFilter);
+    setSelectedArticle(null);
+    if (newFilter) {
+      const categoryUrl = CATEGORY_TO_URL[newFilter];
+      navigate(`/articles/${categoryUrl}`);
+    } else {
+      navigate('/articles');
+    }
+  };
 
   // 用于存储卡片元素的引用
   const cardRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
@@ -58,7 +156,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
   // 点击文章卡片
   const handleArticleClick = (article: Article) => {
     // 优先显示详情页（即使内容为空也显示）
-    setSelectedArticle(article);
+    handleSelectArticle(article);
   };
 
   // 点击时间轴节点 - 滚动到对应卡片并高亮
@@ -157,7 +255,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
               return (
                 <div key={item.id}>
                   <button 
-                    onClick={() => setFilter(filter === item.id ? null : item.id)}
+                    onClick={() => handleFilterChange(filter === item.id ? null : item.id)}
                     className="w-full flex items-center gap-2 py-2.5 text-left transition-colors group"
                   >
                     {/* 左侧符号 */}
@@ -181,11 +279,15 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
                       {categoryArticles.map((article) => (
                         <button
                           key={article.id}
-                          onClick={() => handleArticleClick(article)}
-                          className="w-full text-left py-1.5 text-xs transition-colors truncate flex items-center gap-2 text-primary/50 hover:text-primary"
+                          onClick={() => handleSelectArticle(article)}
+                          className={`w-full text-left py-1.5 text-xs transition-colors truncate flex items-center gap-2 ${
+                            selectedArticle?.id === article.id 
+                              ? 'text-primary font-bold' 
+                              : 'text-primary/50 hover:text-primary'
+                          }`}
                           title={article.title}
                         >
-                          <span className="text-[8px]">·</span>
+                          <span className="text-[8px]">{selectedArticle?.id === article.id ? '▸' : '·'}</span>
                           {article.title}
                         </button>
                       ))}
@@ -208,7 +310,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
       <div className="md:hidden fixed bottom-0 left-0 right-0 bg-cream border-t border-primary/10 z-40 px-4 py-2">
         <div className="flex gap-2 overflow-x-auto no-scrollbar">
           {FILTER_ITEMS.map((item) => (
-            <button key={item.id} onClick={() => setFilter(item.id)}
+            <button key={item.id} onClick={() => handleFilterChange(item.id)}
               className={`px-3 py-1.5 text-sm whitespace-nowrap ${filter === item.id ? 'bg-primary text-cream' : 'bg-primary/5 text-primary/60'}`}>
               {language === 'zh' ? item.labelZh : item.labelEn}
             </button>
@@ -223,8 +325,8 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
           <div className="flex items-center justify-between h-5">
             <div className="flex items-center gap-2 text-sm">
               <button 
-                onClick={() => { setFilter('All'); setIsEditing(false); setSelectedArticle(null); }}
-                className={`transition-colors ${filter !== 'All' || isEditing || selectedArticle ? 'text-primary/50 hover:text-primary' : 'text-primary font-bold'}`}
+                onClick={() => { handleFilterChange(null); setIsEditing(false); }}
+                className={`transition-colors ${filter || isEditing || selectedArticle ? 'text-primary/50 hover:text-primary' : 'text-primary font-bold'}`}
               >
                 {language === 'zh' ? '开发日志' : 'Dev Log'}
               </button>
@@ -244,7 +346,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
                   </span>
                 </>
               )}
-              {!isEditing && !selectedArticle && filter !== 'All' && (
+              {!isEditing && !selectedArticle && filter && (
                 <>
                   <span className="text-primary/30">/</span>
                   <span className="text-primary font-bold">
@@ -299,7 +401,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
             <div className="max-w-3xl">
               {/* 返回按钮 */}
               <button
-                onClick={() => setSelectedArticle(null)}
+                onClick={() => handleSelectArticle(null)}
                 className="flex items-center gap-2 text-sm text-primary/60 hover:text-primary mb-6 transition-colors"
               >
                 <ArrowLeft size={16} />
@@ -482,7 +584,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
                     onClick={() => {
                       if (selectedArticle) {
                         // 详情页：切换到其他日志
-                        setSelectedArticle(article);
+                        handleSelectArticle(article);
                       } else {
                         // 列表页：滚动到对应卡片
                         handleTimelineClick(article);
