@@ -1,6 +1,6 @@
 import React from 'react';
 import { Language } from '../types';
-import { Globe, Home, Briefcase, FileText, GraduationCap, Mail, Menu, X, Plus } from 'lucide-react';
+import { Globe, Home, Briefcase, FileText, GraduationCap, Mail, Menu, X, Plus, Bot } from 'lucide-react';
 
 interface SidebarProps {
   activeTab: string;
@@ -11,6 +11,7 @@ interface SidebarProps {
   toggleTheme: () => void;
   onTriggerGravity: () => void;
   onNewProject?: () => void;
+  onOpenAiChat?: () => void;
 }
 
 // 导航项配置
@@ -28,6 +29,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   language,
   toggleLanguage,
   onNewProject,
+  onOpenAiChat,
 }) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -75,7 +77,20 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </nav>
 
         {/* Bottom Controls */}
-        <div className="flex flex-col items-center gap-3">
+        <div className="flex flex-col items-center gap-2">
+          {/* AI Chat Button */}
+          {onOpenAiChat && (
+            <button
+              onClick={onOpenAiChat}
+              className="w-10 h-10 flex items-center justify-center text-primary/40 hover:text-primary hover:bg-primary/5 transition-colors group relative"
+              title={language === 'zh' ? 'AI 助手' : 'AI Assistant'}
+            >
+              <Bot size={16} />
+              {/* 小光点 */}
+              <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-[#07C160] rounded-full" />
+            </button>
+          )}
+          
           <button
             onClick={toggleLanguage}
             className="w-10 h-10 flex items-center justify-center text-primary/40 hover:text-primary transition-colors"
@@ -145,6 +160,20 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <Globe size={18} />
             <span className="font-medium">{language === 'zh' ? 'English' : '中文'}</span>
           </button>
+          
+          {/* Mobile AI Chat Button */}
+          {onOpenAiChat && (
+            <button
+              onClick={() => {
+                onOpenAiChat();
+                setMobileOpen(false);
+              }}
+              className="mt-4 flex items-center gap-3 px-4 py-3 bg-[#E63946] text-cream mx-4"
+            >
+              <Bot size={18} />
+              <span className="font-bold">{language === 'zh' ? 'AI 助手' : 'AI Assistant'}</span>
+            </button>
+          )}
         </div>
       )}
     </>

@@ -7,6 +7,7 @@ import { HeroSection } from './components/HeroSection';
 import { PortfolioSection } from './components/PortfolioSection';
 import { ArticleSection } from './components/ArticleSection';
 import { TimelineSection } from './components/TimelineSection';
+import { AiChat } from './components/AiChat';
 import { Mail, RotateCcw, Github } from 'lucide-react';
 import { NAV_ITEMS } from './src/data/navigation';
 import { CONTACT_DATA } from './src/data/contact';
@@ -54,6 +55,7 @@ function AppContent() {
   const [portfolioCategory, setPortfolioCategory] = useState<string>('All');
   const [triggerNewProject, setTriggerNewProject] = useState(false);
   const [initialProjectId, setInitialProjectId] = useState<string | null>(null);
+  const [isAiChatOpen, setIsAiChatOpen] = useState(false);
 
   // 处理新建作品
   const handleNewProject = () => {
@@ -643,6 +645,14 @@ function AppContent() {
         toggleTheme={toggleTheme}
         onTriggerGravity={triggerGravity}
         onNewProject={handleNewProject}
+        onOpenAiChat={() => setIsAiChatOpen(true)}
+      />
+
+      {/* AI Chat Modal */}
+      <AiChat 
+        isOpen={isAiChatOpen} 
+        onClose={() => setIsAiChatOpen(false)} 
+        language={language} 
       />
 
       {/* 固定背景层 - 防止Portal渲染时闪烁 */}
