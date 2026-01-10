@@ -234,7 +234,7 @@ export const AiChat: React.FC<AiChatProps> = ({ isOpen, onClose, language }) => 
               
               {/* 消息内容 */}
               <div className={`max-w-[75%] ${msg.role === 'user' ? 'text-right' : ''}`}>
-                <div className={`inline-block px-4 py-2.5 text-sm leading-relaxed ${
+                <div className={`inline-block px-4 py-2.5 text-sm leading-relaxed whitespace-pre-wrap ${
                   msg.role === 'user'
                     ? 'bg-[#E63946] text-cream'
                     : 'bg-primary/10 text-primary'
