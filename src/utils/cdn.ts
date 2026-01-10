@@ -21,7 +21,12 @@ export function toJsDelivr(url: string): string {
   
   let cleanUrl = url.trim();
   
-  // 移除协议前缀
+  // 如果是完整的外部 URL（如 B 站图床），直接返回
+  if (cleanUrl.startsWith('https://') || cleanUrl.startsWith('http://')) {
+    return cleanUrl;
+  }
+  
+  // 移除协议前缀（兼容旧格式）
   cleanUrl = cleanUrl.replace(/^https?:\/\//, '');
   
   // 处理 raw.githubusercontent.com 格式
@@ -42,6 +47,6 @@ export function toJsDelivr(url: string): string {
     return `${CDN_BASE}/${user}/${repo}/${path}`;
   }
   
-  // 已经是 jsDelivr 或其他链接，直接返回
-  return url.startsWith('http') ? url : `https://${url}`;
+  // 其他情况，加上 https 前缀
+  return `https://${cleanUrl}`;
 }

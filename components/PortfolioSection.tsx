@@ -94,6 +94,7 @@ const SkeletonImage: React.FC<SkeletonImageProps> = ({ src, alt = '', className 
         key={retryCount} // 强制重新渲染
         src={imgSrc}
         alt={alt}
+        referrerPolicy="no-referrer"
         className={`w-full transition-opacity duration-300 rounded-lg ${isFillHeight ? 'h-full object-cover' : 'h-auto'} ${loaded ? 'opacity-100' : 'opacity-0'}`}
         onLoad={handleLoad}
         onError={handleError}
@@ -344,7 +345,7 @@ const PracticeGallery: React.FC<{ language: Language }> = ({ language }) => {
           className="fixed inset-0 z-[200] bg-black/95 flex items-center justify-center cursor-pointer"
           onClick={() => setLightboxIndex(null)}
         >
-          <img src={toJsDelivr(items[lightboxIndex]?.url || '')} className="max-w-full max-h-full" alt="" />
+          <img src={toJsDelivr(items[lightboxIndex]?.url || '')} className="max-w-full max-h-full" alt="" referrerPolicy="no-referrer" />
         </div>,
         document.body
       )}
@@ -623,6 +624,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                 <video 
                   src={toJsDelivr(project.videoUrl)} 
                   controls 
+                  referrerPolicy="no-referrer"
                   className="w-full h-full object-contain"
                   style={{ backgroundColor: '#000' }}
                 />
@@ -677,6 +679,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                   <video 
                     src={toJsDelivr(section.videoUrl)} 
                     controls 
+                    referrerPolicy="no-referrer"
                     className="w-full h-full object-contain"
                     style={{ backgroundColor: '#000' }}
                   />
@@ -727,7 +730,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
           className="fixed inset-0 z-[200] bg-black/95 flex items-center justify-center cursor-pointer" 
           onClick={() => { setLightboxIndex(null); setLightboxImages([]); }}
         >
-          <img src={toJsDelivr(lightboxImages[lightboxIndex])} className="max-w-full max-h-full" alt="" />
+          <img src={toJsDelivr(lightboxImages[lightboxIndex])} className="max-w-full max-h-full" alt="" referrerPolicy="no-referrer" />
         </div>,
         document.body
       )}
@@ -1045,6 +1048,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                         src={toJsDelivr(project.image)} 
                         alt={project.title} 
                         loading="lazy" 
+                        referrerPolicy="no-referrer"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
                       />
                     ) : (

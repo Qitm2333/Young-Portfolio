@@ -201,6 +201,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate, onCategory
               <img 
                 src={toJsDelivr(currentProject.image)} 
                 alt={currentProject.title}
+                referrerPolicy="no-referrer"
                 className="absolute inset-0 w-full h-full object-cover animate-fade-in"
                 style={{ animationDelay: '0.4s' }}
               />
@@ -210,6 +211,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate, onCategory
               <img 
                 src={toJsDelivr(prevProject.image)} 
                 alt={prevProject.title}
+                referrerPolicy="no-referrer"
                 className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out"
                 style={{ opacity: prevOpacity }}
               />

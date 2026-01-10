@@ -5,7 +5,7 @@ export const GRAPH_DATA: Project[] = [
     id: 'g1',
     common: {
       category: 'Graphic Design',
-      image: 'github.com/Qitm2333/MyDesignAssets/blob/main/Graph/二月-杏花.png',
+      image: 'https://i0.hdslb.com/bfs/new_dyn/7351727c404da3e2027486748a7be3d3605487978.png@1192w.avif',
       figmaUrl: ''
     },
     zh: {
@@ -19,16 +19,16 @@ export const GRAPH_DATA: Project[] = [
           type: 'gallery',
           title: '图片展示',
           images: [
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Graph/七月-蜀葵-修正版.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Graph/三月-桃花.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Graph/二月-杏花.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Graph/五月-石榴.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Graph/八月-桂花-修正版.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Graph/六月-荷花.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Graph/十二月-腊梅.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Graph/十月-芙蓉.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Graph/正月-梅花.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Graph/四月-牡丹.png'
+            'https://i0.hdslb.com/bfs/new_dyn/f9445f8760ba20d824d9793fb91d9754605487978.png@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/47f5d197aed68b1c00e82ef92e925f02605487978.png@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/7351727c404da3e2027486748a7be3d3605487978.png@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/15a1a5b5c1eff846dd9e08c0ab82e5e1605487978.png@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/5a925fea001d1cd9b7d9b13fa508c6fb605487978.png@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/d4746c57a4854210122d3c66f7069841605487978.png@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/45e767404663bddade860b0934ddf5d1605487978.png@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/63cb440db56b70dbf68e238b250dd9e2605487978.png@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/ca0cac861983d9c0844297add8b1fec5605487978.png@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/68a9b2086f0f117727d849138f945479605487978.png@1192w.avif'
           ],
           layout: 'grid-4'
         }
@@ -45,16 +45,16 @@ export const GRAPH_DATA: Project[] = [
           type: 'gallery',
           title: 'Gallery',
           images: [
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Graph/七月-蜀葵-修正版.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Graph/三月-桃花.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Graph/二月-杏花.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Graph/五月-石榴.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Graph/八月-桂花-修正版.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Graph/六月-荷花.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Graph/十二月-腊梅.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Graph/十月-芙蓉.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Graph/正月-梅花.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Graph/四月-牡丹.png'
+            'https://i0.hdslb.com/bfs/new_dyn/f9445f8760ba20d824d9793fb91d9754605487978.png@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/47f5d197aed68b1c00e82ef92e925f02605487978.png@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/7351727c404da3e2027486748a7be3d3605487978.png@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/15a1a5b5c1eff846dd9e08c0ab82e5e1605487978.png@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/5a925fea001d1cd9b7d9b13fa508c6fb605487978.png@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/d4746c57a4854210122d3c66f7069841605487978.png@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/45e767404663bddade860b0934ddf5d1605487978.png@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/63cb440db56b70dbf68e238b250dd9e2605487978.png@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/ca0cac861983d9c0844297add8b1fec5605487978.png@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/68a9b2086f0f117727d849138f945479605487978.png@1192w.avif'
           ],
           layout: 'grid-4'
         }

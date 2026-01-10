@@ -448,7 +448,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
                     pre: ({children}) => <pre className="bg-primary/5 p-4 rounded-lg overflow-x-auto mb-4">{children}</pre>,
                     blockquote: ({children}) => <blockquote className="border-l-4 border-primary/30 pl-4 italic text-primary/60 mb-4">{children}</blockquote>,
                     a: ({href, children}) => <a href={href} target="_blank" rel="noopener noreferrer" className="text-[#E63946] hover:underline">{children}</a>,
-                    img: ({src, alt}) => <img src={src} alt={alt} className="rounded-lg my-4 max-w-full" />,
+                    img: ({src, alt}) => <img src={src} alt={alt} className="rounded-lg my-4 max-w-full" referrerPolicy="no-referrer" />,
                     hr: () => <hr className="border-primary/10 my-8" />,
                   }}
                 >
