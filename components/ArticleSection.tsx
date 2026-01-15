@@ -116,7 +116,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
   // 用于存储时间轴节点元素的引用
   const timelineRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
-  const filteredArticles = filter ? allArticles.filter(a => a.category === filter) : [];
+  const filteredArticles = filter ? allArticles.filter(a => a.category === filter) : allArticles;
 
   // 语言切换时更新 selectedArticle
   useEffect(() => {
@@ -336,7 +336,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
                 </>
               )}
               {!isEditing && !selectedArticle && !filter && (
-                <span className="text-primary/40 ml-1">{language === 'zh' ? '请选择项目' : 'Select a project'}</span>
+                <span className="text-primary/30 ml-1">({allArticles.length})</span>
               )}
             </div>
             {/* 新建按钮 */}
@@ -511,10 +511,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
               {filteredArticles.length === 0 && (
                 <div className="h-64 flex items-center justify-center border-2 border-dashed border-primary/20">
                   <p className="text-primary/40">
-                    {filter 
-                      ? (language === 'zh' ? '暂无日志' : 'No logs found')
-                      : (language === 'zh' ? '请在左侧选择一个项目' : 'Please select a project from the left')
-                    }
+                    {language === 'zh' ? '暂无日志' : 'No logs found'}
                   </p>
                 </div>
               )}
@@ -538,7 +535,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
                 ? categories.find(c => c.id === selectedArticle.category)?.label || selectedArticle.category
                 : filter 
                   ? categories.find(c => c.id === filter)?.label || filter
-                  : (language === 'zh' ? '请选择项目' : 'Select a project')
+                  : (language === 'zh' ? '全部日志' : 'All Logs')
               }
             </p>
           </div>

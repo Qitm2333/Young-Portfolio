@@ -15,9 +15,9 @@ export const CATEGORY_LABELS: Record<Language, Record<string, string>> = {
     'All': 'All',
     'Motion': 'Media',
     'UI Design': 'UI/UX',
-    'Graphic Design': 'Graphic Design',
-    'Photography': 'Photography',
-    'Development': 'Development',
+    'Graphic Design': 'Graphic',
+    'Photography': 'Photo',
+    'Development': 'Dev',
     'Practice': 'Practice'
   }
 };

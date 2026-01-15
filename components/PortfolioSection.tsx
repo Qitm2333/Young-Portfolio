@@ -859,7 +859,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                     onClick={() => handleSelectProject(null)}
                     className="text-primary/50 hover:text-primary transition-colors"
                   >
-                    {CATEGORY_LABELS[language][selectedProject.category]}
+                    {FILTER_ITEMS.find(f => f.id === selectedProject.category)?.[language === 'zh' ? 'labelZh' : 'labelEn'] || CATEGORY_LABELS[language][selectedProject.category]}
                   </button>
                   <span className="text-primary/30">/</span>
                   <span className="text-primary font-bold truncate max-w-[300px]">

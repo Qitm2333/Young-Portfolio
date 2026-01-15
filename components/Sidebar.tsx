@@ -9,7 +9,6 @@ interface SidebarProps {
   toggleLanguage: () => void;
   theme: 'light' | 'dark';
   toggleTheme: () => void;
-  onTriggerGravity: () => void;
   onNewProject?: () => void;
   onOpenAiChat?: () => void;
   editorMode?: boolean;
