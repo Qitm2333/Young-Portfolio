@@ -5,7 +5,7 @@ export const PHOTOGRAPH_DATA: Project[] = [
     id: 'p1',
     common: {
       category: 'Photography',
-      image: 'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-01/1%20(1).jpg'
+      image: 'https://i0.hdslb.com/bfs/new_dyn/1d57d0f2f42294da6e9aa61d3a202d03605487978.jpg@1192w_1788h.avif'
     },
     zh: {
       title: '天与尘',
@@ -19,10 +19,10 @@ export const PHOTOGRAPH_DATA: Project[] = [
           type: 'gallery',
           title: '图片展示',
           images: [
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-01/1%20(1).jpg',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-01/1%20(2).jpg',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-01/1%20(3).jpg',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-01/1%20(3).png'
+            'https://i0.hdslb.com/bfs/new_dyn/1d57d0f2f42294da6e9aa61d3a202d03605487978.jpg@1192w_1788h.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/615f0960e28545cbb41737c761cf3de4605487978.jpg@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/30049f8112623269f1ed0725603d4afe605487978.jpg@1192w_1788h.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/b1b4e5e5aaa7ea51115fedbbca034bed605487978.png@1192w.avif'
           ],
           layout: 'grid-3'
         }
@@ -40,10 +40,10 @@ export const PHOTOGRAPH_DATA: Project[] = [
           type: 'gallery',
           title: 'Gallery',
           images: [
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-01/1%20(1).jpg',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-01/1%20(2).jpg',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-01/1%20(3).jpg',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-01/1%20(3).png'
+            'https://i0.hdslb.com/bfs/new_dyn/1d57d0f2f42294da6e9aa61d3a202d03605487978.jpg@1192w_1788h.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/615f0960e28545cbb41737c761cf3de4605487978.jpg@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/30049f8112623269f1ed0725603d4afe605487978.jpg@1192w_1788h.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/b1b4e5e5aaa7ea51115fedbbca034bed605487978.png@1192w.avif'
           ],
           layout: 'grid-3'
         }
@@ -54,7 +54,7 @@ export const PHOTOGRAPH_DATA: Project[] = [
     id: 'p2',
     common: {
       category: 'Photography',
-      image: 'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-02/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250724132724.jpg'
+      image: 'https://i0.hdslb.com/bfs/new_dyn/c0a80f0021363eb2df2b7537dc84d4e6605487978.jpg@1192w.avif'
     },
     zh: {
       title: '云间三章',
@@ -68,9 +68,9 @@ export const PHOTOGRAPH_DATA: Project[] = [
           type: 'gallery',
           title: '图片展示',
           images: [
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-02/微信图片_20250724132724.jpg',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-02/微信图片_20250724132726.jpg',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-02/微信图片_20250724132729.jpg'
+            'https://i0.hdslb.com/bfs/new_dyn/c0a80f0021363eb2df2b7537dc84d4e6605487978.jpg@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/a134e567f3ad4bf6baedbe9e0758009d605487978.jpg@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/d8b997ae21dce8da83b4bde5456769f6605487978.jpg@1192w.avif'
           ],
           layout: 'grid-3'
         }
@@ -88,9 +88,9 @@ export const PHOTOGRAPH_DATA: Project[] = [
           type: 'gallery',
           title: 'Gallery',
           images: [
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-02/微信图片_20250724132724.jpg',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-02/微信图片_20250724132726.jpg',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-02/微信图片_20250724132729.jpg'
+            'https://i0.hdslb.com/bfs/new_dyn/c0a80f0021363eb2df2b7537dc84d4e6605487978.jpg@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/a134e567f3ad4bf6baedbe9e0758009d605487978.jpg@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/d8b997ae21dce8da83b4bde5456769f6605487978.jpg@1192w.avif'
           ],
           layout: 'grid-3'
         }
@@ -101,7 +101,7 @@ export const PHOTOGRAPH_DATA: Project[] = [
     id: 'p3',
     common: {
       category: 'Photography',
-      image: 'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-03/01.jpg'
+      image: 'https://i0.hdslb.com/bfs/new_dyn/b94cab5838269f041de0753c4cc75bb8605487978.jpg@1192w.avif'
     },
     zh: {
       title: '枯木逢春·东方剪影',
@@ -115,14 +115,12 @@ export const PHOTOGRAPH_DATA: Project[] = [
           type: 'gallery',
           title: '图片展示',
           images: [
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-03/01.jpg',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-03/03.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-03/02.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-03/05.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-03/06.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-03/07.png'
+            'https://i0.hdslb.com/bfs/new_dyn/b94cab5838269f041de0753c4cc75bb8605487978.jpg@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/1232685f5797d4241349c266ab3cf558605487978.png@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/fcc18a5a8c45fefe209ad8c9f6386021605487978.png@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/ffb51b80489de055952f7fce0bc531e0605487978.png@1192w.avif'
           ],
-          layout: 'grid-3'
+          layout: 'grid-2'
         }
       ]
     },
@@ -138,14 +136,12 @@ export const PHOTOGRAPH_DATA: Project[] = [
           type: 'gallery',
           title: 'Gallery',
           images: [
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-03/01.jpg',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-03/03.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-03/02.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-03/05.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-03/06.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-03/07.png'
+            'https://i0.hdslb.com/bfs/new_dyn/b94cab5838269f041de0753c4cc75bb8605487978.jpg@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/1232685f5797d4241349c266ab3cf558605487978.png@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/fcc18a5a8c45fefe209ad8c9f6386021605487978.png@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/ffb51b80489de055952f7fce0bc531e0605487978.png@1192w.avif'
           ],
-          layout: 'grid-3'
+          layout: 'grid-2'
         }
       ]
     }
@@ -154,7 +150,7 @@ export const PHOTOGRAPH_DATA: Project[] = [
     id: 'p4',
     common: {
       category: 'Photography',
-      image: 'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-04/01.jpg'
+      image: 'https://i0.hdslb.com/bfs/new_dyn/712d0f27c4ec5cb850c1360245083c71605487978.jpg@1192w.avif'
     },
     zh: {
       title: '虹桥公园',
@@ -168,11 +164,11 @@ export const PHOTOGRAPH_DATA: Project[] = [
           type: 'gallery',
           title: '图片展示',
           images: [
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-04/01.jpg',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-04/06.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-04/07.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-04/04.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-04/05.png'
+            'https://i0.hdslb.com/bfs/new_dyn/712d0f27c4ec5cb850c1360245083c71605487978.jpg@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/38a83c7c8641a824ea6ea7f4eb93bd4a605487978.png@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/2ffb720559f9664adf3558f480956fbd605487978.png@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/7a78210ec201dbb690dd44d19f954109605487978.png@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/f7360607682b783ffa75ac794882c49f605487978.png@1192w.avif'
           ],
           layout: 'grid-3'
         }
@@ -190,11 +186,11 @@ export const PHOTOGRAPH_DATA: Project[] = [
           type: 'gallery',
           title: 'Gallery',
           images: [
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-04/01.jpg',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-04/04.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-04/05.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-04/06.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Photo-04/07.png'
+            'https://i0.hdslb.com/bfs/new_dyn/712d0f27c4ec5cb850c1360245083c71605487978.jpg@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/38a83c7c8641a824ea6ea7f4eb93bd4a605487978.png@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/2ffb720559f9664adf3558f480956fbd605487978.png@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/7a78210ec201dbb690dd44d19f954109605487978.png@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/f7360607682b783ffa75ac794882c49f605487978.png@1192w.avif'
           ],
           layout: 'grid-3'
         }
@@ -205,7 +201,7 @@ export const PHOTOGRAPH_DATA: Project[] = [
   "id": "p5",
   "common": {
     "category": "Photography",
-    "image": "github.com/Qitm2333/MyDesignAssets/blob/main/Photo-05/00.png"
+    "image": "https://i0.hdslb.com/bfs/new_dyn/1de5e09d21e6b1b3fbe157240f34fde7605487978.png@1192w.avif"
   },
   "zh": {
     "title": "铁岭",
@@ -219,12 +215,12 @@ export const PHOTOGRAPH_DATA: Project[] = [
         "type": "gallery",
         "title": "图片展示",
         "images": [
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Photo-05/00.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Photo-05/01.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Photo-05/02.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Photo-05/03.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Photo-05/04.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Photo-05/05.png"
+          "https://i0.hdslb.com/bfs/new_dyn/1de5e09d21e6b1b3fbe157240f34fde7605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/8dae3983a7e2162bd36f65c491f06903605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/23fd70f3982cb293a5ba4b3bf05ccd19605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/ad165673f189cfe51ef748b005263916605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/04aa726bdd90dc266d26bcae1a6fa9ec605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/21b879091717c705c70fd020f58d2292605487978.png@1192w.avif"
         ],
         "layout": "grid-2"
       }
@@ -242,12 +238,12 @@ export const PHOTOGRAPH_DATA: Project[] = [
         "type": "gallery",
         "title": "Gallery",
         "images": [
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Photo-05/00.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Photo-05/01.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Photo-05/02.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Photo-05/03.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Photo-05/04.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Photo-05/05.png"
+          "https://i0.hdslb.com/bfs/new_dyn/1de5e09d21e6b1b3fbe157240f34fde7605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/8dae3983a7e2162bd36f65c491f06903605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/23fd70f3982cb293a5ba4b3bf05ccd19605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/ad165673f189cfe51ef748b005263916605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/04aa726bdd90dc266d26bcae1a6fa9ec605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/21b879091717c705c70fd020f58d2292605487978.png@1192w.avif"
         ],
         "layout": "grid-2"
       }
@@ -258,7 +254,7 @@ export const PHOTOGRAPH_DATA: Project[] = [
   "id": "p6",
   "common": {
     "category": "Photography",
-    "image": "github.com/Qitm2333/MyDesignAssets/blob/main/Photo-06/01.png"
+    "image": "https://i0.hdslb.com/bfs/new_dyn/dbc550705a59ea0c35a6b8a3c63e585c605487978.png@1192w.avif"
   },
   "zh": {
     "title": "十八弯",
@@ -272,9 +268,9 @@ export const PHOTOGRAPH_DATA: Project[] = [
         "type": "gallery",
         "title": "图片展示",
         "images": [
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Photo-06/01.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Photo-06/02.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Photo-06/04.jpg"
+          "https://i0.hdslb.com/bfs/new_dyn/dbc550705a59ea0c35a6b8a3c63e585c605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/12a05e1035420fa7a80810322582959d605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/6e87bd1bd273fd8cc03b9a153cfa08d7605487978.jpg@1192w.avif"
         ],
         "layout": "grid-3"
       }
@@ -292,9 +288,9 @@ export const PHOTOGRAPH_DATA: Project[] = [
         "type": "gallery",
         "title": "Gallery",
         "images": [
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Photo-06/01.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Photo-06/02.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Photo-06/04.jpg"
+          "https://i0.hdslb.com/bfs/new_dyn/dbc550705a59ea0c35a6b8a3c63e585c605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/12a05e1035420fa7a80810322582959d605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/6e87bd1bd273fd8cc03b9a153cfa08d7605487978.jpg@1192w.avif"
         ],
         "layout": "grid-3"
       }
@@ -305,7 +301,7 @@ export const PHOTOGRAPH_DATA: Project[] = [
   "id": "p7",
   "common": {
     "category": "Photography",
-    "image": "github.com/Qitm2333/MyDesignAssets/blob/main/Photo-07/00.png"
+    "image": "https://i0.hdslb.com/bfs/new_dyn/4ec988c4c7489be7726bd42037bf99cc605487978.png@1192w_894h.avif"
   },
   "zh": {
     "title": "深圳盐田港",
@@ -319,10 +315,10 @@ export const PHOTOGRAPH_DATA: Project[] = [
         "type": "gallery",
         "title": "图片展示",
         "images": [
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Photo-07/00.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Photo-07/02.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Photo-07/03.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Photo-07/04.png"
+          "https://i0.hdslb.com/bfs/new_dyn/4ec988c4c7489be7726bd42037bf99cc605487978.png@1192w_894h.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/39287f69269c9679a3ee2095a26c211d605487978.png@1192w_894h.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/6b4883b22ebcb79e09130613c45f3253605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/f0624911b37d5070f5844105e203b6e6605487978.png@1192w.avif"
         ],
         "layout": "grid-2"
       }
@@ -340,10 +336,10 @@ export const PHOTOGRAPH_DATA: Project[] = [
         "type": "gallery",
         "title": "Gallery",
         "images": [
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Photo-07/00.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Photo-07/02.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Photo-07/03.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Photo-07/04.png"
+          "https://i0.hdslb.com/bfs/new_dyn/4ec988c4c7489be7726bd42037bf99cc605487978.png@1192w_894h.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/39287f69269c9679a3ee2095a26c211d605487978.png@1192w_894h.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/6b4883b22ebcb79e09130613c45f3253605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/f0624911b37d5070f5844105e203b6e6605487978.png@1192w.avif"
         ],
         "layout": "grid-2"
       }

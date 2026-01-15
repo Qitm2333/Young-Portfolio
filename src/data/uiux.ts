@@ -5,7 +5,7 @@ export const UIUX_DATA: Project[] = [
   "id": "ux1",
   "common": {
     "category": "UI Design",
-    "image": "github.com/Qitm2333/MyDesignAssets/blob/main/UX-01/ICON.png",
+    "image": "https://i0.hdslb.com/bfs/new_dyn/e5ccdd5b1bc704fe87337c35d20dacce605487978.png@1192w.avif",
     "figmaUrl": "",
     "websiteUrl": "https://car-showcase-app.vercel.app/",
     "githubUrl": "https://github.com/Qitm2333/car-showcase-app",
@@ -23,10 +23,10 @@ export const UIUX_DATA: Project[] = [
         "type": "gallery",
         "title": "图片展示",
         "images": [
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-01/00.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-01/01.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-01/02.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-01/03.png"
+          "https://i0.hdslb.com/bfs/new_dyn/4d66f8ba45f342d90808df5db5435078605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/b031bafbe9ffcd880c98a2cac40dab9e605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/a039e5e06045d05e6cba513f0c38896e605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/47cc22ef2b0050021ed38435c58baa68605487978.png@1192w.avif"
         ],
         "layout": "grid-2"
       }
@@ -44,10 +44,10 @@ export const UIUX_DATA: Project[] = [
         "type": "gallery",
         "title": "Gallery",
         "images": [
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-01/00.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-01/01.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-01/02.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-01/03.png"
+          "https://i0.hdslb.com/bfs/new_dyn/4d66f8ba45f342d90808df5db5435078605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/b031bafbe9ffcd880c98a2cac40dab9e605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/a039e5e06045d05e6cba513f0c38896e605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/47cc22ef2b0050021ed38435c58baa68605487978.png@1192w.avif"
         ],
         "layout": "grid-2"
       }
@@ -58,7 +58,7 @@ export const UIUX_DATA: Project[] = [
   "id": "ux2",
   "common": {
     "category": "UI Design",
-    "image": "github.com/Qitm2333/MyDesignAssets/blob/main/UX-02/page02.png",
+    "image": "https://i0.hdslb.com/bfs/new_dyn/a8d8ee93a8c87fe2f1e08c3872cbb571605487978.png@1192w.avif",
     "date": "2025-10",
     "githubUrl": "https://github.com/Qitm2333/Ruralilt",
     //"youtubeId": "2PwOIE7bhaY",
@@ -77,16 +77,16 @@ export const UIUX_DATA: Project[] = [
         "type": "gallery",
         "title": "卡牌展示",
         "images": [
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-02/01卡牌_狐狸_视频单帧.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-02/01卡牌_考拉_视频单帧.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-02/01卡牌_小猫_视频单帧.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-02/01卡牌_小羊_视频单帧.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-02/01卡牌_小猫猫_视频单帧.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-02/01卡牌_狐狸_真实卡牌.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-02/01卡牌_考拉_真实卡牌.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-02/01卡牌_小猫_真实卡牌.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-02/01卡牌_小羊_真实卡牌02-2.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-02/01卡牌_小猫猫_真实卡牌.png"
+          "https://i0.hdslb.com/bfs/new_dyn/fbf47af9197befbb451a36c180dd0129605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/8d18a18d926b717d26e11074d09e6463605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/7ea9b5c954b38a1e8a816a9eba3b7c80605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/d6f335e39e2c6b3ecdae0a78c249286e605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/d84405d724faf0185450dfc394678235605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/20ee4cd35cb8b0a3b210e24f5e289ffc605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/582948d1b57fb05cf64d2d149272b8ab605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/b75d6d70be77491635224f4b8dc08825605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/1740103a5a8e280235b27ba86f294f3c605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/84e987c9b85524600d10794da6bb89e0605487978.png@1192w.avif"
         ],
         "layout": "grid-5"
       },
@@ -94,10 +94,10 @@ export const UIUX_DATA: Project[] = [
         "type": "gallery",
         "title": "贴纸展示",
         "images": [
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-02/06贴纸_狐狸.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-02/06贴纸_考拉.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-02/06贴纸_小猫.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-02/06贴纸_小羊.png"
+          "https://i0.hdslb.com/bfs/new_dyn/6945f60e3200dc43263641898e00a446605487978.png@1192w_2384h.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/f88df5a38140b65f3228347304ed26cd605487978.png@1192w_2384h.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/db6f9728e18a21585daf7ab374a2881e605487978.png@1192w_2384h.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/e2ad88243586fe1303d74765da28450b605487978.png@1192w_2384h.avif"
         ],
         "layout": "grid-4"
       },
@@ -146,16 +146,16 @@ export const UIUX_DATA: Project[] = [
         "type": "gallery",
         "title": "Gallery",
         "images": [
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-02/01卡牌_狐狸_视频单帧.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-02/01卡牌_考拉_视频单帧.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-02/01卡牌_小猫_视频单帧.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-02/01卡牌_小羊_视频单帧.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-02/01卡牌_小猫猫_视频单帧.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-02/01卡牌_狐狸_真实卡牌.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-02/01卡牌_考拉_真实卡牌.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-02/01卡牌_小猫_真实卡牌.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-02/01卡牌_小羊_真实卡牌02-2.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-02/01卡牌_小猫猫_真实卡牌.png"
+          "https://i0.hdslb.com/bfs/new_dyn/fbf47af9197befbb451a36c180dd0129605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/8d18a18d926b717d26e11074d09e6463605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/7ea9b5c954b38a1e8a816a9eba3b7c80605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/d6f335e39e2c6b3ecdae0a78c249286e605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/d84405d724faf0185450dfc394678235605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/20ee4cd35cb8b0a3b210e24f5e289ffc605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/582948d1b57fb05cf64d2d149272b8ab605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/b75d6d70be77491635224f4b8dc08825605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/1740103a5a8e280235b27ba86f294f3c605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/84e987c9b85524600d10794da6bb89e0605487978.png@1192w.avif"
         ],
         "layout": "grid-5"
       },
@@ -163,10 +163,10 @@ export const UIUX_DATA: Project[] = [
         "type": "gallery",
         "title": "Gallery",
         "images": [
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-02/06贴纸_狐狸.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-02/06贴纸_考拉.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-02/06贴纸_小猫.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/UX-02/06贴纸_小羊.png"
+          "https://i0.hdslb.com/bfs/new_dyn/6945f60e3200dc43263641898e00a446605487978.png@1192w_2384h.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/f88df5a38140b65f3228347304ed26cd605487978.png@1192w_2384h.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/db6f9728e18a21585daf7ab374a2881e605487978.png@1192w_2384h.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/e2ad88243586fe1303d74765da28450b605487978.png@1192w_2384h.avif"
         ],
         "layout": "grid-4"
       },

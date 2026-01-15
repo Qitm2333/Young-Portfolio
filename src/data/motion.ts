@@ -47,7 +47,7 @@ export const MOTION_DATA: Project[] = [
   "id": "v2",
   "common": {
     "category": "Motion",
-    "image": "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/01.png",
+    "image": "https://i0.hdslb.com/bfs/new_dyn/602b825d86a85a57ce1ccf65e1364be2605487978.png@1192w.avif",
     "bilibiliId": "BV1K5qwBGE6d",
     "date": "2024-10",
     "notes": "大学毕设的时候我的选题是五声音阶可视化，康定斯基是音乐可视化的先驱，我其实一直希望能够做的艺术一点像康定斯基一点，但受迫于就业压力，我最终还是把概念的，抽象的部分剥离掉了，只做了很多具象的，更符合这个时代的设计，而那个遗憾在我的这个康定斯基动态设计补充上了，这个动态设计包含了我对康定斯基插画的诠释，希望你们喜欢\n\nWhen I was working on my graduation project at university, my topic was the visualization of pentatonic scales. Kandinsky is a pioneer of music visualization, and I had always hoped to create something more artistic, something in the vein of his style. However, due to the pressure of job hunting, I ended up stripping away the conceptual and abstract elements of my original idea, only retaining the more figurative designs that align with contemporary aesthetics. Now, this regret has been made up for with my supplementary motion design piece inspired by Kandinsky. This motion design is an interpretation of Kandinsky's illustrations, and I hope you will enjoy it."
@@ -64,14 +64,14 @@ export const MOTION_DATA: Project[] = [
         "type": "gallery",
         "title": "图片展示",
         "images": [
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/01.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/02.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/03.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/04.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/05.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/07.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/08.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/09.png"
+          "https://i0.hdslb.com/bfs/new_dyn/602b825d86a85a57ce1ccf65e1364be2605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/c44763c28530c6102cb2d38d5e6d1f37605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/4a4c00ca225f43a323c01b135664f908605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/814c26fd500f8c4fb5fdc65956c64321605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/0042e6821fade11718830f296808a595605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/1f877ce0e0151bdbd1d1625fbcf61481605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/d2f624876bae443191edae7993ff9fb0605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/2951a9ac5670a7b483eb3e42e31ba663605487978.png@1192w.avif"
         ],
         "layout": "grid-4"
       }
@@ -89,14 +89,14 @@ export const MOTION_DATA: Project[] = [
         "type": "gallery",
         "title": "Gallery",
         "images": [
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/01.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/02.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/03.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/04.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/05.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/07.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/08.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-02/09.png"
+          "https://i0.hdslb.com/bfs/new_dyn/602b825d86a85a57ce1ccf65e1364be2605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/c44763c28530c6102cb2d38d5e6d1f37605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/4a4c00ca225f43a323c01b135664f908605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/814c26fd500f8c4fb5fdc65956c64321605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/0042e6821fade11718830f296808a595605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/1f877ce0e0151bdbd1d1625fbcf61481605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/d2f624876bae443191edae7993ff9fb0605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/2951a9ac5670a7b483eb3e42e31ba663605487978.png@1192w.avif"
         ],
         "layout": "grid-4"
       }

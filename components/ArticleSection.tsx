@@ -112,6 +112,8 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
 
   // 用于存储卡片元素的引用
   const cardRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+  // 用于存储时间轴节点元素的引用
+  const timelineRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
   const filteredArticles = filter ? allArticles.filter(a => a.category === filter) : [];
 
@@ -124,6 +126,16 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
       }
     }
   }, [language]);
+
+  // hover 文章卡片时，滚动时间轴到对应位置
+  useEffect(() => {
+    if (hoveredId) {
+      const timelineElement = timelineRefs.current[hoveredId];
+      if (timelineElement) {
+        timelineElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+  }, [hoveredId]);
 
   // 点击文章卡片
   const handleArticleClick = (article: Article) => {
@@ -206,7 +218,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
     <>
       {/* 固定侧边栏 - Portal 到 body */}
       {createPortal(
-        <aside className="hidden md:flex flex-col bg-cream border-r border-primary/10"
+        <aside className="hidden md:flex flex-col bg-cream border-r border-primary/10 scrollbar-thin"
           style={{ position: 'fixed', top: 0, bottom: 0, left: 56, width: 176, zIndex: 35, overflowY: 'auto', overflowX: 'hidden' }}>
           {/* 国际主义风格标题 - 高度与面包屑对齐 */}
           <div className="px-4 pt-6 pb-4 border-b border-primary/10">
@@ -216,7 +228,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
           </div>
           
           {/* 分类列表 - 动态生成 */}
-          <nav className="flex-1 px-4 py-2 overflow-y-auto">
+          <nav className="flex-1 px-4 py-2 overflow-y-auto scrollbar-thin">
             {categories.map((cat) => {
               const isActive = filter === cat.id;
               return (
@@ -510,7 +522,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
 
       {/* 右侧时间轴 - 列表视图和详情页都显示，编辑模式隐藏 */}
       {!isEditing && createPortal(
-        <aside className="hidden lg:flex flex-col bg-cream border-l border-primary/10"
+        <aside className="hidden lg:flex flex-col bg-cream border-l border-primary/10 scrollbar-thin"
           style={{ position: 'fixed', top: 57, bottom: 0, right: 0, width: 220, zIndex: 15, overflowY: 'auto' }}>
           
           {/* 标题 */}
@@ -546,7 +558,8 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
                   : (highlightedId === article.id || hoveredId === article.id);
                 return (
                   <div 
-                    key={article.id} 
+                    key={article.id}
+                    ref={(el) => { timelineRefs.current[article.id] = el; }}
                     className="relative flex gap-3 group cursor-pointer"
                     onClick={() => {
                       if (selectedArticle) {
