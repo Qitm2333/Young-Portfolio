@@ -123,11 +123,11 @@ export const GRAPH_DATA: Project[] = [
           type: 'gallery',
           title: 'Poster Gallery',
           images: [
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Graph-02/01.jpg',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Graph-02/02.jpg',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Graph-02/03.jpg',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Graph-02/04.jpg',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Graph-02/05.jpg'
+            'https://i0.hdslb.com/bfs/new_dyn/63490410a7ae4922007e0a948d3131d2605487978.jpg@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/eee182c13c0b102d77229925a565b510605487978.jpg@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/543fa5e4df97ae89de67127c92467095605487978.jpg@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/26744195eec1aae38ff45458f2910624605487978.jpg@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/98934349fbf392ce4ce4b6f91951643f605487978.jpg@1192w.avif'
           ],
           layout: 'grid-5'
         },
@@ -141,13 +141,14 @@ export const GRAPH_DATA: Project[] = [
           type: 'gallery',
           title: 'Booklet Display',
           images: [
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Graph-02/40.jpg',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Graph-02/41.jpg',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Graph-02/42.jpg',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Graph-02/44.jpg',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Graph-02/Snipaste_2025-07-24_00-04-08.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Graph-02/Snipaste_2025-07-24_00-04-51.png',
-            'github.com/Qitm2333/MyDesignAssets/blob/main/Graph-02/Snipaste_2025-07-24_00-08-39.png'
+            'https://i0.hdslb.com/bfs/new_dyn/cdbffeb0312a7fb1602d2a43c62f3ca6605487978.jpg@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/a9f87e90b2977544fc9a31c8fb65f3c6605487978.png@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/5465b779ceffee0ca8f358a2f2cee8d3605487978.jpg@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/7c970564e1d8ce80e300234a7e2efd84605487978.jpg@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/44aacb29cc50baf1e93898763170366c605487978.jpg@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/0b82067214cdd7d58ddd7088121777ae605487978.png@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/df584ad82d5d992472b3aa1cdea158de605487978.png@1192w.avif',
+            'https://i0.hdslb.com/bfs/new_dyn/72c672acb62d12ef8d6f23702acdd503605487978.png@1192w.avif'
           ],
           layout: 'full'
         }

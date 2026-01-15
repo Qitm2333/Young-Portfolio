@@ -55,6 +55,7 @@ body {
 /* 延迟动画的初始状态 - 防止闪烁 */
 .animate-fade-in {
   opacity: 0;
+  animation-fill-mode: both;
 }
 
 /* 隐藏滚动条但保留滚动功能 */

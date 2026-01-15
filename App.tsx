@@ -74,6 +74,13 @@ function AppContent() {
   const [triggerNewProject, setTriggerNewProject] = useState(false);
   const [initialProjectId, setInitialProjectId] = useState<string | null>(null);
   const [isAiChatOpen, setIsAiChatOpen] = useState(false);
+  
+  // 首次访问引导提示
+  const [showGuide, setShowGuide] = useState(true);
+  
+  const dismissGuide = () => {
+    setShowGuide(false);
+  };
 
   // 处理新建作品
   const handleNewProject = () => {
@@ -423,6 +430,26 @@ function AppContent() {
            {renderContent()}
          </div>
       </main>
+
+      {/* 首次访问引导气泡 */}
+      {showGuide && (
+        <div 
+          className="hidden md:block fixed z-[60] animate-fade-in cursor-pointer group"
+          style={{ left: 62, bottom: 33 }}
+          onClick={dismissGuide}
+        >
+          <div className="bg-[#E63946] text-cream px-5 py-4 w-[180px] border-2 border-primary">
+            <div className="text-sm font-bold tracking-wide mb-1">
+              <span className="group-hover:hidden">AI / 中英</span>
+              <span className="hidden group-hover:inline">GOT IT</span>
+            </div>
+            <div className="text-xs text-cream/70">
+              <span className="group-hover:hidden">{language === 'zh' ? '左下角可切换' : 'Bottom left to switch'}</span>
+              <span className="hidden group-hover:inline">{language === 'zh' ? '点击关闭' : 'Click to close'}</span>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -31,11 +31,11 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
   const parseUrlParams = () => {
     const pathParts = location.pathname.split('/').filter(Boolean);
     if (pathParts[0] === 'articles') {
-      const urlCategory = pathParts[1];
-      const urlArticleId = pathParts[2];
+      const urlCategory = pathParts[1]?.toLowerCase() || null;
+      const urlArticleId = pathParts[2]?.toLowerCase() || null;
       return {
-        category: urlCategory || null,
-        articleId: urlArticleId || null
+        category: urlCategory,
+        articleId: urlArticleId
       };
     }
     return { category: null, articleId: null };
@@ -74,8 +74,12 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
     } else if (category) {
       setFilter(category);
       setSelectedArticle(null);
+    } else {
+      // URL 是 /articles，重置为全部
+      setFilter(null);
+      setSelectedArticle(null);
     }
-  }, [location.pathname]);
+  }, [location.pathname, allArticles]);
   
   // 从路由状态接收分类参数（兼容旧的跳转方式）
   useEffect(() => {
@@ -90,6 +94,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
   const handleSelectArticle = (article: Article | null) => {
     setSelectedArticle(article);
     if (article) {
+      setFilter(article.category);
       navigate(`/articles/${article.category}/${article.id}`);
     } else {
       if (filter) {
@@ -138,6 +143,9 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
     }
   }, [hoveredId]);
 
+  // 生成文章的唯一 key（category + id）
+  const getArticleKey = (article: Article) => `${article.category}_${article.id}`;
+
   // 点击文章卡片
   const handleArticleClick = (article: Article) => {
     // 优先显示详情页（即使内容为空也显示）
@@ -146,12 +154,13 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
 
   // 点击时间轴节点 - 滚动到对应卡片并高亮
   const handleTimelineClick = (article: Article) => {
-    const cardElement = cardRefs.current[article.id];
+    const key = getArticleKey(article);
+    const cardElement = cardRefs.current[key];
     if (cardElement) {
       // 滚动到卡片位置
       cardElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
       // 设置高亮
-      setHighlightedId(article.id);
+      setHighlightedId(key);
       // 2秒后取消高亮
       setTimeout(() => setHighlightedId(null), 2000);
     }
@@ -447,28 +456,30 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
           ) : (
             <>
               <div className="flex flex-col gap-3">
-                {filteredArticles.map((article, index) => (
+                {filteredArticles.map((article, index) => {
+                  const articleKey = getArticleKey(article);
+                  return (
                   <div 
-                    key={article.id}
-                    ref={(el) => { cardRefs.current[article.id] = el; }}
+                    key={articleKey}
+                    ref={(el) => { cardRefs.current[articleKey] = el; }}
                     className={`group cursor-pointer bg-cream border-2 transition-all duration-300 relative overflow-hidden animate-fade-in flex ${
-                      highlightedId === article.id 
+                      highlightedId === articleKey 
                         ? 'border-[#E63946] ring-2 ring-[#E63946]/20' 
                         : 'border-primary/10 hover:border-primary'
                     }`}
                     style={{ animationDelay: `${index * 0.05}s` }}
                     onClick={() => handleArticleClick(article)}
-                    onMouseEnter={() => setHoveredId(article.id)}
+                    onMouseEnter={() => setHoveredId(articleKey)}
                     onMouseLeave={() => setHoveredId(null)}
                   >
                     {/* 左侧编号 */}
                     <div className={`w-12 md:w-16 flex-shrink-0 flex items-center justify-center border-r-2 transition-colors ${
-                      highlightedId === article.id 
+                      highlightedId === articleKey 
                         ? 'bg-[#E63946] border-[#E63946]' 
                         : 'bg-primary/5 border-primary/10 group-hover:border-primary group-hover:bg-primary'
                     }`}>
                       <span className={`text-sm md:text-base font-mono font-bold transition-colors ${
-                        highlightedId === article.id 
+                        highlightedId === articleKey 
                           ? 'text-cream' 
                           : 'text-primary/40 group-hover:text-cream'
                       }`}>
@@ -506,7 +517,8 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
                       <span className="text-sm font-mono text-primary/20 group-hover:text-primary transition-colors">↗</span>
                     </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
               {filteredArticles.length === 0 && (
                 <div className="h-64 flex items-center justify-center border-2 border-dashed border-primary/20">
@@ -551,15 +563,16 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
                 ? allArticles.filter(a => a.category === selectedArticle.category)
                 : filteredArticles
               ).map((article, index) => {
-                const isCurrentArticle = selectedArticle?.id === article.id;
+                const articleKey = getArticleKey(article);
+                const isCurrentArticle = selectedArticle?.id === article.id && selectedArticle?.category === article.category;
                 // 详情页只看 isCurrentArticle，列表页看 highlightedId 和 hoveredId
                 const isActive = selectedArticle 
                   ? isCurrentArticle 
-                  : (highlightedId === article.id || hoveredId === article.id);
+                  : (highlightedId === articleKey || hoveredId === articleKey);
                 return (
                   <div 
-                    key={article.id}
-                    ref={(el) => { timelineRefs.current[article.id] = el; }}
+                    key={articleKey}
+                    ref={(el) => { timelineRefs.current[articleKey] = el; }}
                     className="relative flex gap-3 group cursor-pointer"
                     onClick={() => {
                       if (selectedArticle) {

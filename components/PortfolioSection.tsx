@@ -171,11 +171,12 @@ const shuffleArray = <T,>(array: T[]): T[] => {
   return shuffled;
 };
 
+// 在模块级别缓存随机排序结果，避免每次组件挂载时重新随机
+const cachedShuffledItems = shuffleArray(PRACTICE_ITEMS.map(item => ({ ...item, type: item.type as 'image' | 'video' })));
+
 const PracticeGallery: React.FC<{ language: Language; editorMode?: boolean }> = ({ language, editorMode = false }) => {
-  // 直接使用默认数据，随机排序
-  const [items, setItems] = useState<PracticeItem[]>(() => 
-    shuffleArray(PRACTICE_ITEMS.map(item => ({ ...item, type: item.type as 'image' | 'video' })))
-  );
+  // 使用缓存的随机排序结果
+  const [items, setItems] = useState<PracticeItem[]>(cachedShuffledItems);
   const [layout, setLayout] = useState<PracticeLayout>(PRACTICE_LAYOUT as PracticeLayout);
   const [isEditing, setIsEditing] = useState(false);
   const [newUrl, setNewUrl] = useState('');
@@ -299,8 +300,7 @@ const PracticeGallery: React.FC<{ language: Language; editorMode?: boolean }> = 
               {items.filter((_, i) => i % 3 === colIndex).map((item, index) => (
                 <div 
                   key={item.id} 
-                  className="relative group overflow-hidden rounded-lg animate-fade-in"
-                  style={{ animationDelay: `${index * 0.1}s` }}
+                  className="relative group overflow-hidden rounded-lg"
                 >
                   {item.type === 'image' ? (
                     <SkeletonImage
@@ -356,7 +356,7 @@ const PracticeGallery: React.FC<{ language: Language; editorMode?: boolean }> = 
   );
 };
 
-export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ 
+export const PortfolioSection = React.memo<PortfolioSectionProps>(({ 
   language, 
   externalFilter, 
   triggerNewProject,
@@ -1093,4 +1093,4 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
       </div>
     </>
   );
-};
+});
