@@ -12,6 +12,8 @@ interface SidebarProps {
   onTriggerGravity: () => void;
   onNewProject?: () => void;
   onOpenAiChat?: () => void;
+  editorMode?: boolean;
+  onLogoClick?: () => void;
 }
 
 // 导航项配置
@@ -30,6 +32,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
   toggleLanguage,
   onNewProject,
   onOpenAiChat,
+  editorMode = false,
+  onLogoClick,
 }) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -38,13 +42,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {/* Desktop Sidebar - Narrow Icon Bar */}
       <aside className="hidden md:flex fixed left-0 top-0 bottom-0 w-14 bg-cream border-r border-primary/10 flex-col items-center py-6 z-50">
         
-        {/* Logo */}
+        {/* Logo - 连续点击4次激活编辑模式 */}
         <div
-          className="cursor-pointer mb-8"
-          onClick={() => setActiveTab('dashboard')}
-          title="YOUNG"
+          className={`cursor-pointer mb-8 transition-all select-none ${editorMode ? 'text-[#E63946]' : ''}`}
+          onClick={() => onLogoClick?.()}
+          title={editorMode ? (language === 'zh' ? '编辑模式已开启' : 'Editor Mode ON') : 'YOUNG'}
         >
-          <span className="text-sm font-black tracking-tighter text-primary leading-none"
+          <span className={`text-sm font-black tracking-tighter leading-none select-none ${editorMode ? 'text-[#E63946]' : 'text-primary'}`}
                 style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}>
             YOUNG
           </span>
@@ -98,7 +102,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           >
             <Globe size={16} />
           </button>
-          {onNewProject && (
+          {editorMode && onNewProject && (
             <button
               onClick={onNewProject}
               className="w-10 h-10 flex items-center justify-center text-primary/40 hover:text-primary hover:bg-primary/5 transition-colors"

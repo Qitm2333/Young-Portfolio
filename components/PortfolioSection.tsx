@@ -117,6 +117,7 @@ interface PortfolioSectionProps {
   triggerNewProject?: boolean;
   initialProjectId?: string | null;
   onProjectOpened?: () => void;
+  editorMode?: boolean;
 }
 
 const FILTER_ITEMS = [
@@ -170,7 +171,7 @@ const shuffleArray = <T,>(array: T[]): T[] => {
   return shuffled;
 };
 
-const PracticeGallery: React.FC<{ language: Language }> = ({ language }) => {
+const PracticeGallery: React.FC<{ language: Language; editorMode?: boolean }> = ({ language, editorMode = false }) => {
   // 直接使用默认数据，随机排序
   const [items, setItems] = useState<PracticeItem[]>(() => 
     shuffleArray(PRACTICE_ITEMS.map(item => ({ ...item, type: item.type as 'image' | 'video' })))
@@ -220,23 +221,25 @@ const PracticeGallery: React.FC<{ language: Language }> = ({ language }) => {
         <h2 className="text-2xl font-black text-primary">
           {language === 'zh' ? '日常练习' : 'Practice'}
         </h2>
-        <div className="flex items-center gap-2">
-          {isEditing && (
+        {editorMode && (
+          <div className="flex items-center gap-2">
+            {isEditing && (
+              <button
+                onClick={exportJSON}
+                className="px-3 py-1.5 text-xs border border-primary/20 text-primary hover:bg-primary hover:text-cream transition-colors"
+              >
+                {language === 'zh' ? '导出JSON' : 'Export JSON'}
+              </button>
+            )}
             <button
-              onClick={exportJSON}
-              className="px-3 py-1.5 text-xs border border-primary/20 text-primary hover:bg-primary hover:text-cream transition-colors"
+              onClick={() => setIsEditing(!isEditing)}
+              className="flex items-center gap-1 px-3 py-1.5 text-xs bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
             >
-              {language === 'zh' ? '导出JSON' : 'Export JSON'}
+              <Pencil size={12} />
+              {isEditing ? (language === 'zh' ? '完成' : 'Done') : (language === 'zh' ? '编辑' : 'Edit')}
             </button>
-          )}
-          <button
-            onClick={() => setIsEditing(!isEditing)}
-            className="flex items-center gap-1 px-3 py-1.5 text-xs bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
-          >
-            <Pencil size={12} />
-            {isEditing ? (language === 'zh' ? '完成' : 'Done') : (language === 'zh' ? '编辑' : 'Edit')}
-          </button>
-        </div>
+          </div>
+        )}
       </div>
 
       {/* 编辑面板 */}
@@ -358,7 +361,8 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
   externalFilter, 
   triggerNewProject,
   initialProjectId,
-  onProjectOpened 
+  onProjectOpened,
+  editorMode = false
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -881,7 +885,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
               )}
             </div>
             {/* 编辑按钮 */}
-            {selectedProject && !isEditing && (
+            {selectedProject && !isEditing && editorMode && (
               <button
                 onClick={() => startEditing(selectedProject)}
                 className="flex items-center gap-1 px-3 py-1.5 text-xs bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
@@ -1026,7 +1030,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
             <ProjectDetail project={selectedProject} />
           ) : filter === Category.PRACTICE ? (
             /* 日常练习展示区 */
-            <PracticeGallery language={language} />
+            <PracticeGallery language={language} editorMode={editorMode} />
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
               {filteredProjects.map((project, index) => (

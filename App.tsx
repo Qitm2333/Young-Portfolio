@@ -52,6 +52,32 @@ function AppContent() {
   const [language, setLanguage] = useState<Language>('en');
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   
+  // 编辑模式：连续点击4次 YOUNG logo 激活
+  const [editorMode, setEditorMode] = useState(false);
+  const logoClickCountRef = useRef(0);
+  const logoClickTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  
+  const handleLogoClick = () => {
+    logoClickCountRef.current += 1;
+    
+    // 清除之前的计时器
+    if (logoClickTimerRef.current) {
+      clearTimeout(logoClickTimerRef.current);
+    }
+    
+    // 如果达到4次点击，切换编辑模式
+    if (logoClickCountRef.current >= 4) {
+      setEditorMode(prev => !prev);
+      logoClickCountRef.current = 0;
+      return;
+    }
+    
+    // 1.5秒内没有继续点击则重置计数
+    logoClickTimerRef.current = setTimeout(() => {
+      logoClickCountRef.current = 0;
+    }, 1500);
+  };
+  
   const [portfolioCategory, setPortfolioCategory] = useState<string>('All');
   const [triggerNewProject, setTriggerNewProject] = useState(false);
   const [initialProjectId, setInitialProjectId] = useState<string | null>(null);
@@ -438,11 +464,12 @@ function AppContent() {
             triggerNewProject={triggerNewProject}
             initialProjectId={initialProjectId}
             onProjectOpened={() => setInitialProjectId(null)}
+            editorMode={editorMode}
           />
         );
       case 'articles':
         return (
-          <ArticleSection language={language} />
+          <ArticleSection language={language} editorMode={editorMode} />
         );
       case 'about':
         return (
@@ -646,6 +673,8 @@ function AppContent() {
         onTriggerGravity={triggerGravity}
         onNewProject={handleNewProject}
         onOpenAiChat={() => setIsAiChatOpen(true)}
+        editorMode={editorMode}
+        onLogoClick={handleLogoClick}
       />
 
       {/* AI Chat Modal */}

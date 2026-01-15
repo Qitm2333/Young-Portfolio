@@ -5,7 +5,7 @@ export const MOTION_DATA: Project[] = [
   "id": "v1",
   "common": {
     "category": "Motion",
-    "image": "github.com/Qitm2333/MyDesignAssets/blob/main/MD-01/Snipaste_2025-12-13_01-58-05.png",
+    "image": "https://i0.hdslb.com/bfs/new_dyn/a702633ab2d91454c963d9afae660c27605487978.png@1192w.avif",
     "bilibiliId": "BV1YV4y1W7Pe",
     "date": "2022-12",
     "notes": "这是我第一次做比较完整的动态设计项目\n\nThis is the first time I've worked on a relatively complete motion design project."
@@ -22,7 +22,7 @@ export const MOTION_DATA: Project[] = [
         "type": "gallery",
         "title": "展示",
         "layout": "full",
-        "images": ["github.com/Qitm2333/MyDesignAssets/blob/main/MD-01/展示展板.jpg"]
+        "images": ["https://i0.hdslb.com/bfs/new_dyn/98bcc0b9362caad0c966abbd5bbfd33c605487978.jpg@1192w.avif"]
       }
     ]
   },
@@ -38,7 +38,7 @@ export const MOTION_DATA: Project[] = [
         "type": "gallery",
         "title": "Gallery",
         "layout": "full",
-        "images": ["github.com/Qitm2333/MyDesignAssets/blob/main/MD-01/展示展板.jpg"]
+        "images": ["https://i0.hdslb.com/bfs/new_dyn/98bcc0b9362caad0c966abbd5bbfd33c605487978.jpg@1192w.avif"]
       }
     ]
   }
@@ -107,7 +107,7 @@ export const MOTION_DATA: Project[] = [
   "id": "v3",
   "common": {
     "category": "Motion",
-    "image": "github.com/Qitm2333/MyDesignAssets/blob/main/MD-03/newnew.png",
+    "image": "https://i0.hdslb.com/bfs/new_dyn/22a1b0f5c93a16913aeddd8a97c62493605487978.png@1192w.avif",
     "bilibiliId": "BV15QYwzwE1L",
     "videoUrl": "",
     "date": "2025-10",
@@ -168,7 +168,7 @@ export const MOTION_DATA: Project[] = [
   "id": "v4",
   "common": {
     "category": "Motion",
-    "image": "github.com/Qitm2333/MyDesignAssets/blob/main/MD-04/Snipaste_2025-12-13_15-54-59.png",
+    "image": "https://i0.hdslb.com/bfs/new_dyn/fea30840d7e6f0367a74f63cb5522f10605487978.png@1192w.avif",
     "bilibiliId": "",
     "videoUrl": "github.com/Qitm2333/MyDesignAssets/blob/main/MD-04/car.mp4"
   },
@@ -199,7 +199,7 @@ export const MOTION_DATA: Project[] = [
   "id": "v5",
   "common": {
     "category": "Motion",
-    "image": "github.com/Qitm2333/MyDesignAssets/blob/main/MD-06/Snipaste_2025-12-13_16-08-26.png",
+    "image": "https://i0.hdslb.com/bfs/new_dyn/3c63a83f7bc0670af8d09b9438691c4a605487978.png@1192w.avif",
     "bilibiliId": "BV115qwB3Eov",
     "date": "2025-06",
     "notes": "第一次拿Blender正式做动画，跑通了从建模，贴图，绑定，动画，几何节点特效，后期合成的一整套流程，用即梦ai和flux做了很多参考，用tripoai做了一些小元素，这个过程发现ai比预想中的强，而且我比预想中的菜，很多自己认为的效果做出来居然和我的设想不太一样，调整了非常久效果也只能说差强人意。\n\nThis was my first formal Blender animation project, covering the full pipeline: modeling, texturing, rigging, animation, Geometry Nodes effects and compositing. I used AIM Dream AI, Flux for references and Tripo AI for small assets. The process showed me AI’s surprising power and my own shortcomings—many intended effects fell flat, and even after long adjustments, the outcome was just passable."
@@ -220,7 +220,7 @@ export const MOTION_DATA: Project[] = [
         "type": "gallery",
         "title": "图片展示",
         "images": [
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-06/ergfvfvbg.jpg"
+          "https://i0.hdslb.com/bfs/new_dyn/fbb8cc4e482722d6bf7c6d0e745ea0ef605487978.jpg@1192w.avif"
         ],
         "layout": "full"
       },
@@ -228,8 +228,8 @@ export const MOTION_DATA: Project[] = [
         "type": "gallery",
         "title": "关键帧展示",
         "images": [
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-06/Finall%20-%2011.03.jpg",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-06/Finall%20-%206.61.jpg"
+          "https://i0.hdslb.com/bfs/new_dyn/1eca1efa760de4d9f9721d5286df521b605487978.jpg@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/3e46f49cfb1e82cebdd6c0fc37490cba605487978.jpg@1192w.avif"
         ],
         "layout": "grid-2"
       },
@@ -237,8 +237,8 @@ export const MOTION_DATA: Project[] = [
         "type": "gallery",
         "title": "图片展示",
         "images": [
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-06/asdasdawe.jpg",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-06/Snipaste_2025-07-24_11-36-37.png"
+          "https://i0.hdslb.com/bfs/new_dyn/2d29a1abdaf2a01fc808190b5c788a84605487978.jpg@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/94b1833d80fd9bc73ab6259b8f5b9b4a605487978.png@1192w.avif"
         ],
         "layout": "grid-3"
       }
@@ -257,27 +257,27 @@ export const MOTION_DATA: Project[] = [
     "sections": [
       {
         "type": "gallery",
-        "title": "Gallery",
+        "title": "iamge",
         "images": [
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-06/ergfvfvbg.jpg"
+          "https://i0.hdslb.com/bfs/new_dyn/fbb8cc4e482722d6bf7c6d0e745ea0ef605487978.jpg@1192w.avif"
         ],
         "layout": "full"
       },
       {
         "type": "gallery",
-        "title": "Keyframes",
+        "title": "keyframe",
         "images": [
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-06/Finall%20-%2011.03.jpg",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-06/Finall%20-%206.61.jpg"
+          "https://i0.hdslb.com/bfs/new_dyn/1eca1efa760de4d9f9721d5286df521b605487978.jpg@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/3e46f49cfb1e82cebdd6c0fc37490cba605487978.jpg@1192w.avif"
         ],
         "layout": "grid-2"
       },
       {
         "type": "gallery",
-        "title": "Gallery",
+        "title": "image",
         "images": [
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-06/asdasdawe.jpg",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-06/Snipaste_2025-07-24_11-36-37.png"
+          "https://i0.hdslb.com/bfs/new_dyn/2d29a1abdaf2a01fc808190b5c788a84605487978.jpg@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/94b1833d80fd9bc73ab6259b8f5b9b4a605487978.png@1192w.avif"
         ],
         "layout": "grid-3"
       }
@@ -289,7 +289,7 @@ export const MOTION_DATA: Project[] = [
   "id": "v6",
   "common": {
     "category": "Motion",
-    "image": "github.com/Qitm2333/MyDesignAssets/blob/main/MD-07/Comp%202%20-%203.53.jpg",
+    "image": "https://i0.hdslb.com/bfs/new_dyn/2df51ee9bbad5920e8a639998779d92f605487978.jpg@1192w.avif",
     "bilibiliId": "BV1UGqwBkEHR"
    
   },
@@ -309,7 +309,7 @@ export const MOTION_DATA: Project[] = [
         "type": "gallery",
         "title": "图片展示",
         "images": [
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-07/上传02.png"
+          "https://i0.hdslb.com/bfs/new_dyn/15418364109856f3de1e5653dfc2b3f4605487978.png@1192w.avif"
         ],
         "layout": "full"
       },
@@ -317,12 +317,12 @@ export const MOTION_DATA: Project[] = [
         "type": "gallery",
         "title": "图片展示",
         "images": [
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-07/Comp%202%20-%203.53.jpg",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-07/Comp%20-%205.18.jpg",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-07/Comp02%20-%203.00.jpg",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-07/Comp04%20-%202.20.jpg",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-07/FINALL%20-%200.00.jpg",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-07/FINALL%20-%205.28.jpg"
+          "https://i0.hdslb.com/bfs/new_dyn/ec2dcfd501bdf80708279141242bfb71605487978.jpg@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/2df51ee9bbad5920e8a639998779d92f605487978.jpg@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/a2585c9b742ff1c8593fc961d87b577c605487978.jpg@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/fa0210f21fbd73409965605ac2af9cfa605487978.jpg@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/b5d8db1c3a48baa23c9a3e38e9dca862605487978.jpg@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/d5fc301f3586e23a00c3a978682a33ca605487978.jpg@1192w.avif"
         ],
         "layout": "grid-2"
       }
@@ -344,7 +344,7 @@ export const MOTION_DATA: Project[] = [
         "type": "gallery",
         "title": "Gallery",
         "images": [
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-07/上传02.png"
+          "https://i0.hdslb.com/bfs/new_dyn/15418364109856f3de1e5653dfc2b3f4605487978.png@1192w.avif"
         ],
         "layout": "full"
       },
@@ -352,12 +352,12 @@ export const MOTION_DATA: Project[] = [
         "type": "gallery",
         "title": "Gallery",
         "images": [
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-07/Comp%202%20-%203.53.jpg",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-07/Comp%20-%205.18.jpg",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-07/Comp02%20-%203.00.jpg",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-07/Comp04%20-%202.20.jpg",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-07/FINALL%20-%200.00.jpg",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-07/FINALL%20-%205.28.jpg"
+          "https://i0.hdslb.com/bfs/new_dyn/ec2dcfd501bdf80708279141242bfb71605487978.jpg@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/2df51ee9bbad5920e8a639998779d92f605487978.jpg@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/a2585c9b742ff1c8593fc961d87b577c605487978.jpg@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/fa0210f21fbd73409965605ac2af9cfa605487978.jpg@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/b5d8db1c3a48baa23c9a3e38e9dca862605487978.jpg@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/d5fc301f3586e23a00c3a978682a33ca605487978.jpg@1192w.avif"
         ],
         "layout": "grid-2"
       }
@@ -368,7 +368,7 @@ export const MOTION_DATA: Project[] = [
   "id": "v7",
   "common": {
     "category": "Motion",
-    "image": "github.com/Qitm2333/MyDesignAssets/blob/main/Port-01/page04.png",
+    "image": "https://i0.hdslb.com/bfs/new_dyn/02c7e938ad8f9bd98536faf835e6a2f2605487978.png@1192w.avif",
     //"youtubeId": "JWq0vW7Y26Y",
     "date": "2025-06",
     "videoLinkUrl": "https://youtu.be/JWq0vW7Y26Y",
@@ -387,10 +387,10 @@ export const MOTION_DATA: Project[] = [
         "type": "gallery",
         "title": "图片展示",
         "images": [
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Port-01/3-2-4(1).png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Port-01/jimeng-2025-12-26-3611.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Port-01/1-1(1).png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Port-01/全部(1).png"
+          "https://i0.hdslb.com/bfs/new_dyn/7405f3e9af0661d5c5361093ea78db7c605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/02c7e938ad8f9bd98536faf835e6a2f2605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/8c3b27d091f1129838dd76fefbc60ec8605487978.png@1192w_596h.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/0731e308e16ba2fc57d1a57450a63eaa605487978.png@1192w_596h.avif"
         ],
         "layout": "full"
       }
@@ -408,10 +408,10 @@ export const MOTION_DATA: Project[] = [
         "type": "gallery",
         "title": "Gallery",
         "images": [
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Port-01/3-2-4(1).png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Port-01/jimeng-2025-12-26-3611.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Port-01/1-1(1).png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/Port-01/全部(1).png"
+          "https://i0.hdslb.com/bfs/new_dyn/7405f3e9af0661d5c5361093ea78db7c605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/02c7e938ad8f9bd98536faf835e6a2f2605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/8c3b27d091f1129838dd76fefbc60ec8605487978.png@1192w_596h.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/0731e308e16ba2fc57d1a57450a63eaa605487978.png@1192w_596h.avif"
         ],
         "layout": "full"
       }
@@ -422,7 +422,7 @@ export const MOTION_DATA: Project[] = [
   "id": "v8",
   "common": {
     "category": "Motion",
-    "image": "github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/image/Clipboard%20-%202025-12-21%2013.24.36.png",
+    "image": "https://i0.hdslb.com/bfs/new_dyn/ce63c57ca4cf1ac3d606214bfd1edcc0605487978.png@1192w.avif",
     "date": "2025-11",
     //"videoUrl": "github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/gamevideo_20260106_14580378.mp4",
     "bilibiliId": "BV19wqwBJEcv",
@@ -441,12 +441,12 @@ export const MOTION_DATA: Project[] = [
         "type": "gallery",
         "title": "图片展示",
         "images": [
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/image/Clipboard%20-%202025-12-21%2013.24.36.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/image/01.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/image/03.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/image/Clipboard%20-%202025-12-21%2013.43.08.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/image/Clipboard%20-%202025-12-21%2013.43.27.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/image/Clipboard%20-%202025-12-21%2013.44.25.png"
+          "https://i0.hdslb.com/bfs/new_dyn/ce63c57ca4cf1ac3d606214bfd1edcc0605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/9a96e0cc5b1217e90ac8ce4bd0b0fd41605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/5eb6cd9934e910c02070cf7b02f7a404605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/725f37d54226cdfc3cecd2b6485c48f7605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/f1b5d2a1aa6a1257f12c2ec219fe00b0605487978.png@1192w.avif",
+          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/image/Clipboard%20-%202025-12-21%2013.44.25.github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/image/Clipboard%20-%202025-12-21%2013.43.08.png"
         ],
         "layout": "full"
       }
@@ -464,12 +464,12 @@ export const MOTION_DATA: Project[] = [
         "type": "gallery",
         "title": "Gallery",
         "images": [
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/image/Clipboard%20-%202025-12-21%2013.24.36.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/image/01.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/image/03.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/image/Clipboard%20-%202025-12-21%2013.43.08.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/image/Clipboard%20-%202025-12-21%2013.43.27.png",
-          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/image/Clipboard%20-%202025-12-21%2013.44.25.png"
+          "https://i0.hdslb.com/bfs/new_dyn/ce63c57ca4cf1ac3d606214bfd1edcc0605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/9a96e0cc5b1217e90ac8ce4bd0b0fd41605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/5eb6cd9934e910c02070cf7b02f7a404605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/725f37d54226cdfc3cecd2b6485c48f7605487978.png@1192w.avif",
+          "https://i0.hdslb.com/bfs/new_dyn/f1b5d2a1aa6a1257f12c2ec219fe00b0605487978.png@1192w.avif",
+          "github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/image/Clipboard%20-%202025-12-21%2013.44.25.github.com/Qitm2333/MyDesignAssets/blob/main/MD-09/image/Clipboard%20-%202025-12-21%2013.43.08.png"
         ],
         "layout": "full"
       }

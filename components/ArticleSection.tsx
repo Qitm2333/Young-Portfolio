@@ -16,9 +16,10 @@ interface Article extends ArticleMeta {
 interface ArticleSectionProps {
   language: Language;
   triggerNewArticle?: boolean;
+  editorMode?: boolean;
 }
 
-export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, triggerNewArticle }) => {
+export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, triggerNewArticle, editorMode = false }) => {
   const location = useLocation();
   const navigate = useNavigate();
   
@@ -339,7 +340,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
               )}
             </div>
             {/* 新建按钮 */}
-            {!isEditing && !selectedArticle && (
+            {!isEditing && !selectedArticle && editorMode && (
               <button
                 onClick={startNewArticle}
                 className="flex items-center gap-1 px-3 py-1.5 text-xs bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
@@ -349,7 +350,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
               </button>
             )}
             {/* 编辑按钮 - 查看文章详情时显示 */}
-            {selectedArticle && !isEditing && (
+            {selectedArticle && !isEditing && editorMode && (
               <button
                 onClick={() => { setEditingArticle(articleToEditable(selectedArticle)); setIsNewArticle(false); setIsEditing(true); }}
                 className="flex items-center gap-1 px-3 py-1.5 text-xs bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
@@ -493,13 +494,15 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
                     <div className="flex-shrink-0 flex items-center gap-3 md:gap-4 px-4 md:px-6 border-l-2 border-primary/10 group-hover:border-primary transition-colors">
                       <span className="text-xs text-primary/30 font-mono hidden sm:block">{article.date}</span>
                       {/* 编辑按钮 */}
-                      <button
-                        onClick={(e) => startEditing(article, e)}
-                        className="p-1.5 bg-primary/10 text-primary/40 hover:bg-primary hover:text-cream opacity-0 group-hover:opacity-100 transition-all"
-                        title={language === 'zh' ? '编辑' : 'Edit'}
-                      >
-                        <Pencil size={12} />
-                      </button>
+                      {editorMode && (
+                        <button
+                          onClick={(e) => startEditing(article, e)}
+                          className="p-1.5 bg-primary/10 text-primary/40 hover:bg-primary hover:text-cream opacity-0 group-hover:opacity-100 transition-all"
+                          title={language === 'zh' ? '编辑' : 'Edit'}
+                        >
+                          <Pencil size={12} />
+                        </button>
+                      )}
                       <span className="text-sm font-mono text-primary/20 group-hover:text-primary transition-colors">↗</span>
                     </div>
                   </div>
