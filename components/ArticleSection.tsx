@@ -2,53 +2,38 @@ import React, { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
-import { ARTICLES, ARTICLE_LABELS } from '../constants';
-import { ArticleCategory, Language, Article } from '../types';
+import { Language } from '../types';
 import { Plus, Pencil, ArrowLeft } from 'lucide-react';
 import { ArticleEditor, EditableArticle, createEmptyArticle } from './ArticleEditor';
 import { toJsDelivr } from '../src/utils/cdn';
+import { getArticles, getCategories, ArticleMeta, CategoryInfo } from '../src/utils/articleLoader';
+
+// 动态文章类型（兼容旧 Article 接口）
+interface Article extends ArticleMeta {
+  link?: string;
+}
 
 interface ArticleSectionProps {
   language: Language;
   triggerNewArticle?: boolean;
 }
 
-const FILTER_ITEMS = [
-  { id: ArticleCategory.QUALITY, labelZh: 'Quality', labelEn: 'Quality', urlPath: 'quality' },
-  { id: ArticleCategory.RURALIT, labelZh: 'Ruralit', labelEn: 'Ruralit', urlPath: 'ruralit' },
-  { id: ArticleCategory.TRACES, labelZh: 'Traces of Presence', labelEn: 'Traces of Presence', urlPath: 'traces' },
-  { id: ArticleCategory.CUBTHARSIS, labelZh: 'Cubtharsis', labelEn: 'Cubtharsis', urlPath: 'cubtharsis' },
-];
-
-// URL 路径到分类的映射
-const URL_TO_CATEGORY: Record<string, string> = {
-  'quality': ArticleCategory.QUALITY,
-  'ruralit': ArticleCategory.RURALIT,
-  'traces': ArticleCategory.TRACES,
-  'cubtharsis': ArticleCategory.CUBTHARSIS,
-};
-
-// 分类到 URL 路径的映射
-const CATEGORY_TO_URL: Record<string, string> = {
-  [ArticleCategory.QUALITY]: 'quality',
-  [ArticleCategory.RURALIT]: 'ruralit',
-  [ArticleCategory.TRACES]: 'traces',
-  [ArticleCategory.CUBTHARSIS]: 'cubtharsis',
-};
-
 export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, triggerNewArticle }) => {
   const location = useLocation();
   const navigate = useNavigate();
   
+  // 动态获取文章和分类
+  const allArticles = getArticles();
+  const categories = getCategories();
+  
   // 从 URL 解析分类和文章 ID
   const parseUrlParams = () => {
     const pathParts = location.pathname.split('/').filter(Boolean);
-    // 格式: /articles 或 /articles/:category 或 /articles/:category/:id
     if (pathParts[0] === 'articles') {
       const urlCategory = pathParts[1];
       const urlArticleId = pathParts[2];
       return {
-        category: urlCategory ? (URL_TO_CATEGORY[urlCategory] || null) : null,
+        category: urlCategory || null,
         articleId: urlArticleId || null
       };
     }
@@ -58,18 +43,15 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
   const urlParams = parseUrlParams();
   
   const [filter, setFilter] = useState<string | null>(() => {
-    // 优先从 URL 获取分类
     if (urlParams.articleId) {
-      const article = ARTICLES['zh'].find(a => a.id === urlParams.articleId) || 
-                      ARTICLES['en'].find(a => a.id === urlParams.articleId);
+      const article = allArticles.find(a => a.id === urlParams.articleId);
       return article?.category || urlParams.category;
     }
     return urlParams.category;
   });
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(() => {
-    // 从 URL 获取初始文章
-    if (urlParams.articleId) {
-      return ARTICLES[language].find(a => a.id === urlParams.articleId) || null;
+    if (urlParams.articleId && urlParams.category) {
+      return allArticles.find(a => a.id === urlParams.articleId && a.category === urlParams.category) || null;
     }
     return null;
   });
@@ -82,8 +64,8 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
   // 监听 URL 变化，更新状态
   useEffect(() => {
     const { category, articleId } = parseUrlParams();
-    if (articleId) {
-      const article = ARTICLES[language].find(a => a.id === articleId);
+    if (articleId && category) {
+      const article = allArticles.find(a => a.id === articleId && a.category === category);
       if (article) {
         setSelectedArticle(article);
         setFilter(article.category);
@@ -92,18 +74,13 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
       setFilter(category);
       setSelectedArticle(null);
     }
-  }, [location.pathname, language]);
+  }, [location.pathname]);
   
   // 从路由状态接收分类参数（兼容旧的跳转方式）
   useEffect(() => {
     if (location.state?.category) {
       setFilter(location.state.category);
-      // 更新 URL
-      const categoryUrl = CATEGORY_TO_URL[location.state.category];
-      if (categoryUrl) {
-        navigate(`/articles/${categoryUrl}`, { replace: true });
-      }
-      // 清除 state，避免刷新时重复设置
+      navigate(`/articles/${location.state.category}`, { replace: true });
       window.history.replaceState({}, document.title);
     }
   }, [location.state]);
@@ -112,13 +89,10 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
   const handleSelectArticle = (article: Article | null) => {
     setSelectedArticle(article);
     if (article) {
-      const categoryUrl = CATEGORY_TO_URL[article.category];
-      navigate(`/articles/${categoryUrl}/${article.id}`);
+      navigate(`/articles/${article.category}/${article.id}`);
     } else {
-      // 返回分类列表
       if (filter) {
-        const categoryUrl = CATEGORY_TO_URL[filter];
-        navigate(`/articles/${categoryUrl}`);
+        navigate(`/articles/${filter}`);
       } else {
         navigate('/articles');
       }
@@ -130,8 +104,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
     setFilter(newFilter);
     setSelectedArticle(null);
     if (newFilter) {
-      const categoryUrl = CATEGORY_TO_URL[newFilter];
-      navigate(`/articles/${categoryUrl}`);
+      navigate(`/articles/${newFilter}`);
     } else {
       navigate('/articles');
     }
@@ -140,18 +113,17 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
   // 用于存储卡片元素的引用
   const cardRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
-  const currentArticles = ARTICLES[language];
-  const filteredArticles = filter ? currentArticles.filter(a => a.category === filter) : [];
+  const filteredArticles = filter ? allArticles.filter(a => a.category === filter) : [];
 
   // 语言切换时更新 selectedArticle
   useEffect(() => {
     if (selectedArticle) {
-      const updatedArticle = currentArticles.find(a => a.id === selectedArticle.id);
+      const updatedArticle = allArticles.find(a => a.id === selectedArticle.id && a.category === selectedArticle.category);
       if (updatedArticle) {
         setSelectedArticle(updatedArticle);
       }
     }
-  }, [language, currentArticles]);
+  }, [language]);
 
   // 点击文章卡片
   const handleArticleClick = (article: Article) => {
@@ -174,24 +146,21 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
 
   // 将 Article 转换为 EditableArticle 格式
   const articleToEditable = (article: Article): EditableArticle => {
-    const otherLang = language === 'zh' ? 'en' : 'zh';
-    const otherArticle = ARTICLES[otherLang].find(a => a.id === article.id);
-    
     return {
       id: article.id,
       common: {
-        category: article.category,
+        category: article.category as any,
         link: article.link,
         coverImage: article.coverImage || '',
         date: article.date,
       },
       zh: {
-        title: language === 'zh' ? article.title : (otherArticle?.title || ''),
-        content: language === 'zh' ? article.content : (otherArticle?.content || ''),
+        title: article.title,
+        content: article.content,
       },
       en: {
-        title: language === 'en' ? article.title : (otherArticle?.title || ''),
-        content: language === 'en' ? article.content : (otherArticle?.content || ''),
+        title: article.title,
+        content: article.content,
       },
     };
   };
@@ -246,16 +215,14 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
             </h2>
           </div>
           
-          {/* 分类列表 - 国际主义风格 */}
+          {/* 分类列表 - 动态生成 */}
           <nav className="flex-1 px-4 py-2 overflow-y-auto">
-            {FILTER_ITEMS.map((item) => {
-              const isActive = filter === item.id;
-              const categoryArticles = currentArticles.filter(a => a.category === item.id);
-              const count = categoryArticles.length;
+            {categories.map((cat) => {
+              const isActive = filter === cat.id;
               return (
-                <div key={item.id}>
+                <div key={cat.id}>
                   <button 
-                    onClick={() => handleFilterChange(filter === item.id ? null : item.id)}
+                    onClick={() => handleFilterChange(filter === cat.id ? null : cat.id)}
                     className="w-full flex items-center gap-2 py-2.5 text-left transition-colors group"
                   >
                     {/* 左侧符号 */}
@@ -264,11 +231,11 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
                     </span>
                     {/* 分类名称 */}
                     <span className={`flex-1 text-sm tracking-tight transition-colors ${isActive ? 'font-bold text-primary' : 'text-primary/60 group-hover:text-primary'}`}>
-                      {language === 'zh' ? item.labelZh : item.labelEn}
+                      {cat.label}
                     </span>
                     {/* 数量 */}
                     <span className={`text-xs tabular-nums transition-colors ${isActive ? 'text-primary' : 'text-primary/30'}`}>
-                      {count}
+                      {cat.count}
                     </span>
                   </button>
                   {/* 底部分割线 */}
@@ -276,7 +243,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
                   {/* 展开的文章列表 */}
                   {isActive && (
                     <div className="py-1 pl-5 pb-2 animate-fade-in">
-                      {categoryArticles.map((article) => (
+                      {filteredArticles.map((article) => (
                         <button
                           key={article.id}
                           onClick={() => handleSelectArticle(article)}
@@ -300,7 +267,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
           
           {/* 底部统计 */}
           <div className="px-4 py-3 border-t border-primary/10 text-xs text-primary/40 font-medium tracking-wide">
-            {currentArticles.length} {language === 'zh' ? '篇日志' : 'Logs'}
+            {allArticles.length} {language === 'zh' ? '篇日志' : 'Logs'}
           </div>
         </aside>,
         document.body
@@ -309,10 +276,10 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
       {/* Mobile Filter */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 bg-cream border-t border-primary/10 z-40 px-4 py-2">
         <div className="flex gap-2 overflow-x-auto no-scrollbar">
-          {FILTER_ITEMS.map((item) => (
-            <button key={item.id} onClick={() => handleFilterChange(item.id)}
-              className={`px-3 py-1.5 text-sm whitespace-nowrap ${filter === item.id ? 'bg-primary text-cream' : 'bg-primary/5 text-primary/60'}`}>
-              {language === 'zh' ? item.labelZh : item.labelEn}
+          {categories.map((cat) => (
+            <button key={cat.id} onClick={() => handleFilterChange(cat.id)}
+              className={`px-3 py-1.5 text-sm whitespace-nowrap ${filter === cat.id ? 'bg-primary text-cream' : 'bg-primary/5 text-primary/60'}`}>
+              {cat.label}
             </button>
           ))}
         </div>
@@ -350,7 +317,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
                 <>
                   <span className="text-primary/30">/</span>
                   <span className="text-primary font-bold">
-                    {FILTER_ITEMS.find(f => f.id === filter)?.[language === 'zh' ? 'labelZh' : 'labelEn']}
+                    {categories.find(c => c.id === filter)?.label || filter}
                   </span>
                   <span className="text-primary/30 ml-1">({filteredArticles.length})</span>
                 </>
@@ -412,7 +379,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
               <div className="mb-8">
                 <div className="flex items-center gap-3 mb-4">
                   <span className="text-xs text-primary/40 uppercase tracking-widest font-mono">
-                    {ARTICLE_LABELS[language][selectedArticle.category]}
+                    {categories.find(c => c.id === selectedArticle.category)?.label || selectedArticle.category}
                   </span>
                   <span className="text-xs text-primary/30 font-mono">{selectedArticle.date}</span>
                 </div>
@@ -501,7 +468,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
                       <div className="flex-1 min-w-0">
                         {/* 分类标签 */}
                         <span className="text-[10px] text-primary/40 uppercase tracking-widest font-mono">
-                          {ARTICLE_LABELS[language][article.category]}
+                          {categories.find(c => c.id === article.category)?.label || article.category}
                         </span>
                         {/* 标题 */}
                         <h3 className="font-black text-primary text-base md:text-lg leading-tight tracking-tight group-hover:text-[#E63946] transition-colors truncate mt-1">
@@ -553,9 +520,9 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
             </h3>
             <p className="text-[10px] text-primary/40 mt-1 font-mono">
               {selectedArticle 
-                ? ARTICLE_LABELS[language][selectedArticle.category]
+                ? categories.find(c => c.id === selectedArticle.category)?.label || selectedArticle.category
                 : filter 
-                  ? FILTER_ITEMS.find(f => f.id === filter)?.[language === 'zh' ? 'labelZh' : 'labelEn']
+                  ? categories.find(c => c.id === filter)?.label || filter
                   : (language === 'zh' ? '请选择项目' : 'Select a project')
               }
             </p>
@@ -569,7 +536,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
             {/* 时间节点 - 详情页显示同分类文章，列表页显示筛选后文章 */}
             <div className="space-y-4">
               {(selectedArticle 
-                ? currentArticles.filter(a => a.category === selectedArticle.category)
+                ? allArticles.filter(a => a.category === selectedArticle.category)
                 : filteredArticles
               ).map((article, index) => {
                 const isCurrentArticle = selectedArticle?.id === article.id;
@@ -616,7 +583,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
                       </div>
                       {/* 分类标签 */}
                       <div className="text-[9px] text-primary/30 uppercase tracking-wider mt-1 font-mono">
-                        {ARTICLE_LABELS[language][article.category]}
+                        {categories.find(c => c.id === article.category)?.label || article.category}
                       </div>
                     </div>
                   </div>
@@ -638,7 +605,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
               <span>{language === 'zh' ? '共' : 'Total'}</span>
               <span className="font-mono font-bold text-primary">
                 {selectedArticle 
-                  ? currentArticles.filter(a => a.category === selectedArticle.category).length
+                  ? allArticles.filter(a => a.category === selectedArticle.category).length
                   : filteredArticles.length
                 }
               </span>

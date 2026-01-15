@@ -1,7 +1,7 @@
 import { Category, Project, Experience, Skill, Language, HonorsData, Article, ArticleCategory } from './types';
 import { Sparkles, Image, History, Send } from 'lucide-react';
 import { PROJECT_DATA } from './src/data/projects';
-import { ARTICLE_DATA } from './src/data/articles';
+import { getArticlesByLanguage } from './src/utils/articleLoader';
 
 export const CATEGORY_LABELS: Record<Language, Record<string, string>> = {
   zh: {
@@ -64,15 +64,10 @@ export const PROJECTS: Record<Language, Project[]> = {
   }))
 };
 
+// 从 markdown 文件自动加载文章
+const loadedArticles = getArticlesByLanguage();
+
 export const ARTICLES: Record<Language, Article[]> = {
-  zh: ARTICLE_DATA.map(a => ({
-    id: a.id,
-    ...a.common,
-    ...a.zh
-  })),
-  en: ARTICLE_DATA.map(a => ({
-    id: a.id,
-    ...a.common,
-    ...a.en
-  }))
+  zh: loadedArticles.zh,
+  en: loadedArticles.en
 };
