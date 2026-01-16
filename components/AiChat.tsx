@@ -95,10 +95,14 @@ export const AiChat: React.FC<AiChatProps> = ({ isOpen, onClose, language }) => 
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  // 打开时聚焦输入框
+  // 打开时聚焦输入框（仅桌面端）
   useEffect(() => {
     if (isOpen) {
-      setTimeout(() => inputRef.current?.focus(), 100);
+      // 检测是否为移动端（宽度小于 768px）
+      const isMobile = window.innerWidth < 768;
+      if (!isMobile) {
+        setTimeout(() => inputRef.current?.focus(), 100);
+      }
     }
   }, [isOpen]);
 
@@ -137,6 +141,11 @@ export const AiChat: React.FC<AiChatProps> = ({ isOpen, onClose, language }) => 
       console.error('AI response error:', error);
     } finally {
       setIsLoading(false);
+      // 发送完成后重新聚焦输入框（仅桌面端）
+      const isMobile = window.innerWidth < 768;
+      if (!isMobile) {
+        setTimeout(() => inputRef.current?.focus(), 100);
+      }
     }
   };
 
@@ -275,7 +284,6 @@ export const AiChat: React.FC<AiChatProps> = ({ isOpen, onClose, language }) => 
               onChange={(e) => setInput(e.target.value)}
               placeholder={language === 'zh' ? '输入你的问题...' : 'Type your question...'}
               className="flex-1 px-4 py-3 bg-primary/5 border-2 border-transparent focus:border-primary text-sm text-primary placeholder:text-primary/40 outline-none transition-colors"
-              disabled={isLoading}
             />
             <button
               type="submit"

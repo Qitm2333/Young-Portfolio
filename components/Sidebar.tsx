@@ -1,6 +1,6 @@
 import React from 'react';
 import { Language } from '../types';
-import { Globe, Home, Briefcase, FileText, GraduationCap, Mail, Menu, X, Plus, Bot } from 'lucide-react';
+import { Globe, Home, Briefcase, FileText, GraduationCap, Mail, Plus, Bot } from 'lucide-react';
 
 interface SidebarProps {
   activeTab: string;
@@ -34,8 +34,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
   editorMode = false,
   onLogoClick,
 }) => {
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-
   return (
     <>
       {/* Desktop Sidebar - Narrow Icon Bar */}
@@ -113,72 +111,27 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </div>
       </aside>
 
-      {/* Mobile Header */}
-      <header className="md:hidden fixed top-0 left-0 right-0 z-50 bg-cream border-b border-primary/10 px-4 py-3 flex items-center justify-between">
-        <span
-          className="text-base font-black tracking-tighter uppercase text-primary cursor-pointer"
-          onClick={() => setActiveTab('dashboard')}
-        >
-          YOUNG
-        </span>
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="p-2 text-primary"
-        >
-          {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
-      </header>
-
-      {/* Mobile Menu */}
-      {mobileOpen && (
-        <div className="md:hidden fixed top-12 left-0 right-0 bottom-0 bg-cream z-40 px-6 py-8">
-          <nav className="flex flex-col gap-2">
-            {NAV_ICONS.map((item) => {
-              const isActive = activeTab === item.id;
-              const Icon = item.icon;
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => {
-                    setActiveTab(item.id);
-                    setMobileOpen(false);
-                  }}
-                  className={`
-                    flex items-center gap-4 px-4 py-3 text-left transition-colors
-                    ${isActive ? 'bg-primary text-cream' : 'text-primary/60 hover:bg-primary/5'}
-                  `}
-                >
-                  <Icon size={20} />
-                  <span className="text-lg font-bold">
-                    {language === 'zh' ? item.labelZh : item.labelEn}
-                  </span>
-                </button>
-              );
-            })}
-          </nav>
-          <button
-            onClick={toggleLanguage}
-            className="mt-8 flex items-center gap-3 text-primary/50 px-4"
-          >
-            <Globe size={18} />
-            <span className="font-medium">{language === 'zh' ? 'English' : '中文'}</span>
-          </button>
-          
-          {/* Mobile AI Chat Button */}
-          {onOpenAiChat && (
+      {/* Mobile Tab Bar - 底部固定，类似 App */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-cream border-t border-primary/10 px-2 py-2 flex items-center justify-around">
+        {NAV_ICONS.map((item) => {
+          const isActive = activeTab === item.id;
+          const Icon = item.icon;
+          return (
             <button
-              onClick={() => {
-                onOpenAiChat();
-                setMobileOpen(false);
-              }}
-              className="mt-4 flex items-center gap-3 px-4 py-3 bg-[#E63946] text-cream mx-4"
+              key={item.id}
+              onClick={() => setActiveTab(item.id)}
+              className={`flex-1 flex flex-col items-center gap-1 py-1 transition-colors ${
+                isActive ? 'text-primary' : 'text-primary/40'
+              }`}
             >
-              <Bot size={18} />
-              <span className="font-bold">{language === 'zh' ? 'AI 助手' : 'AI Assistant'}</span>
+              <Icon size={20} strokeWidth={isActive ? 2.5 : 2} />
+              <span className={`text-[10px] truncate ${isActive ? 'font-bold' : ''}`}>
+                {language === 'zh' ? item.labelZh : item.labelEn}
+              </span>
             </button>
-          )}
-        </div>
-      )}
+          );
+        })}
+      </nav>
     </>
   );
 };

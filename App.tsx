@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { HashRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { Sidebar } from './components/Sidebar';
 import { HeroSection } from './components/HeroSection';
@@ -7,7 +7,7 @@ import { PortfolioSection } from './components/PortfolioSection';
 import { ArticleSection } from './components/ArticleSection';
 import { TimelineSection } from './components/TimelineSection';
 import { AiChat } from './components/AiChat';
-import { Mail, Github } from 'lucide-react';
+import { Mail, Github, Bot, Globe } from 'lucide-react';
 import { CONTACT_DATA } from './src/data/contact';
 import { PROJECTS } from './constants';
 import { toJsDelivr } from './src/utils/cdn';
@@ -93,10 +93,22 @@ function AppContent() {
   const [copySuccess, setCopySuccess] = useState(false);
 
   // 复制邮箱并显示反馈
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText('1445531071@qq.com');
-    setCopySuccess(true);
-    setTimeout(() => setCopySuccess(false), 2000);
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText('1445531071@qq.com');
+      setCopySuccess(true);
+      setTimeout(() => setCopySuccess(false), 2000);
+    } catch (err) {
+      // 降级方案：使用传统方式复制
+      const textArea = document.createElement('textarea');
+      textArea.value = '1445531071@qq.com';
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      setCopySuccess(true);
+      setTimeout(() => setCopySuccess(false), 2000);
+    }
   };
 
   const startViewTransition = (update: () => void) => {
@@ -178,7 +190,9 @@ function AppContent() {
               setInitialProjectId(projectId);
               setActiveTab('portfolio');
             }}
-            language={language} 
+            language={language}
+            onOpenAiChat={() => setIsAiChatOpen(true)}
+            onToggleLanguage={toggleLanguage}
           />
         );
       case 'portfolio':
@@ -190,19 +204,30 @@ function AppContent() {
             initialProjectId={initialProjectId}
             onProjectOpened={() => setInitialProjectId(null)}
             editorMode={editorMode}
+            onOpenAiChat={() => setIsAiChatOpen(true)}
+            onToggleLanguage={toggleLanguage}
           />
         );
       case 'articles':
         return (
-          <ArticleSection language={language} editorMode={editorMode} />
+          <ArticleSection 
+            language={language} 
+            editorMode={editorMode}
+            onOpenAiChat={() => setIsAiChatOpen(true)}
+            onToggleLanguage={toggleLanguage}
+          />
         );
       case 'about':
         return (
-          <TimelineSection language={language} />
+          <TimelineSection 
+            language={language}
+            onOpenAiChat={() => setIsAiChatOpen(true)}
+            onToggleLanguage={toggleLanguage}
+          />
         );
       case 'contact':
         return (
-          <div className="h-[100dvh] w-full bg-cream flex flex-col overflow-hidden relative">
+          <div className="min-h-[100dvh] md:h-[100dvh] w-full bg-cream flex flex-col overflow-hidden relative">
             {/* Grid Overlay - 国际主义网格背景 */}
             <div className="absolute inset-0 pointer-events-none">
               <div className="absolute top-0 left-[50%] w-px h-full bg-primary/5" />
@@ -211,29 +236,190 @@ function AppContent() {
             </div>
 
             {/* Top Bar */}
-            <div className="pt-6 pb-4 flex justify-between items-start border-b-2 border-primary px-6 relative z-10">
-              <span className="text-sm font-black text-primary tracking-tight uppercase">
-                {language === 'zh' ? '联系' : 'Contact'}
-              </span>
-
+            <div className="flex border-b-2 border-primary relative z-10 flex-shrink-0">
+              <div className="flex-1 pt-4 pb-3 md:pt-6 md:pb-4 px-4 md:px-6 flex items-center justify-between">
+                <span className="text-sm font-black text-primary tracking-tight uppercase">
+                  {language === 'zh' ? '联系' : 'Contact'}
+                </span>
+                {/* 移动端右侧图标 */}
+                <div className="md:hidden flex items-center gap-1 -mr-2">
+                  <button
+                    onClick={() => setIsAiChatOpen(true)}
+                    className="w-8 h-8 flex items-center justify-center text-primary/40 hover:text-primary transition-colors relative"
+                  >
+                    <Bot size={16} />
+                    <span className="absolute top-1 right-1 w-1.5 h-1.5 bg-[#07C160] rounded-full" />
+                  </button>
+                  <button
+                    onClick={toggleLanguage}
+                    className="w-8 h-8 flex items-center justify-center text-primary/40 hover:text-primary transition-colors"
+                  >
+                    <Globe size={16} />
+                  </button>
+                </div>
+              </div>
             </div>
 
             {/* Main Content Area */}
-            <div className="flex-1 flex relative z-10">
+            <div className="flex-1 flex flex-col md:flex-row relative z-10 min-h-0">
               {/* Left Column - Main Title */}
-              <div className="flex-1 flex flex-col justify-between px-6 py-8">
-                <div />
+              <div className="flex-1 flex flex-col justify-between px-4 md:px-6 py-4 md:py-8 min-h-0">
+                
+                {/* 移动端联系信息列表 - 国际主义风格名片 */}
+                <div className="md:hidden space-y-0 border-2 border-primary bg-cream">
+                  {/* Email */}
+                  <div 
+                    className={`flex items-center justify-between px-4 py-3 border-b border-primary/20 cursor-pointer transition-colors ${copySuccess ? 'bg-[#07C160]/10' : 'active:bg-primary/5'}`}
+                    onClick={handleCopyEmail}
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="font-mono text-[10px] text-primary/30 w-4">01</span>
+                      <Mail size={16} className={copySuccess ? 'text-[#07C160]' : 'text-primary/50'} />
+                      <div>
+                        <p className={`text-xs font-bold ${copySuccess ? 'text-[#07C160]' : 'text-primary'}`}>{language === 'zh' ? '邮箱' : 'Email'}</p>
+                        <p className="font-mono text-[10px] text-primary/40">1445531071@qq.com</p>
+                      </div>
+                    </div>
+                    <span className={`font-mono text-[10px] ${copySuccess ? 'text-[#07C160]' : 'text-primary/30'}`}>
+                      {copySuccess ? '✓' : '→'}
+                    </span>
+                  </div>
+                  
+                  {/* GitHub */}
+                  <div 
+                    className="flex items-center justify-between px-4 py-3 border-b border-primary/20 cursor-pointer active:bg-primary/5 transition-colors"
+                    onClick={() => window.open('https://github.com/Qitm2333', '_blank')}
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="font-mono text-[10px] text-primary/30 w-4">02</span>
+                      <Github size={16} className="text-primary/50" />
+                      <div>
+                        <p className="text-xs font-bold text-primary">GitHub</p>
+                        <p className="font-mono text-[10px] text-primary/40">@Qitm2333</p>
+                      </div>
+                    </div>
+                    <span className="font-mono text-[10px] text-primary/30">↗</span>
+                  </div>
+                  
+                  {/* 小红书 */}
+                  <div 
+                    className="flex items-center justify-between px-4 py-3 border-b border-primary/20 cursor-pointer active:bg-primary/5 transition-colors"
+                    onClick={() => window.open('https://www.xiaohongshu.com/user/profile/60d4557f00000000010083bc', '_blank')}
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="font-mono text-[10px] text-primary/30 w-4">03</span>
+                      <svg className="w-4 h-4 text-primary/50" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm4 0h-2v-6h2v6zm-2-8c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/>
+                      </svg>
+                      <div>
+                        <p className="text-xs font-bold text-primary">{language === 'zh' ? '小红书' : 'RED'}</p>
+                        <p className="font-mono text-[10px] text-primary/40">@off-key</p>
+                      </div>
+                    </div>
+                    <span className="font-mono text-[10px] text-primary/30">↗</span>
+                  </div>
+                  
+                  {/* 网易云 */}
+                  <div 
+                    className="flex items-center justify-between px-4 py-3 cursor-pointer active:bg-primary/5 transition-colors"
+                    onClick={() => window.open('https://y.music.163.com/m/user?id=95054416', '_blank')}
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="font-mono text-[10px] text-primary/30 w-4">04</span>
+                      <svg className="w-4 h-4 text-primary/50" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14.5c-2.49 0-4.5-2.01-4.5-4.5S9.51 7.5 12 7.5s4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5zm0-5.5c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"/>
+                      </svg>
+                      <div>
+                        <p className="text-xs font-bold text-primary">{language === 'zh' ? '网易云' : 'NetEase'}</p>
+                        <p className="font-mono text-[10px] text-primary/40">@Qitm</p>
+                      </div>
+                    </div>
+                    <span className="font-mono text-[10px] text-primary/30">↗</span>
+                  </div>
+                </div>
+                
+                {/* 中间装饰区域 - 交互式蒙德里安网格（移动端） */}
+                {(() => {
+                  // 随机生成初始网格布局和颜色
+                  const colors = ['#E63946', '#1E40AF', '#FFD700', '#FAF7F2'];
+                  const getRandomColor = () => colors[Math.floor(Math.random() * colors.length)];
+                  const randomize = (base: number) => base * (0.7 + Math.random() * 0.6);
+                  
+                  const initialCols = [1, 0.8, 1.5, 1].map(randomize);
+                  const initialRows = [1.2, 1.8, 0.6, 1].map(randomize);
+                  const initialColors = Array(10).fill(0).map(() => getRandomColor());
+                  
+                  return (
+                    <div className="md:hidden flex-1 flex flex-col justify-center py-2 min-h-0">
+                      <div 
+                        className="mondrian-canvas border-2 border-primary bg-primary flex-1"
+                        style={{
+                          display: 'grid',
+                          gap: '2px',
+                          gridTemplateColumns: initialCols.map(n => n + 'fr').join(' '),
+                          gridTemplateRows: initialRows.map(n => n + 'fr').join(' '),
+                          transition: 'grid-template-columns 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), grid-template-rows 0.6s cubic-bezier(0.25, 0.8, 0.25, 1)',
+                        }}
+                        onClick={(e) => {
+                          const target = e.target as HTMLElement;
+                          if (!target.classList.contains('mondrian-block')) return;
+                          
+                          // 颜色变化
+                          const currentBg = target.style.backgroundColor;
+                          let newColor = colors[Math.floor(Math.random() * colors.length)];
+                          while (newColor === currentBg) {
+                            newColor = colors[Math.floor(Math.random() * colors.length)];
+                          }
+                          target.style.backgroundColor = newColor;
+                          
+                          // Grid 布局变化
+                          const canvas = target.parentElement;
+                          if (!canvas) return;
+                          const baseColFr = [1, 0.8, 1.5, 1];
+                          const baseRowFr = [1.2, 1.8, 0.6, 1];
+                          const isExpand = Math.random() > 0.3;
+                          const scaleFactor = isExpand ? (1.3 + Math.random() * 0.5) : (0.5 + Math.random() * 0.3);
+                          
+                          const newCols = baseColFr.map(fr => {
+                            let newFr = fr * (0.9 + Math.random() * 0.2);
+                            if (Math.random() > 0.5) newFr *= scaleFactor;
+                            return Math.max(0.3, newFr);
+                          });
+                          const newRows = baseRowFr.map(fr => {
+                            let newFr = fr * (0.9 + Math.random() * 0.2);
+                            if (Math.random() > 0.5) newFr *= scaleFactor;
+                            return Math.max(0.3, newFr);
+                          });
+                          
+                          canvas.style.gridTemplateColumns = newCols.map(n => n + 'fr').join(' ');
+                          canvas.style.gridTemplateRows = newRows.map(n => n + 'fr').join(' ');
+                        }}
+                      >
+                        <div className="mondrian-block" style={{ gridColumn: '1/2', gridRow: '1/2', backgroundColor: initialColors[0], cursor: 'pointer' }} />
+                        <div className="mondrian-block" style={{ gridColumn: '2/4', gridRow: '1/2', backgroundColor: initialColors[1], cursor: 'pointer' }} />
+                        <div className="mondrian-block" style={{ gridColumn: '4/5', gridRow: '1/3', backgroundColor: initialColors[2], cursor: 'pointer' }} />
+                        <div className="mondrian-block" style={{ gridColumn: '1/2', gridRow: '2/4', backgroundColor: initialColors[3], cursor: 'pointer' }} />
+                        <div className="mondrian-block" style={{ gridColumn: '2/3', gridRow: '2/3', backgroundColor: initialColors[4], cursor: 'pointer' }} />
+                        <div className="mondrian-block" style={{ gridColumn: '3/4', gridRow: '2/3', backgroundColor: initialColors[5], cursor: 'pointer' }} />
+                        <div className="mondrian-block" style={{ gridColumn: '2/4', gridRow: '3/4', backgroundColor: initialColors[6], cursor: 'pointer' }} />
+                        <div className="mondrian-block" style={{ gridColumn: '4/5', gridRow: '3/5', backgroundColor: initialColors[7], cursor: 'pointer' }} />
+                        <div className="mondrian-block" style={{ gridColumn: '1/3', gridRow: '4/5', backgroundColor: initialColors[8], cursor: 'pointer' }} />
+                        <div className="mondrian-block" style={{ gridColumn: '3/4', gridRow: '4/5', backgroundColor: initialColors[9], cursor: 'pointer' }} />
+                      </div>
+                    </div>
+                  );
+                })()}
                 
                 {/* Bottom - Main Title */}
-                <div>
+                <div className="mt-auto">
                   <div className="flex items-end gap-4 mb-2 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-                    <div className="w-8 h-8 bg-[#E63946]" />
+                    <div className="w-6 h-6 md:w-8 md:h-8 bg-[#E63946]" />
                     <span className="text-[10px] font-mono text-primary/40 uppercase tracking-widest">Get In Touch</span>
                   </div>
-                  <h1 className="text-[15vw] md:text-[12vw] lg:text-[9vw] font-black text-primary leading-[0.85] tracking-tighter animate-fade-in" style={{ animationDelay: '0.3s' }}>
+                  <h1 className="text-[18vw] md:text-[12vw] lg:text-[9vw] font-black text-primary leading-[0.85] tracking-tighter animate-fade-in" style={{ animationDelay: '0.3s' }}>
                     {language === 'zh' ? '联系' : 'CONTACT'}
                   </h1>
-                  <div className="flex items-center gap-4 mt-3">
+                  <div className="flex items-center gap-4 mt-2 md:mt-3">
                     <div className="flex-1 h-px bg-primary/20" />
                     <span className="text-[10px] font-mono text-primary/40">©2025</span>
                   </div>
@@ -341,8 +527,9 @@ function AppContent() {
             </div>
 
             {/* Bottom Section */}
-            <div className="relative z-10 border-t-2 border-primary">
-              <div className="flex justify-between items-center text-[10px] tracking-widest uppercase text-primary/40 px-6 py-3 border-b border-primary/10">
+            <div className="relative z-10 border-t-2 border-primary flex-shrink-0">
+              {/* Info Row - 移动端隐藏 */}
+              <div className="hidden md:flex justify-between items-center text-[10px] tracking-widest uppercase text-primary/40 px-6 py-2 md:py-3 border-b border-primary/10">
                 <span className="font-mono">YOUNG—CONTACT</span>
                 <span className="hidden md:block">{language === 'zh' ? '邮箱 / 社交 / 音乐' : 'EMAIL / SOCIAL / MUSIC'}</span>
                 <span className="font-mono">©2025</span>
@@ -351,12 +538,12 @@ function AppContent() {
               {/* Black CTA Bar */}
               <div 
                 onClick={handleCopyEmail}
-                className={`${copySuccess ? 'bg-[#07C160]' : 'bg-primary hover:bg-[#E63946]'} text-cream px-6 py-5 md:py-6 flex justify-between items-center cursor-pointer transition-colors group animate-fade-in`}
+                className={`${copySuccess ? 'bg-[#07C160]' : 'bg-primary active:bg-[#07C160] md:hover:bg-[#E63946]'} text-cream px-6 pt-5 pb-9 md:py-6 flex justify-between items-center cursor-pointer transition-colors duration-300 group animate-fade-in`}
                 style={{ animationDelay: '0.5s' }}
               >
                 <div className="flex items-center gap-4">
                   <span className="text-[10px] font-mono text-cream/40 group-hover:text-cream/60">{copySuccess ? '✓' : '→'}</span>
-                  <span className="text-lg md:text-xl font-black uppercase tracking-wide">
+                  <span className="text-base md:text-xl font-black uppercase tracking-wide">
                     {copySuccess 
                       ? (language === 'zh' ? '已复制到剪贴板' : 'Copied to Clipboard')
                       : (language === 'zh' ? '复制邮箱地址' : 'Copy Email Address')}
@@ -367,6 +554,9 @@ function AppContent() {
                   <Mail size={20} className="group-hover:scale-110 transition-transform" />
                 </div>
               </div>
+              
+              {/* 移动端底部导航栏占位 */}
+              <div className="h-12 md:hidden bg-cream" />
             </div>
           </div>
         )
@@ -376,9 +566,16 @@ function AppContent() {
             <HeroSection 
               onNavigate={handleNavigateToPortfolio} 
               onCategorySelect={handleHeroNavigation}
-              language={language} 
+              language={language}
+              onOpenAiChat={() => setIsAiChatOpen(true)}
+              onToggleLanguage={toggleLanguage}
             />
-            <PortfolioSection language={language} externalFilter={portfolioCategory} />
+            <PortfolioSection 
+              language={language} 
+              externalFilter={portfolioCategory}
+              onOpenAiChat={() => setIsAiChatOpen(true)}
+              onToggleLanguage={toggleLanguage}
+            />
           </>
         );
     }
@@ -425,7 +622,8 @@ function AppContent() {
       )}
 
       {/* Main Content Area - Offset for narrow left sidebar on desktop */}
-      <main className="w-full md:pl-14 pt-12 md:pt-0 vt-page">
+      <main className="w-full md:pl-14 vt-page relative">
+         
          <div key={activeTab}>
            {renderContent()}
          </div>

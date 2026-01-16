@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { PROJECTS, CATEGORY_LABELS } from '../constants';
 import { Category, Language, Project, ContentSection } from '../types';
 
-import { Pencil } from 'lucide-react';
+import { Pencil, Bot, Globe } from 'lucide-react';
 import { ProjectEditor, EditableProject, createEmptyProject } from './ProjectEditor';
 import { toJsDelivr } from '../src/utils/cdn';
 import { PRACTICE_ITEMS, PRACTICE_LAYOUT } from '../src/data/practice';
@@ -118,6 +118,8 @@ interface PortfolioSectionProps {
   initialProjectId?: string | null;
   onProjectOpened?: () => void;
   editorMode?: boolean;
+  onOpenAiChat?: () => void;
+  onToggleLanguage?: () => void;
 }
 
 const FILTER_ITEMS = [
@@ -362,7 +364,9 @@ export const PortfolioSection = React.memo<PortfolioSectionProps>(({
   triggerNewProject,
   initialProjectId,
   onProjectOpened,
-  editorMode = false
+  editorMode = false,
+  onOpenAiChat,
+  onToggleLanguage
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -418,6 +422,10 @@ export const PortfolioSection = React.memo<PortfolioSectionProps>(({
       }
     } else if (category !== 'All') {
       setFilter(category);
+      setSelectedProjectId(null);
+    } else {
+      // URL 是 /portfolio，重置为全部
+      setFilter('All');
       setSelectedProjectId(null);
     }
   }, [location.pathname, language]);
@@ -828,17 +836,7 @@ export const PortfolioSection = React.memo<PortfolioSectionProps>(({
         document.body
       )}
 
-      {/* Mobile Filter */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-cream border-t border-primary/10 z-40 px-4 py-2">
-        <div className="flex gap-2 overflow-x-auto no-scrollbar">
-          {FILTER_ITEMS.map((item) => (
-            <button key={item.id} onClick={() => { handleFilterChange(item.id); }}
-              className={`px-3 py-1.5 text-sm whitespace-nowrap ${filter === item.id ? 'bg-primary text-cream' : 'bg-primary/5 text-primary/60'}`}>
-              {language === 'zh' ? item.labelZh : item.labelEn}
-            </button>
-          ))}
-        </div>
-      </div>
+
 
       {/* 固定面包屑导航 - Portal 到 body */}
       {createPortal(
@@ -1015,7 +1013,111 @@ export const PortfolioSection = React.memo<PortfolioSectionProps>(({
       )}
 
       {/* Main Content */}
-      <div className={`bg-cream pb-20 md:ml-44 md:pt-16 ${selectedProject && !isEditing ? 'lg:mr-[220px]' : ''}`}>
+      <div className={`bg-cream pb-6 md:pb-20 md:ml-44 md:pt-16 ${selectedProject && !isEditing ? 'lg:mr-[220px]' : ''}`}>
+        {/* 移动端顶部栏 + 筛选栏 */}
+        <div className="md:hidden sticky top-0 z-30 bg-cream">
+          {/* 标题栏 */}
+          <div className="flex border-b border-primary/10">
+            <div className="flex-1 pt-4 pb-3 px-4 flex items-center justify-between">
+              {selectedProject ? (
+                /* 详情页：显示返回按钮和标题 */
+                <>
+                  <button 
+                    onClick={() => handleSelectProject(null)}
+                    className="flex items-center gap-1 text-sm text-primary/60"
+                  >
+                    <span>←</span>
+                    <span>{FILTER_ITEMS.find(f => f.id === selectedProject.category)?.[language === 'zh' ? 'labelZh' : 'labelEn']}</span>
+                  </button>
+                  <div className="flex items-center gap-1 -mr-2">
+                    <span className="text-sm font-bold text-primary truncate max-w-[140px] mr-1">
+                      {selectedProject.title}
+                    </span>
+                    {/* 右侧图标 */}
+                    <button
+                      onClick={onOpenAiChat}
+                      className="w-8 h-8 flex items-center justify-center text-primary/40 hover:text-primary transition-colors relative"
+                    >
+                      <Bot size={16} />
+                      <span className="absolute top-1 right-1 w-1.5 h-1.5 bg-[#07C160] rounded-full" />
+                    </button>
+                    <button
+                      onClick={onToggleLanguage}
+                      className="w-8 h-8 flex items-center justify-center text-primary/40 hover:text-primary transition-colors"
+                    >
+                      <Globe size={16} />
+                    </button>
+                  </div>
+                </>
+              ) : (
+                /* 列表页：显示标题和数量 */
+                <>
+                  <span className="text-sm font-black text-primary tracking-tight uppercase">
+                    {filter === Category.PRACTICE 
+                      ? (language === 'zh' ? '日常练习' : 'Practice')
+                      : filter === 'All' 
+                        ? (language === 'zh' ? '作品' : 'Work')
+                        : FILTER_ITEMS.find(f => f.id === filter)?.[language === 'zh' ? 'labelZh' : 'labelEn']}
+                  </span>
+                  <div className="flex items-center gap-1 -mr-2">
+                    <span className="text-xs text-primary/40 mr-1">
+                      {filter === Category.PRACTICE ? PRACTICE_ITEMS.length : filteredProjects.length} {language === 'zh' ? '个' : ''}
+                    </span>
+                    {/* 右侧图标 */}
+                    <button
+                      onClick={onOpenAiChat}
+                      className="w-8 h-8 flex items-center justify-center text-primary/40 hover:text-primary transition-colors relative"
+                    >
+                      <Bot size={16} />
+                      <span className="absolute top-1 right-1 w-1.5 h-1.5 bg-[#07C160] rounded-full" />
+                    </button>
+                    <button
+                      onClick={onToggleLanguage}
+                      className="w-8 h-8 flex items-center justify-center text-primary/40 hover:text-primary transition-colors"
+                    >
+                      <Globe size={16} />
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+          
+          {/* 筛选栏 - 只在列表页显示 */}
+          {!selectedProject && (
+            <div className="border-b-2 border-primary overflow-x-auto no-scrollbar">
+              <div className="flex">
+                {[...FILTER_ITEMS, { id: Category.PRACTICE, labelZh: '日常练习', labelEn: 'Practice', urlPath: 'practice' }].map((item) => {
+                  const isActive = filter === item.id;
+                  const count = item.id === 'All' 
+                    ? currentProjects.length 
+                    : item.id === Category.PRACTICE 
+                      ? PRACTICE_ITEMS.length 
+                      : currentProjects.filter(p => p.category === item.id).length;
+                  return (
+                    <button 
+                      key={item.id} 
+                      onClick={() => handleFilterChange(item.id)}
+                      className={`flex-shrink-0 px-4 py-2.5 text-xs font-medium transition-colors relative ${
+                        isActive 
+                          ? 'text-primary' 
+                          : 'text-primary/40'
+                      }`}
+                    >
+                      {language === 'zh' ? item.labelZh : item.labelEn}
+                      <span className="ml-1 text-[10px] opacity-60">{count}</span>
+                      {/* 选中指示器 */}
+                      {isActive && (
+                        <div className="absolute bottom-0 left-4 right-4 h-0.5 bg-primary" />
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </div>
+        
         {/* 内容区 */}
         <div className="p-6">
           {isEditing && editingProject ? (
@@ -1045,8 +1147,8 @@ export const PortfolioSection = React.memo<PortfolioSectionProps>(({
                     {String(index + 1).padStart(2, '0')}
                   </div>
                   
-                  {/* 图片区域 */}
-                  <div className="aspect-[4/3] bg-primary/5 overflow-hidden relative">
+                  {/* 图片区域 - 移动端16:9，桌面端4:3 */}
+                  <div className="aspect-video md:aspect-[4/3] bg-primary/5 overflow-hidden relative">
                     {project.image ? (
                       <img 
                         src={toJsDelivr(project.image)} 
@@ -1091,6 +1193,46 @@ export const PortfolioSection = React.memo<PortfolioSectionProps>(({
           )}
         </div>
       </div>
+
+      {/* 浮动导航按钮 - 详情页显示 */}
+      {selectedProject && !isEditing && createPortal(
+        (() => {
+          const sameCategory = currentProjects.filter(p => p.category === selectedProject.category);
+          const currentIndex = sameCategory.findIndex(p => p.id === selectedProject.id);
+          const prevProj = currentIndex > 0 ? sameCategory[currentIndex - 1] : null;
+          const nextProj = currentIndex < sameCategory.length - 1 ? sameCategory[currentIndex + 1] : null;
+          
+          return (
+            <div className="fixed bottom-20 md:bottom-6 right-4 md:right-6 lg:right-[236px] z-40 flex flex-col gap-2">
+              {prevProj && (
+                <button
+                  onClick={() => handleSelectProject(prevProj.id)}
+                  className="group flex items-center gap-2 px-3 py-2 bg-cream border border-primary/20 hover:border-primary hover:bg-primary hover:text-cream transition-all shadow-lg"
+                  title={prevProj.title}
+                >
+                  <span className="text-xs">↑</span>
+                  <span className="text-xs font-medium hidden md:inline max-w-[120px] truncate group-hover:text-cream">
+                    {language === 'zh' ? '上一个' : 'Prev'}
+                  </span>
+                </button>
+              )}
+              {nextProj && (
+                <button
+                  onClick={() => handleSelectProject(nextProj.id)}
+                  className="group flex items-center gap-2 px-3 py-2 bg-cream border border-primary/20 hover:border-primary hover:bg-primary hover:text-cream transition-all shadow-lg"
+                  title={nextProj.title}
+                >
+                  <span className="text-xs">↓</span>
+                  <span className="text-xs font-medium hidden md:inline max-w-[120px] truncate group-hover:text-cream">
+                    {language === 'zh' ? '下一个' : 'Next'}
+                  </span>
+                </button>
+              )}
+            </div>
+          );
+        })(),
+        document.body
+      )}
     </>
   );
 });

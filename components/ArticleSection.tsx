@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { Language } from '../types';
-import { Plus, Pencil, ArrowLeft } from 'lucide-react';
+import { Plus, Pencil, ArrowLeft, Bot, Globe } from 'lucide-react';
 import { ArticleEditor, EditableArticle, createEmptyArticle } from './ArticleEditor';
 import { toJsDelivr } from '../src/utils/cdn';
 import { getArticles, getCategories, ArticleMeta, CategoryInfo } from '../src/utils/articleLoader';
@@ -17,9 +17,17 @@ interface ArticleSectionProps {
   language: Language;
   triggerNewArticle?: boolean;
   editorMode?: boolean;
+  onOpenAiChat?: () => void;
+  onToggleLanguage?: () => void;
 }
 
-export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, triggerNewArticle, editorMode = false }) => {
+export const ArticleSection: React.FC<ArticleSectionProps> = ({ 
+  language, 
+  triggerNewArticle, 
+  editorMode = false,
+  onOpenAiChat,
+  onToggleLanguage
+}) => {
   const location = useLocation();
   const navigate = useNavigate();
   
@@ -96,6 +104,8 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
     if (article) {
       setFilter(article.category);
       navigate(`/articles/${article.category}/${article.id}`);
+      // 滚动到顶部
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       if (filter) {
         navigate(`/articles/${filter}`);
@@ -295,17 +305,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
         document.body
       )}
 
-      {/* Mobile Filter */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-cream border-t border-primary/10 z-40 px-4 py-2">
-        <div className="flex gap-2 overflow-x-auto no-scrollbar">
-          {categories.map((cat) => (
-            <button key={cat.id} onClick={() => handleFilterChange(cat.id)}
-              className={`px-3 py-1.5 text-sm whitespace-nowrap ${filter === cat.id ? 'bg-primary text-cream' : 'bg-primary/5 text-primary/60'}`}>
-              {cat.label}
-            </button>
-          ))}
-        </div>
-      </div>
+
 
       {/* 固定面包屑导航 - Portal 到 body */}
       {createPortal(
@@ -374,7 +374,114 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
       )}
 
       {/* Main Content */}
-      <div className="bg-cream pb-20 md:ml-44 lg:mr-56 md:pt-16">
+      <div className="bg-cream pb-6 md:pb-20 md:ml-44 lg:mr-56 md:pt-16">
+        {/* 移动端顶部栏 + 筛选栏 */}
+        <div className="md:hidden sticky top-0 z-30 bg-cream">
+          {/* 标题栏 */}
+          <div className="flex border-b border-primary/10">
+            <div className="flex-1 pt-4 pb-3 px-4 flex items-center justify-between">
+              {selectedArticle ? (
+                /* 详情页：显示返回按钮和标题 */
+                <>
+                  <button 
+                    onClick={() => handleSelectArticle(null)}
+                    className="flex items-center gap-1 text-sm text-primary/60"
+                  >
+                    <span>←</span>
+                    <span>{categories.find(c => c.id === selectedArticle.category)?.label || selectedArticle.category}</span>
+                  </button>
+                  <div className="flex items-center gap-1 -mr-2">
+                    <span className="text-sm font-bold text-primary truncate max-w-[140px] mr-1">
+                      {selectedArticle.title}
+                    </span>
+                    {/* 右侧图标 */}
+                    <button
+                      onClick={onOpenAiChat}
+                      className="w-8 h-8 flex items-center justify-center text-primary/40 hover:text-primary transition-colors relative"
+                    >
+                      <Bot size={16} />
+                      <span className="absolute top-1 right-1 w-1.5 h-1.5 bg-[#07C160] rounded-full" />
+                    </button>
+                    <button
+                      onClick={onToggleLanguage}
+                      className="w-8 h-8 flex items-center justify-center text-primary/40 hover:text-primary transition-colors"
+                    >
+                      <Globe size={16} />
+                    </button>
+                  </div>
+                </>
+              ) : (
+                /* 列表页：显示标题和数量 */
+                <>
+                  <span className="text-sm font-black text-primary tracking-tight uppercase">
+                    {filter 
+                      ? categories.find(c => c.id === filter)?.label || filter
+                      : (language === 'zh' ? '文章' : 'Blog')}
+                  </span>
+                  <div className="flex items-center gap-1 -mr-2">
+                    <span className="text-xs text-primary/40 mr-1">
+                      {filteredArticles.length} {language === 'zh' ? '篇' : ''}
+                    </span>
+                    {/* 右侧图标 */}
+                    <button
+                      onClick={onOpenAiChat}
+                      className="w-8 h-8 flex items-center justify-center text-primary/40 hover:text-primary transition-colors relative"
+                    >
+                      <Bot size={16} />
+                      <span className="absolute top-1 right-1 w-1.5 h-1.5 bg-[#07C160] rounded-full" />
+                    </button>
+                    <button
+                      onClick={onToggleLanguage}
+                      className="w-8 h-8 flex items-center justify-center text-primary/40 hover:text-primary transition-colors"
+                    >
+                      <Globe size={16} />
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+          
+          {/* 筛选栏 - 只在列表页显示 */}
+          {!selectedArticle && !isEditing && (
+            <div className="border-b-2 border-primary overflow-x-auto no-scrollbar">
+              <div className="flex">
+                {/* 全部选项 */}
+                <button 
+                  onClick={() => handleFilterChange(null)}
+                  className={`flex-shrink-0 px-4 py-2.5 text-xs font-medium transition-colors relative ${
+                    !filter ? 'text-primary' : 'text-primary/40'
+                  }`}
+                >
+                  {language === 'zh' ? '全部' : 'All'}
+                  <span className="ml-1 text-[10px] opacity-60">{allArticles.length}</span>
+                  {!filter && (
+                    <div className="absolute bottom-0 left-4 right-4 h-0.5 bg-primary" />
+                  )}
+                </button>
+                {categories.map((cat) => {
+                  const isActive = filter === cat.id;
+                  return (
+                    <button 
+                      key={cat.id} 
+                      onClick={() => handleFilterChange(cat.id)}
+                      className={`flex-shrink-0 px-4 py-2.5 text-xs font-medium transition-colors relative ${
+                        isActive ? 'text-primary' : 'text-primary/40'
+                      }`}
+                    >
+                      {cat.label}
+                      <span className="ml-1 text-[10px] opacity-60">{cat.count}</span>
+                      {isActive && (
+                        <div className="absolute bottom-0 left-4 right-4 h-0.5 bg-primary" />
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </div>
+        
         {/* 内容区 */}
         <div className="p-6">
           {isEditing && editingArticle ? (
@@ -388,10 +495,10 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
           ) : selectedArticle ? (
             /* 文章详情视图 */
             <div className="max-w-3xl">
-              {/* 返回按钮 */}
+              {/* 返回按钮 - 只在桌面端显示 */}
               <button
                 onClick={() => handleSelectArticle(null)}
-                className="flex items-center gap-2 text-sm text-primary/60 hover:text-primary mb-6 transition-colors"
+                className="hidden md:flex items-center gap-2 text-sm text-primary/60 hover:text-primary mb-6 transition-colors"
               >
                 <ArrowLeft size={16} />
                 {language === 'zh' ? '返回列表' : 'Back to list'}
@@ -639,6 +746,46 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({ language, trigge
             </div>
           </div>
         </aside>,
+        document.body
+      )}
+
+      {/* 浮动导航按钮 - 详情页显示 */}
+      {selectedArticle && !isEditing && createPortal(
+        (() => {
+          const sameCategory = allArticles.filter(a => a.category === selectedArticle.category);
+          const currentIndex = sameCategory.findIndex(a => a.id === selectedArticle.id);
+          const prevArticle = currentIndex > 0 ? sameCategory[currentIndex - 1] : null;
+          const nextArticle = currentIndex < sameCategory.length - 1 ? sameCategory[currentIndex + 1] : null;
+          
+          return (
+            <div className="fixed bottom-20 md:bottom-6 right-4 md:right-6 z-40 flex flex-col gap-2">
+              {prevArticle && (
+                <button
+                  onClick={() => handleSelectArticle(prevArticle)}
+                  className="group flex items-center gap-2 px-3 py-2 bg-cream border border-primary/20 hover:border-primary hover:bg-primary hover:text-cream transition-all shadow-lg"
+                  title={prevArticle.title}
+                >
+                  <span className="text-xs">↑</span>
+                  <span className="text-xs font-medium hidden md:inline max-w-[120px] truncate group-hover:text-cream">
+                    {language === 'zh' ? '上一篇' : 'Prev'}
+                  </span>
+                </button>
+              )}
+              {nextArticle && (
+                <button
+                  onClick={() => handleSelectArticle(nextArticle)}
+                  className="group flex items-center gap-2 px-3 py-2 bg-cream border border-primary/20 hover:border-primary hover:bg-primary hover:text-cream transition-all shadow-lg"
+                  title={nextArticle.title}
+                >
+                  <span className="text-xs">↓</span>
+                  <span className="text-xs font-medium hidden md:inline max-w-[120px] truncate group-hover:text-cream">
+                    {language === 'zh' ? '下一篇' : 'Next'}
+                  </span>
+                </button>
+              )}
+            </div>
+          );
+        })(),
         document.body
       )}
     </>

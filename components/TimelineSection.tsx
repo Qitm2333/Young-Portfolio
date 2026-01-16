@@ -3,6 +3,7 @@ import { EDUCATION_DATA } from '../src/data/education';
 import { Language } from '../types';
 import { decryptData } from '../src/utils/decrypt';
 import encryptedData from '../src/data/education.encrypted.json';
+import { Bot, Globe } from 'lucide-react';
 
 interface SecretData {
   education: {
@@ -32,9 +33,15 @@ interface SecretData {
 
 interface TimelineSectionProps {
   language: Language;
+  onOpenAiChat?: () => void;
+  onToggleLanguage?: () => void;
 }
 
-export const TimelineSection: React.FC<TimelineSectionProps> = ({ language }) => {
+export const TimelineSection: React.FC<TimelineSectionProps> = ({ 
+  language,
+  onOpenAiChat,
+  onToggleLanguage
+}) => {
   const content = EDUCATION_DATA[language];
   
   // 验证状态
@@ -102,11 +109,27 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({ language }) =>
     <div className="w-full h-[100dvh] bg-cream flex flex-col overflow-hidden">
       
       {/* 顶部信息条 */}
-      <div className="border-b-2 border-primary px-6 pt-6 pb-4 flex items-center justify-between flex-shrink-0">
+      <div className="border-b-2 border-primary px-4 md:px-6 pt-4 pb-3 md:pt-6 md:pb-4 flex items-center justify-between flex-shrink-0">
         <span className="text-sm font-black text-primary uppercase tracking-tight">
           {language === 'zh' ? '经历' : 'Experience'}
         </span>
-        <span className="text-[10px] font-mono text-primary/40 uppercase tracking-widest">
+        {/* 移动端右侧图标 */}
+        <div className="md:hidden flex items-center gap-1 -mr-2">
+          <button
+            onClick={onOpenAiChat}
+            className="w-8 h-8 flex items-center justify-center text-primary/40 hover:text-primary transition-colors relative"
+          >
+            <Bot size={16} />
+            <span className="absolute top-1 right-1 w-1.5 h-1.5 bg-[#07C160] rounded-full" />
+          </button>
+          <button
+            onClick={onToggleLanguage}
+            className="w-8 h-8 flex items-center justify-center text-primary/40 hover:text-primary transition-colors"
+          >
+            <Globe size={16} />
+          </button>
+        </div>
+        <span className="hidden md:block text-[10px] font-mono text-primary/40 uppercase tracking-widest">
           {language === 'zh' ? '简历' : 'Resume'}
         </span>
       </div>

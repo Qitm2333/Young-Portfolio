@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Language, Category } from '../types';
-import { ArrowDown, RefreshCw } from 'lucide-react';
+import { ArrowDown, RefreshCw, Bot, Globe } from 'lucide-react';
 import { HOME_DATA } from '../src/data/home';
 import { PROJECTS } from '../constants';
 import { toJsDelivr } from '../src/utils/cdn';
@@ -10,9 +10,18 @@ interface HeroSectionProps {
   onCategorySelect: (category: Category) => void;
   onProjectSelect?: (projectId: string) => void;
   language: Language;
+  onOpenAiChat?: () => void;
+  onToggleLanguage?: () => void;
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate, onCategorySelect, onProjectSelect, language }) => {
+export const HeroSection: React.FC<HeroSectionProps> = ({ 
+  onNavigate, 
+  onCategorySelect, 
+  onProjectSelect, 
+  language,
+  onOpenAiChat,
+  onToggleLanguage
+}) => {
   const data = HOME_DATA[language];
   
   // 获取所有有封面图的项目
@@ -110,7 +119,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate, onCategory
   }, []);
 
   return (
-    <div className="h-[100dvh] w-full bg-cream flex flex-col overflow-hidden relative">
+    <div className="min-h-[100dvh] md:h-[100dvh] w-full bg-cream flex flex-col overflow-hidden relative">
 
       {/* Grid Overlay - 国际主义网格背景 */}
       <div className="absolute inset-0 pointer-events-none">
@@ -120,12 +129,28 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate, onCategory
       </div>
 
       {/* Top Bar - 静态，无动画 */}
-      <div className="flex border-b-2 border-primary relative z-10">
+      <div className="flex border-b-2 border-primary relative z-10 flex-shrink-0">
         {/* 左侧 - 主页标题 */}
-        <div className="flex-1 pt-6 pb-4 px-6 flex items-start">
+        <div className="flex-1 pt-4 pb-3 md:pt-6 md:pb-4 px-4 md:px-6 flex items-center justify-between">
           <span className="text-sm font-black text-primary tracking-tight uppercase">
             {language === 'zh' ? '主页' : 'Home'}
           </span>
+          {/* 移动端右侧图标 */}
+          <div className="md:hidden flex items-center gap-1 -mr-2">
+            <button
+              onClick={onOpenAiChat}
+              className="w-8 h-8 flex items-center justify-center text-primary/40 hover:text-primary transition-colors relative"
+            >
+              <Bot size={16} />
+              <span className="absolute top-1 right-1 w-1.5 h-1.5 bg-[#07C160] rounded-full" />
+            </button>
+            <button
+              onClick={onToggleLanguage}
+              className="w-8 h-8 flex items-center justify-center text-primary/40 hover:text-primary transition-colors"
+            >
+              <Globe size={16} />
+            </button>
+          </div>
         </div>
         {/* 右侧 - 项目标题栏（黑色，hover变红） */}
         <div 
@@ -143,45 +168,43 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate, onCategory
       </div>
 
       {/* Main Content Area */}
-      <div ref={mainContentRef} className="flex-1 flex relative z-10">
+      <div ref={mainContentRef} className="flex-1 flex flex-col md:flex-row relative z-10 min-h-0">
         
         {/* Left Column - Main Title */}
-        <div className="flex-1 flex flex-col justify-between px-6 py-8">
+        <div className="flex-1 flex flex-col justify-between px-6 py-4 md:py-8 min-h-0">
           
-          {/* Center - Skills List - 带延迟淡入 */}
-          <div className="hidden md:block">
-            <div className="space-y-1">
-              {data.heroItems.map((item, index) => (
-                <div 
-                  key={index}
-                  className="flex items-baseline gap-2 animate-fade-in"
-                  style={{ animationDelay: `${0.2 + index * 0.1}s` }}
+          {/* Skills List - 移动端和桌面端都显示 */}
+          <div className="space-y-1">
+            {data.heroItems.map((item, index) => (
+              <div 
+                key={index}
+                className="flex items-baseline gap-2 animate-fade-in"
+                style={{ animationDelay: `${0.2 + index * 0.1}s` }}
+              >
+                <span className="text-[10px] font-mono text-primary/30 w-6">0{index + 1}</span>
+                <span 
+                  onClick={() => item.category && onCategorySelect(item.category)}
+                  className={`text-sm md:text-base font-bold text-primary uppercase tracking-wide transition-colors ${item.category ? 'cursor-pointer hover:text-[#E63946]' : ''}`}
                 >
-                  <span className="text-[10px] font-mono text-primary/30 w-6">0{index + 1}</span>
-                  <span 
-                    onClick={() => item.category && onCategorySelect(item.category)}
-                    className={`text-sm md:text-base font-bold text-primary uppercase tracking-wide transition-colors ${item.category ? 'cursor-pointer hover:text-[#E63946]' : ''}`}
-                  >
-                    {item.text}
-                  </span>
-                  <span className="text-[10px] text-primary/30 font-light">
-                    {item.annotation}
-                  </span>
-                </div>
-              ))}
-            </div>
+                  {item.text}
+                </span>
+                <span className="text-[10px] text-primary/30 font-light hidden sm:inline">
+                  {item.annotation}
+                </span>
+              </div>
+            ))}
           </div>
           
           {/* Bottom - Main Title - 带淡入 */}
-          <div>
+          <div className="mt-auto">
             <div className="flex items-end gap-4 mb-2 animate-fade-in" style={{ animationDelay: '0.3s' }}>
-              <div className="w-8 h-8 bg-[#E63946]" />
+              <div className="w-6 h-6 md:w-8 md:h-8 bg-[#E63946]" />
               <span className="text-[10px] font-mono text-primary/40 uppercase tracking-widest">Creative Developer</span>
             </div>
-            <h1 className="text-[15vw] md:text-[12vw] lg:text-[9vw] font-black text-primary leading-[0.85] tracking-tighter animate-fade-in" style={{ animationDelay: '0.4s' }}>
+            <h1 className="text-[18vw] md:text-[12vw] lg:text-[9vw] font-black text-primary leading-[0.85] tracking-tighter animate-fade-in" style={{ animationDelay: '0.4s' }}>
               YOUNG
             </h1>
-            <div className="flex items-center gap-4 mt-3">
+            <div className="flex items-center gap-4 mt-2 md:mt-3">
               <div className="flex-1 h-px bg-primary/20" />
               <span className="text-[10px] font-mono text-primary/40">{data.years}</span>
             </div>
@@ -247,10 +270,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate, onCategory
       </div>
 
       {/* Bottom Section - 静态结构 */}
-      <div className="relative z-10 border-t-2 border-primary">
+      <div className="relative z-10 border-t-2 border-primary flex-shrink-0">
         
-        {/* Info Row */}
-        <div className="flex justify-between items-center text-[10px] tracking-widest uppercase text-primary/40 px-6 py-3 border-b border-primary/10">
+        {/* Info Row - 移动端隐藏 */}
+        <div className="hidden md:flex justify-between items-center text-[10px] tracking-widest uppercase text-primary/40 px-6 py-2 md:py-3 border-b border-primary/10">
           <span className="font-mono">YOUNG—PORTFOLIO</span>
           <span className="hidden md:block">{language === 'zh' ? '设计 / 开发 / 创意' : 'DESIGN / DEV / CREATIVE'}</span>
           <span className="font-mono">©2025</span>
@@ -259,12 +282,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate, onCategory
         {/* Black CTA Bar - 带淡入 */}
         <div 
           onClick={onNavigate}
-          className="bg-primary text-cream px-6 py-5 md:py-6 flex justify-between items-center cursor-pointer hover:bg-[#E63946] transition-colors group animate-fade-in"
+          className="bg-primary text-cream px-6 pt-5 pb-9 md:py-6 flex justify-between items-center cursor-pointer hover:bg-[#E63946] transition-colors group animate-fade-in"
           style={{ animationDelay: '0.5s' }}
         >
           <div className="flex items-center gap-4">
             <span className="text-[10px] font-mono text-cream/40 group-hover:text-cream/60">→</span>
-            <span className="text-lg md:text-xl font-black uppercase tracking-wide">
+            <span className="text-base md:text-xl font-black uppercase tracking-wide">
               {language === 'zh' ? '探索作品' : 'Explore Works'}
             </span>
           </div>
@@ -273,6 +296,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate, onCategory
             <ArrowDown size={20} className="group-hover:translate-y-1 transition-transform" />
           </div>
         </div>
+        
+        {/* 移动端底部导航栏占位 */}
+        <div className="h-12 md:hidden bg-cream" />
 
       </div>
     </div>
