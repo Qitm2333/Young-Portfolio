@@ -325,7 +325,7 @@ function AppContent() {
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm4 0h-2v-6h2v6zm-2-8c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/>
                       </svg>
                       <div>
-                        <p className="text-xs font-bold text-primary">{language === 'zh' ? '小红书' : 'RED'}</p>
+                        <p className="text-xs font-bold text-primary">{language === 'zh' ? '小红书' : 'RedNote'}</p>
                         <p className="font-mono text-[10px] text-primary/40">@off-key</p>
                       </div>
                     </div>
@@ -343,7 +343,7 @@ function AppContent() {
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14.5c-2.49 0-4.5-2.01-4.5-4.5S9.51 7.5 12 7.5s4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5zm0-5.5c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"/>
                       </svg>
                       <div>
-                        <p className="text-xs font-bold text-primary">{language === 'zh' ? '网易云' : 'NetEase'}</p>
+                        <p className="text-xs font-bold text-primary">{language === 'zh' ? '网易云音乐' : 'NetEase Music'}</p>
                         <p className="font-mono text-[10px] text-primary/40">@Qitm</p>
                       </div>
                     </div>
@@ -474,7 +474,7 @@ function AppContent() {
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm4 0h-2v-6h2v6zm-2-8c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/>
                       </svg>
                       <div>
-                        <h3 className="font-bold text-primary group-hover:text-[#EC4048] transition-colors">{language === 'zh' ? '小红书' : 'RED'}</h3>
+                        <h3 className="font-bold text-primary group-hover:text-[#EC4048] transition-colors">{language === 'zh' ? '小红书' : 'RedNote'}</h3>
                         <p className="font-mono text-xs text-primary/40">@off-key</p>
                       </div>
                     </div>
@@ -510,7 +510,7 @@ function AppContent() {
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14.5c-2.49 0-4.5-2.01-4.5-4.5S9.51 7.5 12 7.5s4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5zm0-5.5c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"/>
                       </svg>
                       <div>
-                        <h3 className="font-bold text-primary group-hover:text-[#C20C0C] transition-colors">{language === 'zh' ? '网易云音乐' : 'NetEase'}</h3>
+                        <h3 className="font-bold text-primary group-hover:text-[#C20C0C] transition-colors">{language === 'zh' ? '网易云音乐' : 'NetEase Music'}</h3>
                         <p className="font-mono text-xs text-primary/40">@Qitm</p>
                       </div>
                     </div>
