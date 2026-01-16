@@ -1026,7 +1026,7 @@ export const PortfolioSection = React.memo<PortfolioSectionProps>(({
       )}
 
       {/* Main Content */}
-      <div className={`bg-cream pb-6 md:pb-20 md:ml-44 md:pt-16 ${selectedProject && !isEditing ? 'lg:mr-[220px]' : ''}`}>
+      <div className={`bg-cream pb-20 md:pb-20 md:ml-44 md:pt-16 ${selectedProject && !isEditing ? 'lg:mr-[220px]' : ''}`}>
         {/* 移动端顶部栏 + 筛选栏 */}
         <div className="md:hidden sticky top-0 z-30 bg-cream">
           {/* 标题栏 */}

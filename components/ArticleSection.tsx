@@ -387,7 +387,7 @@ export const ArticleSection: React.FC<ArticleSectionProps> = ({
       )}
 
       {/* Main Content */}
-      <div className="bg-cream pb-6 md:pb-20 md:ml-44 lg:mr-56 md:pt-16">
+      <div className="bg-cream pb-20 md:pb-20 md:ml-44 lg:mr-56 md:pt-16">
         {/* 移动端顶部栏 + 筛选栏 */}
         <div className="md:hidden sticky top-0 z-30 bg-cream">
           {/* 标题栏 */}

@@ -239,7 +239,7 @@ export const TimelineSection: React.FC<TimelineSectionProps> = ({
             </div>
           ) : (
           /* 内容区域 */
-          <div className="flex-1 p-6 lg:p-8 space-y-10 flex flex-col justify-center">
+          <div className="flex-1 p-6 lg:p-8 pb-20 md:pb-8 space-y-10 flex flex-col justify-center">
             
             {/* EDUCATION */}
             <section className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
