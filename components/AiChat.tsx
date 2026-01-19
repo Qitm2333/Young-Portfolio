@@ -3,18 +3,29 @@ import { createPortal } from 'react-dom';
 import { X, Send, Bot, User, Sparkles } from 'lucide-react';
 import { Language } from '../types';
 import { AI_SYSTEM_PROMPT } from '../src/data/aiPrompt';
+import { PROJECTS } from '../constants';
+import { ProfileWidget } from './widgets/ProfileWidget';
+import { ProjectsWidget } from './widgets/ProjectsWidget';
+import { ContactWidget } from './widgets/ContactWidget';
+import { SkillsWidget } from './widgets/SkillsWidget';
+import { ProjectDetailWidget } from './widgets/ProjectDetailWidget';
+import { detectWidget, detectProjectDetail, shouldShowWidget, WidgetType } from './widgets/widgetDetector';
 
 interface Message {
   id: string;
   role: 'user' | 'assistant' | 'system';
   content: string;
   timestamp: Date;
+  widget?: WidgetType;
+  projectId?: string; // 用于项目详情 widget
 }
 
 interface AiChatProps {
   isOpen: boolean;
   onClose: () => void;
   language: Language;
+  onNavigateToPortfolio?: () => void;
+  onNavigateToProject?: (projectId: string) => void;
 }
 
 // DeepSeek API 配置
@@ -41,7 +52,8 @@ const QUICK_QUESTIONS = {
 // 调用 DeepSeek API
 const callDeepSeekAPI = async (
   messages: { role: string; content: string }[],
-  language: Language
+  language: Language,
+  projectsList?: string
 ): Promise<string> => {
   // 如果没有配置 API Key，使用模拟回复
   if (!DEEPSEEK_API_KEY) {
@@ -52,6 +64,12 @@ const callDeepSeekAPI = async (
   }
 
   try {
+    // 构建增强的 system prompt，包含项目列表
+    let enhancedSystemPrompt = AI_SYSTEM_PROMPT[language];
+    if (projectsList) {
+      enhancedSystemPrompt += `\n\n## 完整作品列表\n${projectsList}`;
+    }
+
     const response = await fetch(DEEPSEEK_API_URL, {
       method: 'POST',
       headers: {
@@ -61,7 +79,7 @@ const callDeepSeekAPI = async (
       body: JSON.stringify({
         model: 'deepseek-chat',
         messages: [
-          { role: 'system', content: AI_SYSTEM_PROMPT[language] },
+          { role: 'system', content: enhancedSystemPrompt },
           ...messages.map(m => ({ role: m.role, content: m.content }))
         ],
         max_tokens: 500,
@@ -83,10 +101,17 @@ const callDeepSeekAPI = async (
   }
 };
 
-export const AiChat: React.FC<AiChatProps> = ({ isOpen, onClose, language }) => {
+export const AiChat: React.FC<AiChatProps> = ({ 
+  isOpen, 
+  onClose, 
+  language,
+  onNavigateToPortfolio,
+  onNavigateToProject,
+}) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [copySuccess, setCopySuccess] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -110,6 +135,16 @@ export const AiChat: React.FC<AiChatProps> = ({ isOpen, onClose, language }) => 
   const sendMessage = async (content: string) => {
     if (!content.trim() || isLoading) return;
 
+    const projects = PROJECTS[language];
+
+    // 检测是否询问特定项目
+    const projectId = detectProjectDetail(content, projects);
+    
+    // 检测是否应该显示通用 widget
+    const detectedWidget = detectWidget(content, language);
+    const recentWidgets = messages.map(m => m.widget || null);
+    const widgetToShow = shouldShowWidget(detectedWidget, recentWidgets) ? detectedWidget : null;
+
     const userMessage: Message = {
       id: `user_${Date.now()}`,
       role: 'user',
@@ -129,12 +164,19 @@ export const AiChat: React.FC<AiChatProps> = ({ isOpen, onClose, language }) => 
         content: m.content,
       }));
       
-      const response = await callDeepSeekAPI(chatHistory, language);
+      // 生成项目列表（标题 + 简介）
+      const projectsList = projects.map((p, i) => 
+        `${i + 1}. **${p.title}** - ${p.subtitle}`
+      ).join('\n');
+      
+      const response = await callDeepSeekAPI(chatHistory, language, projectsList);
       const assistantMessage: Message = {
         id: `assistant_${Date.now()}`,
         role: 'assistant',
         content: response,
         timestamp: new Date(),
+        widget: projectId ? null : (widgetToShow || undefined),
+        projectId: projectId || undefined,
       };
       setMessages(prev => [...prev, assistantMessage]);
     } catch (error) {
@@ -152,6 +194,79 @@ export const AiChat: React.FC<AiChatProps> = ({ isOpen, onClose, language }) => 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     sendMessage(input);
+  };
+
+  // 复制邮箱
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText('leeyoung0821@163.com');
+      setCopySuccess(true);
+      setTimeout(() => setCopySuccess(false), 2000);
+    } catch (err) {
+      const textArea = document.createElement('textarea');
+      textArea.value = 'leeyoung0821@163.com';
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      setCopySuccess(true);
+      setTimeout(() => setCopySuccess(false), 2000);
+    }
+  };
+
+  // 渲染 Widget
+  const renderWidget = (widgetType: WidgetType, projectId?: string) => {
+    const projects = PROJECTS[language];
+
+    // 如果有 projectId，显示项目详情
+    if (projectId) {
+      const project = projects.find(p => p.id === projectId);
+      if (project) {
+        return (
+          <ProjectDetailWidget
+            language={language}
+            project={project}
+            onViewProject={() => {
+              onNavigateToProject?.(projectId);
+              onClose();
+            }}
+          />
+        );
+      }
+    }
+
+    // 否则显示通用 widget
+    if (!widgetType) return null;
+
+    const featuredProjects = projects.filter(p => 
+      ['quality', 'ruralit', 'cubtharsis'].includes(p.id)
+    );
+
+    switch (widgetType) {
+      case 'profile':
+        return <ProfileWidget language={language} onCopyEmail={handleCopyEmail} />;
+      case 'projects':
+        return (
+          <ProjectsWidget 
+            language={language} 
+            projects={featuredProjects}
+            onProjectClick={(id) => {
+              onNavigateToProject?.(id);
+              onClose();
+            }}
+            onViewAll={() => {
+              onNavigateToPortfolio?.();
+              onClose();
+            }}
+          />
+        );
+      case 'contact':
+        return <ContactWidget language={language} onCopyEmail={handleCopyEmail} />;
+      case 'skills':
+        return <SkillsWidget language={language} />;
+      default:
+        return null;
+    }
   };
 
   if (!isOpen) return null;
@@ -192,7 +307,7 @@ export const AiChat: React.FC<AiChatProps> = ({ isOpen, onClose, language }) => 
         </div>
 
         {/* 消息区域 */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-4">
+        <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin">
           {/* 欢迎消息 */}
           {messages.length === 0 && (
             <div className="text-center py-8">
@@ -250,6 +365,14 @@ export const AiChat: React.FC<AiChatProps> = ({ isOpen, onClose, language }) => 
                 }`}>
                   {msg.content}
                 </div>
+                
+                {/* Widget - 只在 AI 回复时显示 */}
+                {msg.role === 'assistant' && (msg.widget || msg.projectId) && (
+                  <div className="mt-2">
+                    {renderWidget(msg.widget || null, msg.projectId)}
+                  </div>
+                )}
+                
                 <div className="text-[10px] text-primary/30 mt-1 font-mono">
                   {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </div>

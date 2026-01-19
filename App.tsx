@@ -615,7 +615,18 @@ function AppContent() {
       <AiChat 
         isOpen={isAiChatOpen} 
         onClose={() => setIsAiChatOpen(false)} 
-        language={language} 
+        language={language}
+        onNavigateToPortfolio={() => {
+          setPortfolioCategory('All');
+          setActiveTab('portfolio');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+        onNavigateToProject={(projectId) => {
+          setInitialProjectId(projectId);
+          setPortfolioCategory('All');
+          setActiveTab('portfolio');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
       />
 
       {/* 固定背景层 - 防止Portal渲染时闪烁 */}
