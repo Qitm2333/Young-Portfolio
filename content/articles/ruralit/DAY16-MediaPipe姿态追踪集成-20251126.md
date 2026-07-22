@@ -1,7 +1,7 @@
-# Ruralilt 项目日报 - DAY16
+# Ruralit 项目日报 - DAY16
 
 **日期：** 2025年11月26日
-**项目：** Ruralilt - MediaPipe驱动的乡村儿童舞蹈学习与社交平台
+**项目：** Ruralit - MediaPipe驱动的乡村儿童舞蹈学习与社交平台
 **目标：** MediaPipe Pose集成 + 骨骼点实时渲染
 
 ---
